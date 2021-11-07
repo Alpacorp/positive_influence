@@ -127,7 +127,7 @@ import MaterialTable from "@material-table/core";
 //   );
 // }
 
-export default function Users() {
+function Users() {
 
   const columns = [
     {
@@ -2085,3 +2085,5 @@ export default function Users() {
     />
   )
 }
+
+export default Users;
