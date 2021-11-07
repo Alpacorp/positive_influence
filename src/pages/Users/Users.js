@@ -132,7 +132,7 @@ function Users() {
   const columns = [
     {
       title: 'id',
-      field: 'id',
+      field: 'iduser',
       editable: 'never',
     },
     {
@@ -2051,15 +2051,15 @@ function Users() {
   useEffect(() => {
     fetch(urlUsers)
       .then((data) => data.json())
-      .then((data) => setDataTable(data))
+      .then((data) => setDataTable(data.message))
   }, []);
 
   return (
     <MaterialTable
       title="Usuarios Creados"
       columns={columns}
-      // data={dataTable}
-      data={data}
+      data={dataTable}
+      // data={data}
       getRowId={(row) => row.id}
       editable={{
         onRowAdd: newData =>
