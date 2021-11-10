@@ -6,6 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import { makeStyles } from '@material-ui/core/styles';
+import MenuOptions from '../../Components/Menu/MenuOptions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -2103,19 +2104,22 @@ export default function Users() {
     fetch(urlUsers)
       .then((data) => data.json())
       .then((data) => setDataTable(data.message))
+      console.log("me cargue de Nuevo");
   }, []);
 
   return (
     <>
+    <MenuOptions />
       <form autoComplete="off" className={classes.root}>
-        <TextField id="username" label="Nombres" variant="outlined" error={true} required />
+        <TextField id="username" label="Nombres" variant="outlined" error={false} required />
         <TextField id="lastname" label="Apellidos" variant="outlined" required />
         <TextField
           id="gender"
           label="Género"
           variant="outlined"
           select
-          value={genderData}
+          defaultValue=""
+          value={genderData ? genderData : ""}
           onChange={handleGender}
           helperText="Selecciona el género"
           required
@@ -2135,7 +2139,8 @@ export default function Users() {
           label="Selecciona Ciudad"
           variant="outlined"
           select
-          value={citiesData}
+          defaultValue=""
+          value={citiesData ? citiesData : ""}
           onChange={handleCity}
           helperText="Selecciona la Ciudad"
           required
