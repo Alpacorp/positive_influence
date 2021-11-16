@@ -1,28 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Users from './pages/Users/Users';
+import { BrowserRouter } from 'react-router-dom';
+// import {Route, Routes} from 'react-router-dom'
+// import Users from './pages/Users/Users';
+// import Mentions from './pages/Mentions/Mentions';
+// import Accounts from './pages/Accounts/Accounts';
+import { MenuTab } from './Components/Menu/MenuTab';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <Users />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <MenuTab />
+      {/* <Routes>
+        <Route exact path='/usuarios' element={<Users />} />
+        <Route exact path='/menciones' element={<Mentions />} />
+        <Route exact path='/cuentas-sociales' element={<Accounts />} />
+      </Routes> */}
+    </BrowserRouter>
+  )
 }
 
 export default App;
