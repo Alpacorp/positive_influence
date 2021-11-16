@@ -6,6 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -2081,7 +2082,7 @@ const cities = [
   },
 ];
 
-export default function Users() {
+function Users() {
 
   const classes = useStyles()
 
@@ -2099,10 +2100,14 @@ export default function Users() {
 
   const urlUsers = 'https://accounts-social-control.herokuapp.com/userstable/';
 
+  async function getUsers() {
+    const response = await axios.get(urlUsers);
+    setDataTable(response.data.message);
+    console.log("me cargue de Nuevo");
+  };
+
   useEffect(() => {
-    fetch(urlUsers)
-      .then((data) => data.json())
-      .then((data) => setDataTable(data.message))
+    // getUsers();
     console.log("me cargue de Nuevo");
   }, []);
 
@@ -2193,3 +2198,5 @@ export default function Users() {
     </>
   )
 };
+
+export default Users;
