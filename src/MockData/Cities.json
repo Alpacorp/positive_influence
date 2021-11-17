@@ -1,0 +1,136 @@
+{
+  "cities": [
+    {
+      "idcity": 29,
+      "city": "Amazonas"
+    },
+    {
+      "idcity": 1,
+      "city": "Antioquia"
+    },
+    {
+      "idcity": 25,
+      "city": "Arauca"
+    },
+    {
+      "idcity": 2,
+      "city": "Atlantico"
+    },
+    {
+      "idcity": 3,
+      "city": "Bogotá"
+    },
+    {
+      "idcity": 4,
+      "city": "Bolivar"
+    },
+    {
+      "idcity": 5,
+      "city": "Boyaca"
+    },
+    {
+      "idcity": 6,
+      "city": "Caldas"
+    },
+    {
+      "idcity": 7,
+      "city": "Caqueta"
+    },
+    {
+      "idcity": 26,
+      "city": "Casanare"
+    },
+    {
+      "idcity": 8,
+      "city": "Cauca"
+    },
+    {
+      "idcity": 9,
+      "city": "Cesar"
+    },
+    {
+      "idcity": 12,
+      "city": "Choco"
+    },
+    {
+      "idcity": 10,
+      "city": "Cordova"
+    },
+    {
+      "idcity": 11,
+      "city": "Cundinamarca"
+    },
+    {
+      "idcity": 30,
+      "city": "Guainia"
+    },
+    {
+      "idcity": 31,
+      "city": "Guaviare"
+    },
+    {
+      "idcity": 13,
+      "city": "Huila"
+    },
+    {
+      "idcity": 14,
+      "city": "La Guajira"
+    },
+    {
+      "idcity": 15,
+      "city": "Magdalena"
+    },
+    {
+      "idcity": 16,
+      "city": "Meta"
+    },
+    {
+      "idcity": 17,
+      "city": "Nariño"
+    },
+    {
+      "idcity": 18,
+      "city": "Norte de Santander"
+    },
+    {
+      "idcity": 27,
+      "city": "Putumayo"
+    },
+    {
+      "idcity": 19,
+      "city": "Quindio"
+    },
+    {
+      "idcity": 20,
+      "city": "Risaralda"
+    },
+    {
+      "idcity": 28,
+      "city": "San Andres"
+    },
+    {
+      "idcity": 21,
+      "city": "Santander"
+    },
+    {
+      "idcity": 22,
+      "city": "Sucre"
+    },
+    {
+      "idcity": 23,
+      "city": "Tolima"
+    },
+    {
+      "idcity": 24,
+      "city": "Valle"
+    },
+    {
+      "idcity": 32,
+      "city": "Vaupes"
+    },
+    {
+      "idcity": 33,
+      "city": "Vichada"
+    }
+  ]
+}
