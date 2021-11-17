@@ -8,8 +8,9 @@ import { genders } from '../../MockData/Genders.json';
 import { cities } from '../../MockData/Cities.json';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import { createStyles } from '@mui/material';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => createStyles({
   root: {
     '& > *': {
       margin: theme.spacing(1),
@@ -19,9 +20,13 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: 'skyblue',
     },
   },
+  pr: {
+    backgroundColor: 'skyblue',
+    margin: 120
+  }
 }));
 
-const UserForm = () => {
+const AccountForm = () => {
   const [genderData, setGenderData] = useState();
   const [citiesData, setCitiesData] = useState();
   const classes = useStyles()
@@ -33,8 +38,8 @@ const UserForm = () => {
     setCitiesData(event.target.value);
   }
   return (
-    <Grid item>
-      <form autoComplete="off" className={classes.root}>
+    <Grid contained >
+      <form autoComplete="off" className={classes.pr}>
         <TextField
           id="username"
           label="Nombres"
@@ -130,4 +135,4 @@ const UserForm = () => {
   )
 }
 
-export default UserForm;
+export default AccountForm;
