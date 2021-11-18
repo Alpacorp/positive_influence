@@ -4,124 +4,134 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import { genders } from '../../MockData/Genders.json';
-import { cities } from '../../MockData/Cities.json';
+import { accountState } from '../../MockData/AccountState.json';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { createStyles } from '@mui/material';
+import { createStyles } from '@mui/material'; import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles((theme) => createStyles({
   root: {
     '& > *': {
       margin: theme.spacing(1),
       width: '25ch',
+      marginLeft: 0,
     },
     '& .MuiButton-root': {
       backgroundColor: 'skyblue',
     },
   },
-  pr: {
-    backgroundColor: 'skyblue',
-    margin: 120
+  formsAccounts: {
+    marginTop: 20,
+    '& .MuiFormControl-root, .MuiTextField-root': {
+    }
+  },
+  checkBoxInput: {
+    margin: 0,
   }
 }));
 
 const AccountForm = () => {
-  const [genderData, setGenderData] = useState();
-  const [citiesData, setCitiesData] = useState();
   const classes = useStyles()
-  const handleGender = (event) => {
-    setGenderData(event.target.value);
+  const [checked, setChecked] = useState();
+  const [stateData, setStateData] = useState();
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
   };
 
-  const handleCity = (event) => {
-    setCitiesData(event.target.value);
+  const handleState = (event) => {
+    setStateData(event.target.value);
   }
+
   return (
-    <Grid contained >
-      <form autoComplete="off" className={classes.pr}>
+    <Grid className={classes.formsAccounts}>
+      <form autoComplete="off" className={classes.root}>
         <TextField
-          id="username"
-          label="Nombres"
+          id="email"
+          label="Correo Electrónico"
           variant="outlined"
           size="small"
           error={false}
           required
-          helperText="Digita los nombres"
+          helperText="Digita el correo"
         />
         <TextField
-          id="lastname"
-          label="Apellidos"
+          disabled
+          id="accountmail"
+          label="Tipo Cuenta"
           variant="outlined"
           size="small"
+          defaultValue="Mail"
           required
-          helperText="Digita los apellidos"
         />
         <TextField
-          id="gender"
-          label="Género"
+          id="nickname"
+          label="Nickname"
+          variant="outlined"
+          size="small"
+          helperText="Digita el Nickname"
+          required
+        />
+        <TextField
+          id="password"
+          label="Contraseña"
+          variant="outlined"
+          size="small"
+          helperText="Digita la contraseña"
+          required
+        />
+        <TextField
+          id="status"
+          label="Estado de Cuenta"
           variant="outlined"
           select
           defaultValue=""
           size="small"
-          value={genderData ? genderData : ""}
-          onChange={handleGender}
-          helperText="Selecciona el género"
+          value={stateData ? stateData : ""}
+          onChange={handleState}
+          helperText="Selecciona el estado"
           required
         >
           {
-            genders.map((item) => (
-              <MenuItem key={item.value} value={item.label} >
-                {item.label}
+            accountState.map((status) => (
+              <MenuItem key={status.idState} value={status.idState}>
+                {status.state}
               </MenuItem>
             ))
           }
         </TextField>
         <TextField
-          id="profile-sele"
-          label="Perfil"
+          id="comments"
+          label="Comentarios"
           variant="outlined"
           size="small"
-          helperText="Digita el perfil del usuario"
+          helperText="Tags"
           required
         />
         <TextField
-          id="birthdate"
-          variant="outlined"
-          type="date"
-          helperText="Fecha de Nacimiento"
-          size="small"
-          required
-        />
-        <TextField
-          id="citySele"
-          label="Selecciona Ciudad"
-          variant="outlined"
-          select
-          defaultValue=""
-          size="small"
-          value={citiesData ? citiesData : ""}
-          onChange={handleCity}
-          helperText="Selecciona la Ciudad"
-          required
-        >
-          {
-            cities.map((citie) => (
-              <MenuItem key={citie.idcity} value={citie.city}>
-                {citie.city}
-              </MenuItem>
-            ))
-          }
-        </TextField>
-        <TextField
-          id="agent"
-          label="Agente"
-          variant="outlined"
+          id="phone"
+          label="Teléfono"
           type="number"
+          variant="outlined"
           size="small"
-          helperText="Selecciona el agente"
+          helperText="Digita el teléfono asociado"
           required
         />
+        <FormControlLabel
+          control={
+            <Checkbox
+              className={classes.checkBoxInput}
+              checked={checked}
+              onChange={handleChange}
+              inputProps={{ 'aria-label': 'primary checkbox' }}
+              required
+            />
+          }
+          label="Selecciona cuando hayas creado la cuenta"
+        >
+        </FormControlLabel>
         <Button
           variant="contained"
           color="default"
