@@ -1,0 +1,12 @@
+{
+  "accountState": [
+    {
+      "idState": 1,
+      "state": "Habilitada"
+    },
+    {
+      "idState": 2,
+      "state": "Inhabilitada"
+    }
+  ]
+}
