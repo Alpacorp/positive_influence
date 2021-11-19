@@ -28,7 +28,14 @@ const useStyles = makeStyles((theme) => createStyles({
 }));
 
 const Accounts = () => {
-  const classes = useStyles()
+
+  const classes = useStyles();
+
+  const accountmail = "Mail";
+  const Facebook = "Facebook";
+  const Twitter = "Twitter";
+  const Instagram = "Instagram";
+
   return (
     <Grid>
       <Grid className={classes.formSearchUser}>
@@ -107,7 +114,12 @@ const Accounts = () => {
           />
         </form>
       </Grid>
-      <AccountForm />
+      <Grid>
+        <AccountForm props={accountmail} />
+        <AccountForm props={Facebook} />
+        <AccountForm props={Twitter} />
+        <AccountForm props={Instagram} />
+      </Grid>
     </Grid>
   )
 }

@@ -6,8 +6,7 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import { accountState } from '../../MockData/AccountState.json';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import { createStyles } from '@mui/material'; import FormGroup from '@material-ui/core/FormGroup';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme) => createStyles({
   }
 }));
 
-const AccountForm = () => {
+const AccountForm = (typeAccount) => {
   const classes = useStyles()
   const [checked, setChecked] = useState();
   const [stateData, setStateData] = useState();
@@ -59,11 +58,11 @@ const AccountForm = () => {
         />
         <TextField
           disabled
-          id="accountmail"
+          id={typeAccount.props}
           label="Tipo Cuenta"
           variant="outlined"
           size="small"
-          defaultValue="Mail"
+          defaultValue={typeAccount.props}
           required
         />
         <TextField

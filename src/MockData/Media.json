@@ -1,0 +1,20 @@
+{
+  "media": [
+    {
+      "value": 1,
+      "label": "Mail"
+    },
+    {
+      "value": 2,
+      "label": "Facebook"
+    },
+    {
+      "value": 3,
+      "label": "Twitter"
+    },
+    {
+      "value": 4,
+      "label": "Instagram"
+    }
+  ]
+}
