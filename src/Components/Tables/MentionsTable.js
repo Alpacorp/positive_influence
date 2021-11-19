@@ -2,72 +2,56 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import MaterialTable from "@material-table/core";
 import Grid from '@material-ui/core/Grid';
-// import axios from 'axios';
-import { message } from '../../MockData/Users.json';
+import axios from 'axios';
+import data from '../../MockData/MentionsUser.json';
 
 const columns = [
   {
-    title: 'id',
-    field: 'iduser',
+    title: 'Id Mención',
+    field: 'idmention',
     editable: 'never',
   },
   {
-    title: 'Nombres',
-    field: 'username',
+    title: 'Id Usuario',
+    field: 'iduserment',
   },
   {
-    title: 'Apellidos',
-    field: 'lastname',
+    title: 'Tipo Cuenta Social',
+    field: 'typeaccment',
   },
   {
-    title: 'Género',
-    field: 'gender',
-  },
-  {
-    title: 'Perfil',
-    field: 'profile',
-  },
-  {
-    title: 'Fecha Nacimiento',
-    field: 'birthdate',
-  },
-  {
-    title: 'Ciudad',
-    field: 'city',
-  },
-  {
-    title: 'Agente',
-    field: 'agent',
-    editable: 'never',
+    title: 'Url Mención',
+    field: 'urlment',
+    icon: 'favorite_border',
   },
   {
     title: 'Fecha Creación',
     field: 'creation',
-    editable: 'never'
   },
 ];
 
-const UsersTable = () => {
+const MentionsTable = () => {
   const [dataTable, setDataTable] = useState([]);
-  // const urlUsers = 'https://accounts-social-control.herokuapp.com/userstable/';
+  const urlUserMentions = 'https://accounts-social-control.herokuapp.com/mention/3934';
 
-  // async function getUsers() {
-  //   const response = await axios.get(urlUsers);
-  //   setDataTable(response.data.message);
-  //   console.log("me cargue de Nuevo API");
-  // };
+  async function getMentions() {
+    const response = await axios.get(urlUserMentions);
+    setDataTable(response.data);
+    console.log("response", response);
+    console.log("me cargue de Nuevo API");
+  };
 
   useEffect(() => {
-    // getUsers();
+    getMentions();
     console.log("me cargue de Nuevo Mock");
   }, []);
   return (
     <Grid item>
       <MaterialTable
-        title="Usuarios Creados"
+        title="Menciones del Usuario"
         columns={columns}
         // data={dataTable}
-        data={message}
+        data={data}
         getRowId={(row) => row.iduser}
         editable={{
           onRowAdd: newData =>
@@ -93,4 +77,4 @@ const UsersTable = () => {
   )
 }
 
-export default UsersTable;
+export default MentionsTable;
