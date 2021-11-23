@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import Users from '../../pages/Users/Users';
 import Accounts from '../../pages/Accounts/Accounts';
 import Mentions from '../../pages/Mentions/Mentions';
+import Home from '../../pages/Home/Home';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const MenuTab = () => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -59,6 +60,7 @@ export const MenuTab = () => {
 
   return (
     <div className={classes.root}>
+      <Home />
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Usuarios" {...a11yProps(0)} />
