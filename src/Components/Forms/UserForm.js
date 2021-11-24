@@ -8,6 +8,7 @@ import { genders } from '../../MockData/Genders.json';
 import { cities } from '../../MockData/Cities.json';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import { UploadUser } from '../../Apis/uploadUser';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,47 +23,75 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UserForm = () => {
-  const [genderData, setGenderData] = useState();
-  const [citiesData, setCitiesData] = useState();
-  const classes = useStyles()
-  const handleGender = (event) => {
-    setGenderData(event.target.value);
-  };
+  const classes = useStyles();
 
-  const handleCity = (event) => {
-    setCitiesData(event.target.value);
+  const useForm = (initialState = {}) => {
+    const [values, setValues] = useState(initialState);
+
+    const handleInputChange = ({ target }) => {
+      setValues({
+        ...values,
+        [target.name]: target.value
+      })
+    }
+    return [values, handleInputChange]
   }
+
+  const [formValues, handleInputChange] = useForm({
+    username: '',
+    lastname: '',
+    gender: '',
+    profile: '',
+    birthdate: '',
+    city: '',
+    agent: '',
+  });
+
+  const { username, lastname, gender, profile, birthdate, city, agent } = formValues;
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    UploadUser(formValues);
+  }
+
   return (
     <Grid item>
-      <form autoComplete="off" className={classes.root}>
+      <form autoComplete="off" className={classes.root} onSubmit={handleSubmit}>
         <TextField
           id="username"
+          name="username"
           label="Nombres"
           variant="outlined"
           size="small"
           error={false}
           required
+          value={username}
+          onChange={handleInputChange}
           helperText="Digita los nombres"
         />
         <TextField
           id="lastname"
+          name="lastname"
           label="Apellidos"
           variant="outlined"
           size="small"
           required
+          value={lastname}
+          onChange={handleInputChange}
           helperText="Digita los apellidos"
         />
         <TextField
           id="gender"
+          name="gender"
           label="Género"
           variant="outlined"
           select
           defaultValue=""
           size="small"
-          value={genderData ? genderData : ""}
-          onChange={handleGender}
+          value={gender ? gender : ""}
           helperText="Selecciona el género"
           required
+          onChange={handleInputChange}
         >
           {
             genders.map((item) => (
@@ -74,31 +103,38 @@ const UserForm = () => {
         </TextField>
         <TextField
           id="profile-sele"
+          name="profile"
           label="Perfil"
           variant="outlined"
           size="small"
           helperText="Digita el perfil del usuario"
           required
+          value={profile}
+          onChange={handleInputChange}
         />
         <TextField
           id="birthdate"
+          name="birthdate"
           variant="outlined"
           type="date"
           helperText="Fecha de Nacimiento"
           size="small"
           required
+          value={birthdate}
+          onChange={handleInputChange}
         />
         <TextField
           id="citySele"
+          name="city"
           label="Selecciona Ciudad"
           variant="outlined"
           select
           defaultValue=""
           size="small"
-          value={citiesData ? citiesData : ""}
-          onChange={handleCity}
           helperText="Selecciona la Ciudad"
           required
+          value={city}
+          onChange={handleInputChange}
         >
           {
             cities.map((citie) => (
@@ -110,12 +146,15 @@ const UserForm = () => {
         </TextField>
         <TextField
           id="agent"
+          name="agent"
           label="Agente"
           variant="outlined"
           type="number"
           size="small"
           helperText="Selecciona el agente"
           required
+          value={agent}
+          onChange={handleInputChange}
         />
         <Button
           variant="contained"

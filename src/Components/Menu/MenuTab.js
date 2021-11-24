@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 import Users from '../../pages/Users/Users';
 import Accounts from '../../pages/Accounts/Accounts';
 import Mentions from '../../pages/Mentions/Mentions';
-import Home from '../../pages/Home/Home';
+// import Home from '../../pages/Home/Home';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -60,7 +60,7 @@ export const MenuTab = () => {
 
   return (
     <div className={classes.root}>
-      <Home />
+      {/* <Home /> */}
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Usuarios" {...a11yProps(0)} />
