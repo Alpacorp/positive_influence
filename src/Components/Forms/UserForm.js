@@ -8,7 +8,7 @@ import { genders } from '../../MockData/Genders.json';
 import { cities } from '../../MockData/Cities.json';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { UploadUser } from '../../Apis/uploadUser';
+import { UploadUser } from '../../Apis/UploadUser';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,11 +52,12 @@ const UserForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     UploadUser(formValues);
-  }
+    event.target.reset();
+  };
 
   return (
     <Grid item>
-      <form autoComplete="off" className={classes.root} onSubmit={handleSubmit}>
+      <form autoComplete="off" id="userForm" className={classes.root} onSubmit={handleSubmit}>
         <TextField
           id="username"
           name="username"

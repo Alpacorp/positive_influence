@@ -2,8 +2,9 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import MaterialTable from "@material-table/core";
 import Grid from '@material-ui/core/Grid';
-// import axios from 'axios';
+import axios from 'axios';
 import { message } from '../../MockData/Users.json';
+import { UploadUser, PutUser } from '../../Apis/UploadUser';
 
 const columns = [
   {
@@ -49,16 +50,16 @@ const columns = [
 
 const UsersTable = () => {
   const [dataTable, setDataTable] = useState([]);
-  // const urlUsers = 'https://accounts-social-control.herokuapp.com/userstable/';
+  const urlUsers = 'https://accounts-social-control.herokuapp.com/userstable/';
 
-  // async function getUsers() {
-  //   const response = await axios.get(urlUsers);
-  //   setDataTable(response.data.message);
-  //   console.log("me cargue de Nuevo API");
-  // };
+  async function getUsers() {
+    const response = await axios.get(urlUsers);
+    setDataTable(response.data.message);
+    console.log("me cargue de Nuevo API");
+  };
 
   useEffect(() => {
-    // getUsers();
+    getUsers();
     console.log("me cargue de Nuevo Mock");
   }, []);
   return (
@@ -66,23 +67,25 @@ const UsersTable = () => {
       <MaterialTable
         title="Usuarios Creados"
         columns={columns}
-        // data={dataTable}
-        data={message}
+        data={dataTable}
+        // data={message}
         getRowId={(row) => row.iduser}
         editable={{
-          onRowAdd: newData =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                setDataTable([...dataTable, newData]);
-                resolve();
-              }, 1000)
-            }),
+          // onRowAdd: newData =>
+          //   new Promise((resolve, reject) => {
+          //     setTimeout(() => {
+          //       console.log("newData", newData)
+          //       setDataTable([...dataTable, newData]);
+          //       resolve();
+          //     }, 1000)
+          //   }),
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               setTimeout(() => {
                 const dataUpdate = [...dataTable];
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
+                PutUser(newData);
                 setDataTable([...dataUpdate]);
                 resolve();
               }, 1000)
