@@ -1,10 +1,12 @@
-import * as React from 'react';
+import React from 'react';
+import { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Button from '@material-ui/core/Button';
 import { Icon } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/styles';
 import AccountForm from '../../Components/Forms/AccountForm';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => createStyles({
   formSearchUser: {
@@ -36,10 +38,29 @@ const Accounts = () => {
   const Twitter = "Twitter";
   const Instagram = "Instagram";
 
+  const iduser = document.getElementById('iduser') && document.getElementById('iduser').value;
+  console.log("inicial user", iduser);
+  const [dataTable, setDataTable] = useState([]);
+  const urlUser = `https://accounts-social-control.herokuapp.com/user/${iduser}`;
+
+  async function getUser() {
+    const response = await axios.get(urlUser);
+    console.log("response", response);
+    setDataTable(response)
+    return response.data.message[0];
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('Consulta Usuario');
+    console.log('post user', iduser);
+    getUser();
+  };
+
   return (
     <Grid>
       <Grid className={classes.formSearchUser}>
-        <form autoComplete="off">
+        <form autoComplete="off" onSubmit={handleSubmit}>
           <TextField
             id="iduser"
             label="Id Usuario"

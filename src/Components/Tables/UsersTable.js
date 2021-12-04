@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import MaterialTable from "@material-table/core";
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
-import { message } from '../../MockData/Users.json';
-import { UploadUser, PutUser } from '../../Apis/UploadUser';
+// import { message } from '../../MockData/Users.json';
+import { PutUser } from '../../Apis/UploadUser';
 
 const columns = [
   {
