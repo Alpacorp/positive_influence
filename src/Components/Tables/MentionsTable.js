@@ -22,7 +22,6 @@ const columns = [
   {
     title: 'Url Mención',
     field: 'urlment',
-    icon: 'favorite_border',
   },
   {
     title: 'Fecha Creación',
