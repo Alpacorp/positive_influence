@@ -14,6 +14,7 @@ const columns = [
   {
     title: 'Id Usuario',
     field: 'iduserment',
+    editable: 'never',
   },
   {
     title: 'Tipo Cuenta Social',
@@ -26,6 +27,7 @@ const columns = [
   {
     title: 'Fecha Creación',
     field: 'creation',
+    editable: 'never',
   },
 ];
 
