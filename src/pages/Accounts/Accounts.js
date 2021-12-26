@@ -7,6 +7,7 @@ import { Icon } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/styles';
 import AccountForm from '../../Components/Forms/AccountForm';
 import axios from 'axios';
+// import getUser from '../../Apis/GetUser';
 
 const useStyles = makeStyles((theme) => createStyles({
   formSearchUser: {
@@ -38,24 +39,48 @@ const Accounts = () => {
   const Twitter = "Twitter";
   const Instagram = "Instagram";
 
-  const iduser = document.getElementById('iduser') && document.getElementById('iduser').value;
-  console.log("inicial user", iduser);
+  const iduser = document.getElementById('iduser') ? document.getElementById('iduser').value : '';
   const [dataTable, setDataTable] = useState([]);
+  const [state, setState] = useState(false);
   const urlUser = `https://accounts-social-control.herokuapp.com/user/${iduser}`;
 
   async function getUser() {
     const response = await axios.get(urlUser);
-    console.log("response", response);
+    setState(true)
     setDataTable(response)
-    return response.data.message[0];
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Consulta Usuario');
-    console.log('post user', iduser);
     getUser();
   };
+
+  const useForm = (initialState = {}) => {
+    const [values, setValues] = useState(initialState);
+
+    const handleInputChange = ({ target }) => {
+      setValues({
+        ...values,
+        [target.name]: target.value
+      })
+    }
+    return [values, handleInputChange]
+  }
+
+  const [formValues, handleInputChange] = useForm({
+    userid: '',
+  });
+
+  const { userid } = formValues;
+
+  console.log("datatable external", dataTable.data);
+  console.log('state', state);
+
+  const valueInput = () => {
+    const value = dataTable.data.message[0].username;
+    console.log(value);
+    return value;
+  }
 
   return (
     <Grid>
@@ -63,6 +88,9 @@ const Accounts = () => {
         <form autoComplete="off" onSubmit={handleSubmit}>
           <TextField
             id="iduser"
+            name='userid'
+            value={userid}
+            onChange={handleInputChange}
             label="Id Usuario"
             variant="outlined"
             size="small"
@@ -77,6 +105,7 @@ const Accounts = () => {
             type="submit"
             className={classes.buttonSearch}
             endIcon={<Icon>search</Icon>}
+          // onClick={handleSubmit}
           >
             Buscar Usuario
           </Button>
@@ -88,7 +117,14 @@ const Accounts = () => {
             disabled
             id="username"
             label="Nombres"
-            defaultValue="Alejandro"
+            // defaultValue={prueba ? dataTable.data.message[0].username : 'no'}
+            value={state ? dataTable.data : 'no'}
+            // defaultValue={dataTable.data.message[0] && dataTable.data.message[0].username}
+            // onChange={prueba = false}
+            // value={inputValue}
+            // onInput={e => setInput(e.target.value)}
+            // value={}
+            // defaultValue="Alf"
             variant="filled"
           />
           <TextField

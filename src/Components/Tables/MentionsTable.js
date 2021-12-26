@@ -9,7 +9,7 @@ const columns = [
   {
     title: 'Id Mención',
     field: 'idmention',
-    // editable: 'never',
+    editable: 'never',
   },
   {
     title: 'Id Usuario',

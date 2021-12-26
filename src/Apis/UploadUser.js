@@ -62,7 +62,5 @@ export const PutUser = async ({ iduser, username, lastname, gender, profile, bir
     alert('No se pudo hacer la actualización');
     console.warn(error);
   }
-
-
 };
 
