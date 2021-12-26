@@ -7,7 +7,6 @@ import { Icon } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/styles';
 import AccountForm from '../../Components/Forms/AccountForm';
 import axios from 'axios';
-// import getUser from '../../Apis/GetUser';
 
 const useStyles = makeStyles((theme) => createStyles({
   formSearchUser: {
@@ -40,12 +39,14 @@ const Accounts = () => {
   const Instagram = "Instagram";
 
   const iduser = document.getElementById('iduser') ? document.getElementById('iduser').value : '';
-  const [dataTable, setDataTable] = useState([]);
+  const [dataTable, setDataTable] = useState([{}]);
   const [state, setState] = useState(false);
   const urlUser = `https://accounts-social-control.herokuapp.com/user/${iduser}`;
 
   async function getUser() {
-    const response = await axios.get(urlUser);
+    const res = await axios.get(urlUser);
+    const response = res.data.message[0];
+    console.log(response);
     setState(true)
     setDataTable(response)
   }
@@ -73,14 +74,7 @@ const Accounts = () => {
 
   const { userid } = formValues;
 
-  console.log("datatable external", dataTable.data);
-  console.log('state', state);
-
-  const valueInput = () => {
-    const value = dataTable.data.message[0].username;
-    console.log(value);
-    return value;
-  }
+  console.log("datatable external", dataTable[0].username);
 
   return (
     <Grid>
@@ -105,7 +99,6 @@ const Accounts = () => {
             type="submit"
             className={classes.buttonSearch}
             endIcon={<Icon>search</Icon>}
-          // onClick={handleSubmit}
           >
             Buscar Usuario
           </Button>
@@ -117,56 +110,49 @@ const Accounts = () => {
             disabled
             id="username"
             label="Nombres"
-            // defaultValue={prueba ? dataTable.data.message[0].username : 'no'}
-            value={state ? dataTable.data : 'no'}
-            // defaultValue={dataTable.data.message[0] && dataTable.data.message[0].username}
-            // onChange={prueba = false}
-            // value={inputValue}
-            // onInput={e => setInput(e.target.value)}
-            // value={}
-            // defaultValue="Alf"
+            value={state ? dataTable[0].username : ''}
             variant="filled"
           />
           <TextField
             disabled
             id="lastname"
             label="Apellidos"
-            defaultValue="Palacios"
+            value={state ? dataTable[0].lastname : ''}
             variant="filled"
           />
           <TextField
             disabled
             id="gender"
             label="Género"
-            defaultValue="Masculino"
+            value={state ? dataTable[0].gender : ''}
             variant="filled"
           />
           <TextField
             disabled
             id="profile"
             label="Perfil"
-            defaultValue="CEO"
+            value={state ? dataTable[0].profile : ''}
             variant="filled"
           />
           <TextField
             disabled
             id="birthdate"
             label="Fecha Nacimiento"
-            defaultValue='03/07/1988'
+            value={state ? dataTable[0].birthdate : ''}
             variant="filled"
           />
           <TextField
             disabled
             id="city"
             label="Ciudad"
-            defaultValue="Bogotá"
+            value={state ? dataTable[0].city : ''}
             variant="filled"
           />
           <TextField
             disabled
             id="agent"
             label="Agente"
-            defaultValue={1}
+            value={state ? dataTable[0].agent : ''}
             variant="filled"
           />
         </form>
