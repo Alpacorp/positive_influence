@@ -8,6 +8,7 @@ import { makeStyles, createStyles } from '@material-ui/styles';
 import MentionsTable from '../../Components/Tables/MentionsTable';
 import MenuItem from '@material-ui/core/MenuItem';
 import { media } from '../../MockData/Media.json';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => createStyles({
   formSearchUser: {
@@ -46,12 +47,54 @@ const Mentions = () => {
     setMediaAccount(event.target.value);
   };
 
+  const iduser = document.getElementById('iduser') ? document.getElementById('iduser').value : '';
+  const [dataTable, setDataTable] = useState([{}]);
+  const [state, setState] = useState(false);
+  const urlUser = `https://accounts-social-control.herokuapp.com/user/${iduser}`;
+
+  async function getUser() {
+    const res = await axios.get(urlUser);
+    const response = res.data.message[0];
+    console.log(response);
+    setState(false)
+    setState(true)
+    setDataTable(response)
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    getUser();
+  };
+
+  const useForm = (initialState = {}) => {
+    const [values, setValues] = useState(initialState);
+
+    const handleInputChange = ({ target }) => {
+      setValues({
+        ...values,
+        [target.name]: target.value
+      })
+    }
+    return [values, handleInputChange]
+  }
+
+  const [formValues, handleInputChange] = useForm({
+    userid: '',
+  });
+
+  const { userid } = formValues;
+
+  // console.log("datatable external", dataTable[0].username);
+
   return (
     <Grid>
       <Grid className={classes.formSearchUser}>
-        <form autoComplete="off">
+        <form autoComplete="off" onSubmit={handleSubmit}>
           <TextField
             id="iduser"
+            name='userid'
+            value={userid}
+            onChange={handleInputChange}
             label="Id Usuario"
             variant="outlined"
             size="small"
@@ -77,53 +120,55 @@ const Mentions = () => {
             disabled
             id="username"
             label="Nombres"
-            defaultValue="Alejandro"
+            value={state ? dataTable[0].username : ''}
             variant="filled"
           />
           <TextField
             disabled
             id="lastname"
             label="Apellidos"
-            defaultValue="Palacios"
+            value={state ? dataTable[0].lastname : ''}
             variant="filled"
           />
           <TextField
             disabled
             id="gender"
             label="Género"
-            defaultValue="Masculino"
+            value={state ? dataTable[0].gender : ''}
             variant="filled"
           />
           <TextField
             disabled
             id="profile"
             label="Perfil"
-            defaultValue="CEO"
+            value={state ? dataTable[0].profile : ''}
             variant="filled"
           />
           <TextField
             disabled
             id="birthdate"
             label="Fecha Nacimiento"
-            defaultValue='03/07/1988'
+            value={state ? dataTable[0].birthdate : ''}
             variant="filled"
           />
           <TextField
             disabled
             id="city"
             label="Ciudad"
-            defaultValue="Bogotá"
+            value={state ? dataTable[0].city : ''}
             variant="filled"
           />
           <TextField
             disabled
             id="agent"
             label="Agente"
-            defaultValue={1}
+            value={state ? dataTable[0].agent : ''}
             variant="filled"
           />
         </form>
       </Grid>
+
+
       <Grid>
         <form autoComplete="off" className={classes.typeAccount}>
           <TextField
@@ -168,7 +213,7 @@ const Mentions = () => {
         </form>
       </Grid>
       <Grid>
-        <MentionsTable />
+        <MentionsTable iduser={iduser} status={state} />
       </Grid>
     </Grid>
   )

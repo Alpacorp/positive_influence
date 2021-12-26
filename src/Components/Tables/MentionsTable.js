@@ -31,28 +31,27 @@ const columns = [
   },
 ];
 
-const MentionsTable = () => {
+const MentionsTable = ({ iduser, status }) => {
   const [dataTable, setDataTable] = useState([]);
-  const urlUserMentions = 'https://accounts-social-control.herokuapp.com/mention/3934';
+  const urlUserMentions = `https://accounts-social-control.herokuapp.com/mention/${iduser}`;
 
   async function getMentions() {
     const response = await axios.get(urlUserMentions);
     setDataTable(response.data);
-    console.log("response", response);
-    console.log("me cargue de Nuevo API");
   };
 
   useEffect(() => {
     getMentions();
-    console.log("me cargue de Nuevo Mock");
-  }, []);
+    console.log("Carga de mentions");
+  }, [status]);
+
   return (
     <Grid item>
       <MaterialTable
         title="Menciones del Usuario"
         columns={columns}
-        // data={dataTable}
-        data={data}
+        data={dataTable}
+        // data={data}
         getRowId={(row) => row.iduser}
         editable={{
           onRowAdd: newData =>
