@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import MaterialTable from "@material-table/core";
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
-import data from '../../MockData/MentionsUser.json';
+import { PutMention } from '../../Apis/Mentions';
 
 const columns = [
   {
@@ -19,6 +19,7 @@ const columns = [
   {
     title: 'Tipo Cuenta Social',
     field: 'typeaccment',
+    editable: 'never',
   },
   {
     title: 'Url Mención',
@@ -32,6 +33,7 @@ const columns = [
 ];
 
 const MentionsTable = ({ iduser, status }) => {
+
   const [dataTable, setDataTable] = useState([]);
   const urlUserMentions = `https://accounts-social-control.herokuapp.com/mention/${iduser}`;
 
@@ -42,7 +44,7 @@ const MentionsTable = ({ iduser, status }) => {
 
   useEffect(() => {
     getMentions();
-    console.log("Carga de mentions");
+    // eslint-disable-next-line
   }, [status]);
 
   return (
@@ -51,7 +53,6 @@ const MentionsTable = ({ iduser, status }) => {
         title="Menciones del Usuario"
         columns={columns}
         data={dataTable}
-        // data={data}
         getRowId={(row) => row.iduser}
         editable={{
           onRowAdd: newData =>
@@ -67,6 +68,7 @@ const MentionsTable = ({ iduser, status }) => {
                 const dataUpdate = [...dataTable];
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
+                PutMention(newData);
                 setDataTable([...dataUpdate]);
                 resolve();
               }, 1000)

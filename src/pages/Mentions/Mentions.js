@@ -47,7 +47,7 @@ const Mentions = () => {
     setMediaAccount(event.target.value);
   };
 
-  const iduser = document.getElementById('iduser') ? document.getElementById('iduser').value : '';
+  const iduser = document.getElementById('iduser') ? document.getElementById('iduser').value : 1;
   const [dataTable, setDataTable] = useState([{}]);
   const [state, setState] = useState(false);
   const urlUser = `https://accounts-social-control.herokuapp.com/user/${iduser}`;

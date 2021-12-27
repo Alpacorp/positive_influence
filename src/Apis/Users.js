@@ -45,7 +45,7 @@ export const PutUser = async ({ iduser, username, lastname, gender, profile, bir
       birthdate,
       city,
       agent,
-    }
+    };
 
     const response = await axios({
       method: 'PUT',
@@ -56,8 +56,9 @@ export const PutUser = async ({ iduser, username, lastname, gender, profile, bir
     console.log('response', response);
 
     if (response.status === 200) {
-      alert('Usuario Actualizado Correctamente');
+      alert('Usuario actualizado correctamente');
     }
+
   } catch (error) {
     alert('No se pudo hacer la actualización');
     console.warn(error);

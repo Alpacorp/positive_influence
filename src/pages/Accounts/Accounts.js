@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Button from '@material-ui/core/Button';
@@ -73,8 +73,6 @@ const Accounts = () => {
   });
 
   const { userid } = formValues;
-
-  console.log("datatable external", dataTable[0].username);
 
   return (
     <Grid>

@@ -8,7 +8,7 @@ import { genders } from '../../MockData/Genders.json';
 import { cities } from '../../MockData/Cities.json';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { UploadUser } from '../../Apis/UploadUser';
+import { UploadUser } from '../../Apis/Users';
 
 const useStyles = makeStyles((theme) => ({
   root: {

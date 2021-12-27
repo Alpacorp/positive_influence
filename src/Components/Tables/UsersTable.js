@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react';
 import MaterialTable from "@material-table/core";
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
-// import { message } from '../../MockData/Users.json';
-import { PutUser } from '../../Apis/UploadUser';
+import { PutUser } from '../../Apis/Users';
 
 const columns = [
   {
@@ -49,26 +48,25 @@ const columns = [
 ];
 
 const UsersTable = () => {
+
   const [dataTable, setDataTable] = useState([]);
   const urlUsers = 'https://accounts-social-control.herokuapp.com/userstable/';
 
   async function getUsers() {
     const response = await axios.get(urlUsers);
     setDataTable(response.data.message);
-    console.log("me cargue de Nuevo API");
   };
 
   useEffect(() => {
     getUsers();
-    console.log("me cargue de Nuevo Mock");
   }, []);
+
   return (
     <Grid item>
       <MaterialTable
         title="Usuarios Creados"
         columns={columns}
         data={dataTable}
-        // data={message}
         getRowId={(row) => row.iduser}
         editable={{
           // onRowAdd: newData =>
@@ -84,6 +82,7 @@ const UsersTable = () => {
               setTimeout(() => {
                 const dataUpdate = [...dataTable];
                 const index = oldData.tableData.id;
+                console.log("index", index)
                 dataUpdate[index] = newData;
                 PutUser(newData);
                 setDataTable([...dataUpdate]);
