@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => createStyles({
   },
   dataGrid: {
     marginTop: 20
+  },
+  type: {
+    marginTop: 30
   }
 }));
 
@@ -205,7 +208,7 @@ const Mentions = () => {
             size="small"
             error={false}
             type="number"
-            helperText=""
+            helperText="Digita el id del usuario"
             required
             disabled={disable}
           />
