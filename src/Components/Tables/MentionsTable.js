@@ -34,11 +34,13 @@ const columns = [
 
 const MentionsTable = ({ iduser, status }) => {
 
+  const [urlUserId, setUrlUserId] = useState(0);
   const [dataTable, setDataTable] = useState([]);
-  const urlUserMentions = `https://accounts-social-control.herokuapp.com/mention/${iduser}`;
+  const urlUserMentions = `https://accounts-social-control.herokuapp.com/mention/${urlUserId}`;
 
   async function getMentions() {
-    const response = await axios.get(urlUserMentions);
+    const response = await axios.get(urlUserMentions + iduser);
+    setUrlUserId(iduser);
     setDataTable(response.data);
   };
 
@@ -55,13 +57,13 @@ const MentionsTable = ({ iduser, status }) => {
         data={dataTable}
         getRowId={(row) => row.iduser}
         editable={{
-          onRowAdd: newData =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                setDataTable([...dataTable, newData]);
-                resolve();
-              }, 1000)
-            }),
+          // onRowAdd: newData =>
+          //   new Promise((resolve, reject) => {
+          //     setTimeout(() => {
+          //       setDataTable([...dataTable, newData]);
+          //       resolve();
+          //     }, 1000)
+          //   }),
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               setTimeout(() => {
@@ -76,7 +78,7 @@ const MentionsTable = ({ iduser, status }) => {
         }}
       />
     </Grid>
-  )
-}
+  );
+};
 
 export default MentionsTable;

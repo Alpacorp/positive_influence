@@ -9,6 +9,7 @@ import MentionsTable from '../../Components/Tables/MentionsTable';
 import MenuItem from '@material-ui/core/MenuItem';
 import { media } from '../../MockData/Media.json';
 import axios from 'axios';
+import { UploadMention } from '../../Apis/Mentions';
 
 const useStyles = makeStyles((theme) => createStyles({
   formSearchUser: {
@@ -34,60 +35,64 @@ const useStyles = makeStyles((theme) => createStyles({
     '& fieldset': {
       marginRight: 10
     },
+  },
+  dataGrid: {
+    marginTop: 20
   }
 }));
 
 const Mentions = () => {
 
   const classes = useStyles();
-
-  const [mediaAccount, setMediaAccount] = useState();
-
-  const handleMedia = (event) => {
-    setMediaAccount(event.target.value);
-  };
-
-  const iduser = document.getElementById('iduser') ? document.getElementById('iduser').value : 1;
   const [dataTable, setDataTable] = useState([{}]);
   const [state, setState] = useState(false);
-  const urlUser = `https://accounts-social-control.herokuapp.com/user/${iduser}`;
-
-  async function getUser() {
-    const res = await axios.get(urlUser);
-    const response = res.data.message[0];
-    console.log(response);
-    setState(false)
-    setState(true)
-    setDataTable(response)
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    getUser();
-  };
 
   const useForm = (initialState = {}) => {
     const [values, setValues] = useState(initialState);
-
     const handleInputChange = ({ target }) => {
       setValues({
         ...values,
         [target.name]: target.value
       })
     }
-    return [values, handleInputChange]
-  }
+    return [values, handleInputChange];
+  };
 
   const [formValues, handleInputChange] = useForm({
     userid: '',
+    iduserment: '',
+    typeaccment: '',
+    urlment: '',
   });
 
-  const { userid } = formValues;
+  const { userid, iduserment, typeaccment, urlment } = formValues;
+  const urlUser = `https://accounts-social-control.herokuapp.com/user/${userid}`;
 
-  // console.log("datatable external", dataTable[0].username);
+  async function getUser() {
+    const res = await axios.get(urlUser);
+    const response = res.data.message[0];
+    setState(false);
+    setState(true);
+    setDataTable(response);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    getUser();
+  };
+
+  const handleSendInfo = (event) => {
+    event.preventDefault();
+    if (userid === iduserment) {
+      UploadMention(formValues);
+    } else {
+      alert("LOS VALORES DE LOS CAMPOS 'ID USUARIO' NO SON IGUALES, AJÚSTALOS.");
+    }
+  };
 
   return (
     <Grid>
+      <h2>Consulta el usuario</h2>
       <Grid className={classes.formSearchUser}>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <TextField
@@ -115,10 +120,19 @@ const Mentions = () => {
         </form>
       </Grid>
       <Grid>
-        <form className={classes.infoUser}>
+        <form className={classes.infoUser} onSubmit={handleSendInfo}>
+          <TextField
+            disabled
+            id="iduser"
+            name="iduser"
+            label="Id Usuario"
+            value={state ? dataTable[0].iduser : ''}
+            variant="filled"
+          />
           <TextField
             disabled
             id="username"
+            name="username"
             label="Nombres"
             value={state ? dataTable[0].username : ''}
             variant="filled"
@@ -126,6 +140,7 @@ const Mentions = () => {
           <TextField
             disabled
             id="lastname"
+            name="lastname"
             label="Apellidos"
             value={state ? dataTable[0].lastname : ''}
             variant="filled"
@@ -133,6 +148,7 @@ const Mentions = () => {
           <TextField
             disabled
             id="gender"
+            name="gender"
             label="Género"
             value={state ? dataTable[0].gender : ''}
             variant="filled"
@@ -140,6 +156,7 @@ const Mentions = () => {
           <TextField
             disabled
             id="profile"
+            name="profile"
             label="Perfil"
             value={state ? dataTable[0].profile : ''}
             variant="filled"
@@ -167,19 +184,33 @@ const Mentions = () => {
           />
         </form>
       </Grid>
-
-
+      <h2>Registra una mención</h2>
+      <small>Nota: el Id del usuario consultado debe ser igual al Id del usuario al que vas a ingresar la mención.</small>
       <Grid>
-        <form autoComplete="off" className={classes.typeAccount}>
+        <form className={classes.typeAccount} onSubmit={handleSendInfo}>
           <TextField
-            id="typeaccount"
+            id="iduserment"
+            name="iduserment"
+            value={iduserment}
+            onChange={handleInputChange}
+            label="Id Usuario"
+            variant="outlined"
+            size="small"
+            error={false}
+            type="number"
+            helperText=""
+            required
+          />
+          <TextField
+            id="typeaccment"
+            name="typeaccment"
             label="Tipo Cuenta"
             variant="outlined"
             select
             defaultValue=""
             size="small"
-            value={mediaAccount ? mediaAccount : ""}
-            onChange={handleMedia}
+            value={typeaccment}
+            onChange={handleInputChange}
             helperText="Selecciona el medio"
             required
           >
@@ -192,7 +223,10 @@ const Mentions = () => {
             }
           </TextField>
           <TextField
-            id="urlmention"
+            id="urlment"
+            name="urlment"
+            value={urlment}
+            onChange={handleInputChange}
             label="Url Mención"
             variant="outlined"
             size="small"
@@ -212,11 +246,11 @@ const Mentions = () => {
           </Button>
         </form>
       </Grid>
-      <Grid>
-        <MentionsTable iduser={iduser} status={state} />
+      <Grid className={classes.dataGrid}>
+        <MentionsTable iduser={userid} status={state} />
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
 export default Mentions;

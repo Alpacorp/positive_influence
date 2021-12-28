@@ -4,32 +4,34 @@ export const UploadUser = async ({ username, lastname, gender, profile, birthdat
 
   const urlUsers = 'https://accounts-social-control.herokuapp.com/users/';
 
-  const data = {
-    username,
-    lastname,
-    gender,
-    profile,
-    birthdate,
-    city,
-    agent,
-  }
+  try {
 
-  console.log(data);
+    const data = {
+      username,
+      lastname,
+      gender,
+      profile,
+      birthdate,
+      city,
+      agent,
+    }
 
-  const response = await axios({
-    method: 'POST',
-    url: urlUsers,
-    data
-  });
+    const response = await axios({
+      method: 'POST',
+      url: urlUsers,
+      data
+    });
 
-  console.log('response', response.status);
-  console.log('response data', response.data);
+    if (response.status === 200) {
+      alert('Usuario ingresado correctamente');
+    }
 
-  if (response.status === 200) {
-    alert('Usuario Ingresado Correctamente');
-  }
+    return response.data;
 
-  return response.data;
+  } catch (error) {
+    alert('No se pudo adicionar el usuario');
+    console.warn(error);
+  };
 };
 
 export const PutUser = async ({ iduser, username, lastname, gender, profile, birthdate, city, agent }) => {
@@ -37,6 +39,7 @@ export const PutUser = async ({ iduser, username, lastname, gender, profile, bir
   const urlUser = `https://accounts-social-control.herokuapp.com/user/${iduser}`;
 
   try {
+
     const data = {
       username,
       lastname,
@@ -53,8 +56,6 @@ export const PutUser = async ({ iduser, username, lastname, gender, profile, bir
       data
     });
 
-    console.log('response', response);
-
     if (response.status === 200) {
       alert('Usuario actualizado correctamente');
     }
@@ -62,6 +63,6 @@ export const PutUser = async ({ iduser, username, lastname, gender, profile, bir
   } catch (error) {
     alert('No se pudo hacer la actualización');
     console.warn(error);
-  }
+  };
 };
 

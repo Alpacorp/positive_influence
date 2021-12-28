@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => createStyles({
 }));
 
 const AccountForm = (typeAccount) => {
-  const classes = useStyles()
+  const classes = useStyles();
   const [checked, setChecked] = useState();
   const [stateData, setStateData] = useState();
 
@@ -42,7 +42,7 @@ const AccountForm = (typeAccount) => {
 
   const handleState = (event) => {
     setStateData(event.target.value);
-  }
+  };
 
   return (
     <Grid className={classes.formsAccounts}>
@@ -141,7 +141,7 @@ const AccountForm = (typeAccount) => {
         </Button>
       </form>
     </Grid>
-  )
-}
+  );
+};
 
 export default AccountForm;
