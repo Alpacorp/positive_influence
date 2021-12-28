@@ -232,7 +232,7 @@ const Mentions = () => {
             size="small"
             error={false}
             type="url"
-            helperText="Copia y ega la url de la mención"
+            helperText="Copia y pega la url de la mención"
             required
           />
           <Button

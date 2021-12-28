@@ -46,9 +46,8 @@ const Accounts = () => {
   async function getUser() {
     const res = await axios.get(urlUser);
     const response = res.data.message[0];
-    console.log(response);
-    setState(true)
-    setDataTable(response)
+    setState(true);
+    setDataTable(response);
   }
 
   const handleSubmit = (event) => {
@@ -65,8 +64,8 @@ const Accounts = () => {
         [target.name]: target.value
       })
     }
-    return [values, handleInputChange]
-  }
+    return [values, handleInputChange];
+  };
 
   const [formValues, handleInputChange] = useForm({
     userid: '',

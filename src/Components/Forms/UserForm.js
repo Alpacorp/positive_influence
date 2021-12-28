@@ -24,10 +24,8 @@ const useStyles = makeStyles((theme) => ({
 
 const UserForm = () => {
   const classes = useStyles();
-
   const useForm = (initialState = {}) => {
     const [values, setValues] = useState(initialState);
-
     const handleInputChange = ({ target }) => {
       setValues({
         ...values,
@@ -35,7 +33,7 @@ const UserForm = () => {
       })
     }
     return [values, handleInputChange]
-  }
+  };
 
   const [formValues, handleInputChange] = useForm({
     username: '',
@@ -57,6 +55,7 @@ const UserForm = () => {
 
   return (
     <Grid item>
+      <h2>Crear y registrar usuario</h2>
       <form autoComplete="off" id="userForm" className={classes.root} onSubmit={handleSubmit}>
         <TextField
           id="username"
@@ -167,7 +166,7 @@ const UserForm = () => {
         </Button>
       </form>
     </Grid>
-  )
-}
+  );
+};
 
 export default UserForm;
