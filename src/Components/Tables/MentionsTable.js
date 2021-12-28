@@ -39,15 +39,15 @@ const MentionsTable = ({ iduser, status }) => {
   const urlUserMentions = `https://accounts-social-control.herokuapp.com/mention/${urlUserId}`;
 
   async function getMentions() {
-    const response = await axios.get(urlUserMentions + iduser);
     setUrlUserId(iduser);
+    const response = await axios.get(urlUserMentions);
     setDataTable(response.data);
   };
 
   useEffect(() => {
     getMentions();
     // eslint-disable-next-line
-  }, [status]);
+  }, [status, iduser]);
 
   return (
     <Grid item>

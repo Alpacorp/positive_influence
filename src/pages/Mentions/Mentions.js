@@ -45,6 +45,7 @@ const Mentions = () => {
 
   const classes = useStyles();
   const [dataTable, setDataTable] = useState([{}]);
+  const [disable, setDisable] = useState(true);
   const [state, setState] = useState(false);
 
   const useForm = (initialState = {}) => {
@@ -71,9 +72,15 @@ const Mentions = () => {
   async function getUser() {
     const res = await axios.get(urlUser);
     const response = res.data.message[0];
-    setState(false);
-    setState(true);
-    setDataTable(response);
+    console.log("response", response);
+    if (response === [] || !response || response.length === 0) {
+      alert(`El usuario con id ${userid} no existe, por favor corrige tu selección.`)
+    } else {
+      setState(false);
+      setState(true);
+      setDisable(false);
+      setDataTable(response);
+    }
   };
 
   const handleSubmit = (event) => {
@@ -200,6 +207,7 @@ const Mentions = () => {
             type="number"
             helperText=""
             required
+            disabled={disable}
           />
           <TextField
             id="typeaccment"
