@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -7,8 +6,7 @@ import Icon from '@material-ui/core/Icon';
 import { accountState } from '../../MockData/AccountState.json';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => createStyles({
   root: {
@@ -31,14 +29,9 @@ const useStyles = makeStyles((theme) => createStyles({
   }
 }));
 
-const AccountForm = (typeAccount) => {
+const AccountForm = ({ media, status }) => {
   const classes = useStyles();
-  const [checked, setChecked] = useState();
   const [stateData, setStateData] = useState();
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
 
   const handleState = (event) => {
     setStateData(event.target.value);
@@ -46,7 +39,19 @@ const AccountForm = (typeAccount) => {
 
   return (
     <Grid className={classes.formsAccounts}>
+      <hr />
+      <h3>{media}</h3>
       <form autoComplete="off" className={classes.root}>
+        <TextField
+          id="iduser"
+          label="Id User"
+          variant="outlined"
+          size="small"
+          error={false}
+          required
+          helperText="Digita el id del usuario"
+          disabled={status}
+        />
         <TextField
           id="email"
           label="Correo Electrónico"
@@ -58,11 +63,11 @@ const AccountForm = (typeAccount) => {
         />
         <TextField
           disabled
-          id={typeAccount.props}
+          id={media}
           label="Tipo Cuenta"
           variant="outlined"
           size="small"
-          defaultValue={typeAccount.props}
+          defaultValue={media}
           required
         />
         <TextField
@@ -118,19 +123,6 @@ const AccountForm = (typeAccount) => {
           helperText="Digita el teléfono asociado"
           required
         />
-        <FormControlLabel
-          control={
-            <Checkbox
-              className={classes.checkBoxInput}
-              checked={checked}
-              onChange={handleChange}
-              inputProps={{ 'aria-label': 'primary checkbox' }}
-              required
-            />
-          }
-          label="Selecciona cuando hayas creado la cuenta"
-        >
-        </FormControlLabel>
         <Button
           variant="contained"
           color="default"
@@ -142,6 +134,11 @@ const AccountForm = (typeAccount) => {
       </form>
     </Grid>
   );
+};
+
+AccountForm.propTypes = {
+  media: PropTypes.string.isRequired,
+  status: PropTypes.bool.isRequired
 };
 
 export default AccountForm;

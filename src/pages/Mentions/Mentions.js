@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Button from '@material-ui/core/Button';
@@ -75,7 +74,6 @@ const Mentions = () => {
   async function getUser() {
     const res = await axios.get(urlUser);
     const response = res.data.message[0];
-    console.log("response", response);
     if (response === [] || !response || response.length === 0) {
       alert(`El usuario con id ${userid} no existe, por favor corrige tu selección.`)
     } else {

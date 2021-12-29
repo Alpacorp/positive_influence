@@ -13,6 +13,6 @@ const App = () => {
       <MenuTab />
     </BrowserRouter>
   )
-}
+};
 
 export default App;

@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import MaterialTable from "@material-table/core";
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
@@ -82,7 +81,6 @@ const UsersTable = () => {
               setTimeout(() => {
                 const dataUpdate = [...dataTable];
                 const index = oldData.tableData.id;
-                console.log("index", index)
                 dataUpdate[index] = newData;
                 PutUser(newData);
                 setDataTable([...dataUpdate]);
@@ -92,7 +90,7 @@ const UsersTable = () => {
         }}
       />
     </Grid>
-  )
-}
+  );
+};
 
 export default UsersTable;

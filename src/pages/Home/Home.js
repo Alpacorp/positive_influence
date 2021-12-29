@@ -66,7 +66,7 @@ const Home = () => {
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
     setInput(inputValue);
-  }
+  };
 
   const checkPass = () => {
     if (pat.andres === input || pat.alejo === input || pat.sandra === input) {
@@ -78,7 +78,7 @@ const Home = () => {
       setOpenSnack({ ...openSnack, open: true });
       setMessageInfo('Acceso Denegado');
     }
-  }
+  };
 
   const handleClose = () => {
     setOpenSnack({ ...openSnack, open: false });
@@ -109,7 +109,7 @@ const Home = () => {
         Buscar Usuario
       </Button>
     </form>
-  )
+  );
 
   return (
     <>
@@ -140,7 +140,7 @@ const Home = () => {
         />
       </Box>
     </>
-  )
-}
+  );
+};
 
 export default Home;

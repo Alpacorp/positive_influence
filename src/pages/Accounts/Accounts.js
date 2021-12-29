@@ -33,28 +33,6 @@ const Accounts = () => {
 
   const classes = useStyles();
 
-  const accountmail = "Mail";
-  const Facebook = "Facebook";
-  const Twitter = "Twitter";
-  const Instagram = "Instagram";
-
-  const iduser = document.getElementById('iduser') ? document.getElementById('iduser').value : '';
-  const [dataTable, setDataTable] = useState([{}]);
-  const [state, setState] = useState(false);
-  const urlUser = `https://accounts-social-control.herokuapp.com/user/${iduser}`;
-
-  async function getUser() {
-    const res = await axios.get(urlUser);
-    const response = res.data.message[0];
-    setState(true);
-    setDataTable(response);
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    getUser();
-  };
-
   const useForm = (initialState = {}) => {
     const [values, setValues] = useState(initialState);
 
@@ -73,8 +51,45 @@ const Accounts = () => {
 
   const { userid } = formValues;
 
+  const mediaData = ['Mail', 'Facebook', 'Twitter', 'Instagram'];
+  const [dataTable, setDataTable] = useState([{}]);
+  const [state, setState] = useState(false);
+  const [mediaQ, setMediaQ] = useState('');
+  const [mediaGet, setMediaGet] = useState([]);
+  const [status, setStatus] = useState(true);
+  const mediaNotFound = mediaData.filter(media => !mediaGet.includes(media));
+
+  const urlUser = `https://accounts-social-control.herokuapp.com/user/${userid}`;
+  const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${userid}`;
+
+  async function getUser() {
+    const res = await axios.get(urlUser);
+    const response = res.data.message[0];
+    if (response === [] || !response || response.length === 0) {
+      alert(`El usuario con id ${userid} no existe, por favor corrige tu selección.`)
+    } else {
+      setState(true);
+      setStatus(false);
+      setDataTable(response);
+    }
+
+    const resMedia = await axios.get(urlUserMedia);
+    const responseMedia = resMedia.data.message.length;
+    const resMediaData = resMedia.data.message;
+    setMediaQ(responseMedia);
+
+    const responseSocialMedia = resMediaData.map(res => res.typeaccount);
+    setMediaGet(responseSocialMedia);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    getUser();
+  };
+
   return (
     <Grid>
+      <h2>Consulta el usuario</h2>
       <Grid className={classes.formSearchUser}>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <TextField
@@ -152,16 +167,25 @@ const Accounts = () => {
             value={state ? dataTable[0].agent : ''}
             variant="filled"
           />
+          <TextField
+            disabled
+            id='mediaQ'
+            label="Cuentas Sociales"
+            value={mediaQ}
+            variant="filled"
+          />
         </form>
       </Grid>
       <Grid>
-        <AccountForm props={accountmail} />
-        <AccountForm props={Facebook} />
-        <AccountForm props={Twitter} />
-        <AccountForm props={Instagram} />
+        {
+          mediaNotFound.length === 0
+            ? <h2>Usuario Completo</h2>
+            :
+            mediaNotFound.map(media => <AccountForm media={media} key={media} status={status} />)
+        }
       </Grid>
-    </Grid>
-  )
-}
+    </Grid >
+  );
+};
 
 export default Accounts;
