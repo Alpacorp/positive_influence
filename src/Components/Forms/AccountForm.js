@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => createStyles({
 }));
 
 const AccountForm = ({ media, status }) => {
-  console.log("media", media);
   const classes = useStyles();
   const [stateData, setStateData] = useState();
   const [mediaImage, setMediaImage] = useState();

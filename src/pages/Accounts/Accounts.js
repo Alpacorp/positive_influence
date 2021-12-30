@@ -7,6 +7,7 @@ import { Icon } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/styles';
 import AccountForm from '../../Components/Forms/AccountForm';
 import axios from 'axios';
+import AccountsTable from '../../Components/Tables/AccountsTable';
 
 const useStyles = makeStyles((theme) => createStyles({
   formSearchUser: {
@@ -179,10 +180,12 @@ const Accounts = () => {
       <Grid>
         {
           mediaNotFound.length === 0
-            ? <h2>Usuario Completo</h2>
+            ?
+            <h2>Usuario Completo</h2>
             :
             mediaNotFound.map(media => <AccountForm media={media} key={media} status={status} />)
         }
+        <AccountsTable iduser={userid} status={status} />
       </Grid>
     </Grid >
   );
