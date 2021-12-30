@@ -54,17 +54,19 @@ const columns = [
 const AccountsTable = ({ iduser, status }) => {
 
   const [urlUserId, setUrlUserId] = useState(0);
-  const [dataTable, setDataTable] = useState([]);
-  const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${urlUserId}`;
+  const [dataTable, setDataTable] = useState();
+  const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${urlUserId}/`;
 
-  async function getMentions() {
+  console.log("urluserid", urlUserId);
+
+  async function getMedia() {
     setUrlUserId(iduser);
     const response = await axios.get(urlUserMedia);
     setDataTable(response.data.message);
   };
 
   useEffect(() => {
-    getMentions();
+    getMedia();
     // eslint-disable-next-line
   }, [status, iduser]);
 

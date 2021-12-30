@@ -1,7 +1,6 @@
-import React from 'react';
-import { useState } from 'react';
-import Grid from '@mui/material/Grid'
-import TextField from '@mui/material/TextField'
+import React, { useEffect, useState } from 'react';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
 import Button from '@material-ui/core/Button';
 import { Icon } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/styles';
@@ -69,6 +68,7 @@ const Accounts = () => {
     if (response === [] || !response || response.length === 0) {
       alert(`El usuario con id ${userid} no existe, por favor corrige tu selección.`)
     } else {
+      setState(false);
       setState(true);
       setStatus(false);
       setDataTable(response);
@@ -92,7 +92,7 @@ const Accounts = () => {
     <Grid>
       <h2>Consulta el usuario</h2>
       <Grid className={classes.formSearchUser}>
-        <form autoComplete="off" onSubmit={handleSubmit}>
+        <form autoComplete="off" onSubmit={handleSubmit} id='accountForm'>
           <TextField
             id="iduser"
             name='userid'
@@ -102,8 +102,8 @@ const Accounts = () => {
             variant="outlined"
             size="small"
             error={false}
-            type="number"
-            helperText="Digita el id del usuario"
+            type="string"
+            helperText="Digita el id del usuario para consultarlo"
             required
           />
           <Button
@@ -183,9 +183,9 @@ const Accounts = () => {
             ?
             <h2>Usuario Completo</h2>
             :
-            mediaNotFound.map(media => <AccountForm media={media} key={media} status={status} />)
+            mediaNotFound.map(media => <AccountForm media={media} key={media} statusInput={status} userid={userid} />)
         }
-        <AccountsTable iduser={userid} status={status} />
+        <AccountsTable iduser={userid} status={state} />
       </Grid>
     </Grid >
   );

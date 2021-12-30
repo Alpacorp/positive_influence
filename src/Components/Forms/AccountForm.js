@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { Facebook, Mail, Instagram, Twitter } from '../../assets/social-media';
+import { UploadAccount } from '../../Apis/Accounts';
 
 const useStyles = makeStyles((theme) => createStyles({
   root: {
@@ -30,13 +31,42 @@ const useStyles = makeStyles((theme) => createStyles({
   }
 }));
 
-const AccountForm = ({ media, status }) => {
+const AccountForm = ({ media, statusInput, userid }) => {
+  console.log("statusinput", statusInput);
+  console.log("userid", userid);
   const classes = useStyles();
-  const [stateData, setStateData] = useState();
   const [mediaImage, setMediaImage] = useState();
+  const useForm = (initialState = {}) => {
+    const [values, setValues] = useState(initialState);
+    const handleInputChange = ({ target }) => {
+      setValues({
+        ...values,
+        [target.name]: target.value
+      })
+    }
+    return [values, handleInputChange]
+  };
 
-  const handleState = (event) => {
-    setStateData(event.target.value);
+  const [formValues, handleInputChange] = useForm({
+    idusersocial: '',
+    email: '',
+    typeaccount: media,
+    username: '',
+    passccount: '',
+    status: '',
+    comments: '',
+    phone: '',
+  });
+
+  const { idusersocial, email, typeaccount, username, passccount, status, comments, phone } = formValues;
+
+  const handleSubmitSend = (event) => {
+    event.preventDefault();
+    if (idusersocial === userid) {
+      UploadAccount(formValues);
+    } else {
+      alert("LOS VALORES DE LOS CAMPOS 'ID USUARIO' NO SON IGUALES, AJÚSTALOS.");
+    }
   };
 
   const socialImage = () => {
@@ -68,66 +98,82 @@ const AccountForm = ({ media, status }) => {
       <hr />
       <img src={mediaImage} alt={`${media} logo`} />
       <h3>{media}</h3>
-      <form autoComplete="off" className={classes.root}>
+      <form autoComplete="off" className={classes.root} onSubmit={handleSubmitSend}>
         <TextField
-          id="iduser"
-          label="Id User"
+          id="idusersocial"
+          name="idusersocial"
+          label="Id Usuario"
+          value={idusersocial}
+          onChange={handleInputChange}
           variant="outlined"
           size="small"
           error={false}
           required
           helperText="Digita el id del usuario"
-          disabled={status}
+          disabled={statusInput}
         />
         <TextField
           id="email"
+          name="email"
+          value={email}
+          onChange={handleInputChange}
           label="Correo Electrónico"
           variant="outlined"
           size="small"
           error={false}
           required
           helperText="Digita el correo"
-          disabled={status}
+          disabled={statusInput}
         />
         <TextField
           disabled
-          id={media}
+          id="typeaccount"
+          name='typeaccount'
+          value={typeaccount}
+          onChange={handleInputChange}
           label="Tipo Cuenta"
           variant="outlined"
           size="small"
-          defaultValue={media}
+          defaultValue={statusInput}
           required
         />
         <TextField
-          id="nickname"
-          label="Nickname"
+          id="username"
+          name='username'
+          value={username}
+          onChange={handleInputChange}
+          label="Username"
           variant="outlined"
           size="small"
           helperText="Digita el Nickname"
           required
-          disabled={status}
+          disabled={statusInput}
         />
         <TextField
-          id="password"
+          id="passccount"
+          name='passccount'
+          value={passccount}
+          onChange={handleInputChange}
           label="Contraseña"
           variant="outlined"
           size="small"
           helperText="Digita la contraseña"
           required
-          disabled={status}
+          disabled={statusInput}
         />
         <TextField
           id="status"
+          name='status'
           label="Estado de Cuenta"
           variant="outlined"
           select
           defaultValue=""
           size="small"
-          value={stateData ? stateData : ""}
-          onChange={handleState}
+          value={status}
+          onChange={handleInputChange}
           helperText="Selecciona el estado"
           required
-          disabled={status}
+          disabled={statusInput}
         >
           {
             accountState.map((status) => (
@@ -139,29 +185,35 @@ const AccountForm = ({ media, status }) => {
         </TextField>
         <TextField
           id="comments"
+          name='comments'
+          value={comments}
+          onChange={handleInputChange}
           label="Comentarios"
           variant="outlined"
           size="small"
           helperText="Tags"
           required
-          disabled={status}
+          disabled={statusInput}
         />
         <TextField
           id="phone"
+          name='phone'
+          value={phone}
+          onChange={handleInputChange}
           label="Teléfono"
           type="number"
           variant="outlined"
           size="small"
           helperText="Digita el teléfono asociado"
           required
-          disabled={status}
+          disabled={statusInput}
         />
         <Button
           variant="contained"
           color="default"
           endIcon={<Icon>send</Icon>}
           type="submit"
-          disabled={status}
+          disabled={statusInput}
         >
           Enviar
         </Button>
