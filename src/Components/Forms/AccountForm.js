@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -7,6 +7,7 @@ import { accountState } from '../../MockData/AccountState.json';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
+import { Facebook, Mail, Instagram, Twitter } from '../../assets/social-media';
 
 const useStyles = makeStyles((theme) => createStyles({
   root: {
@@ -30,16 +31,43 @@ const useStyles = makeStyles((theme) => createStyles({
 }));
 
 const AccountForm = ({ media, status }) => {
+  console.log("media", media);
   const classes = useStyles();
   const [stateData, setStateData] = useState();
+  const [mediaImage, setMediaImage] = useState();
 
   const handleState = (event) => {
     setStateData(event.target.value);
   };
 
+  const socialImage = () => {
+    switch (media) {
+      case 'Mail':
+        setMediaImage(Mail)
+        break
+      case 'Facebook':
+        setMediaImage(Facebook)
+        break;
+      case 'Twitter':
+        setMediaImage(Twitter)
+        break
+      case 'Instagram':
+        setMediaImage(Instagram)
+        break
+      default:
+        break;
+    };
+  };
+
+  useEffect(() => {
+    socialImage();
+    // eslint-disable-next-line
+  }, [status, media]);
+
   return (
     <Grid className={classes.formsAccounts}>
       <hr />
+      <img src={mediaImage} alt={`${media} logo`} />
       <h3>{media}</h3>
       <form autoComplete="off" className={classes.root}>
         <TextField
@@ -60,6 +88,7 @@ const AccountForm = ({ media, status }) => {
           error={false}
           required
           helperText="Digita el correo"
+          disabled={status}
         />
         <TextField
           disabled
@@ -77,6 +106,7 @@ const AccountForm = ({ media, status }) => {
           size="small"
           helperText="Digita el Nickname"
           required
+          disabled={status}
         />
         <TextField
           id="password"
@@ -85,6 +115,7 @@ const AccountForm = ({ media, status }) => {
           size="small"
           helperText="Digita la contraseña"
           required
+          disabled={status}
         />
         <TextField
           id="status"
@@ -97,6 +128,7 @@ const AccountForm = ({ media, status }) => {
           onChange={handleState}
           helperText="Selecciona el estado"
           required
+          disabled={status}
         >
           {
             accountState.map((status) => (
@@ -113,6 +145,7 @@ const AccountForm = ({ media, status }) => {
           size="small"
           helperText="Tags"
           required
+          disabled={status}
         />
         <TextField
           id="phone"
@@ -122,12 +155,14 @@ const AccountForm = ({ media, status }) => {
           size="small"
           helperText="Digita el teléfono asociado"
           required
+          disabled={status}
         />
         <Button
           variant="contained"
           color="default"
           endIcon={<Icon>send</Icon>}
           type="submit"
+          disabled={status}
         >
           Enviar
         </Button>
