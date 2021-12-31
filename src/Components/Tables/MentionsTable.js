@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MaterialTable from "@material-table/core";
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { PutMention } from '../../Apis/Mentions';
 
 const columns = [
@@ -56,13 +57,6 @@ const MentionsTable = ({ iduser, status }) => {
         data={dataTable}
         getRowId={(row) => row.iduser}
         editable={{
-          // onRowAdd: newData =>
-          //   new Promise((resolve, reject) => {
-          //     setTimeout(() => {
-          //       setDataTable([...dataTable, newData]);
-          //       resolve();
-          //     }, 1000)
-          //   }),
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               setTimeout(() => {
@@ -78,6 +72,11 @@ const MentionsTable = ({ iduser, status }) => {
       />
     </Grid>
   );
+};
+
+MentionsTable.propTypes = {
+  iduser: PropTypes.string,
+  status: PropTypes.bool
 };
 
 export default MentionsTable;

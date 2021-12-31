@@ -6,7 +6,6 @@ import { Icon } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/styles';
 import MentionsTable from '../../Components/Tables/MentionsTable';
 import MenuItem from '@material-ui/core/MenuItem';
-import { media } from '../../MockData/Media.json';
 import axios from 'axios';
 import { UploadMention } from '../../Apis/Mentions';
 
@@ -49,6 +48,7 @@ const Mentions = () => {
   const [dataTable, setDataTable] = useState([{}]);
   const [disable, setDisable] = useState(true);
   const [state, setState] = useState(false);
+  const [typeMedia, setTypeMedia] = useState([]);
 
   const useForm = (initialState = {}) => {
     const [values, setValues] = useState(initialState);
@@ -70,10 +70,13 @@ const Mentions = () => {
 
   const { userid, iduserment, typeaccment, urlment } = formValues;
   const urlUser = `https://accounts-social-control.herokuapp.com/user/${userid}`;
+  const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${userid}`;
 
   async function getUser() {
     const res = await axios.get(urlUser);
     const response = res.data.message[0];
+    const resMedia = await axios.get(urlUserMedia);
+    setTypeMedia(resMedia.data.message);
     if (response === [] || !response || response.length === 0) {
       alert(`El usuario con id ${userid} no existe, por favor corrige tu selección.`)
     } else {
@@ -193,7 +196,8 @@ const Mentions = () => {
         </form>
       </Grid>
       <h2>Registra una mención</h2>
-      <small>Nota: el Id del usuario consultado debe ser igual al Id del usuario al que vas a ingresar la mención.</small>
+      <small>Nota 1: el Id del usuario consultado debe ser igual al Id del usuario al que vas a ingresar la mención.</small>
+      <small>Nota 2: el usuario debe tener cuentas sociales creadas para que se permita el registro de menciones.</small>
       <Grid>
         <form className={classes.typeAccount} onSubmit={handleSendInfo}>
           <TextField
@@ -222,11 +226,12 @@ const Mentions = () => {
             onChange={handleInputChange}
             helperText="Selecciona el medio"
             required
+            disabled={disable}
           >
             {
-              media.map((item) => (
-                <MenuItem key={item.value} value={item.label} >
-                  {item.label}
+              typeMedia.map((item) => (
+                <MenuItem key={item.typeaccount} value={item.typeaccount} >
+                  {item.typeaccount}
                 </MenuItem>
               ))
             }
@@ -243,6 +248,7 @@ const Mentions = () => {
             type="url"
             helperText="Copia y pega la url de la mención"
             required
+            disabled={disable}
           />
           <Button
             variant="contained"
@@ -250,6 +256,7 @@ const Mentions = () => {
             type="submit"
             className={classes.buttonSearch}
             endIcon={<Icon>send</Icon>}
+            disabled={disable}
           >
             Enviar
           </Button>

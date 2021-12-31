@@ -22,9 +22,6 @@ export const UploadAccount = async ({ idusersocial, email, typeaccount, username
       data
     });
 
-    if (response.status === 200) {
-      alert('Cuenta social ingresada correctamente');
-    }
     return response.data;
 
   } catch (error) {
@@ -36,8 +33,6 @@ export const UploadAccount = async ({ idusersocial, email, typeaccount, username
 export const PutAccount = async ({ idusersocial, email, typeaccount, username, passccount, status, comments, phone, social }) => {
 
   const urlMedia = `https://accounts-social-control.herokuapp.com/media/${idusersocial}/${typeaccount}`;
-
-  console.log("urlmedia", urlMedia);
 
   try {
 
@@ -59,13 +54,10 @@ export const PutAccount = async ({ idusersocial, email, typeaccount, username, p
 
     if (response.status === 200) {
       alert('Cuenta social actualizada correctamente');
-      console.log("urlmedia ok", urlMedia);
-      console.log("data ok", data);
     }
 
   } catch (error) {
     alert('No se pudo actualizar la cuenta social');
-    console.log("urlmedia fail", urlMedia);
     console.warn(error);
   };
 };

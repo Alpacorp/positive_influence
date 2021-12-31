@@ -9,6 +9,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { Facebook, Mail, Instagram, Twitter } from '../../assets/social-media';
 import { UploadAccount } from '../../Apis/Accounts';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => createStyles({
   root: {
@@ -31,10 +32,20 @@ const useStyles = makeStyles((theme) => createStyles({
   }
 }));
 
-const AccountForm = ({ media, statusInput, userid }) => {
-  console.log("statusinput", statusInput);
-  console.log("userid", userid);
+const AccountForm = ({ media, statusInput, userid = 0 }) => {
   const classes = useStyles();
+  const [validateSocialMedia, setValidateSocialMedia] = useState('');
+  const [ok, setOk] = useState('');
+  const [resStatus, setResStatus] = useState();
+  const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${userid}/${media}/`;
+
+  async function getSocialMedia() {
+    const res = await axios.get(urlUserMedia);
+    const response = res
+    setResStatus(response.status);
+    setValidateSocialMedia(response.data.message.length);
+  }
+
   const [mediaImage, setMediaImage] = useState();
   const useForm = (initialState = {}) => {
     const [values, setValues] = useState(initialState);
@@ -61,11 +72,19 @@ const AccountForm = ({ media, statusInput, userid }) => {
   const { idusersocial, email, typeaccount, username, passccount, status, comments, phone } = formValues;
 
   const handleSubmitSend = (event) => {
+    setOk(1);
     event.preventDefault();
-    if (idusersocial === userid) {
-      UploadAccount(formValues);
-    } else {
+    if (idusersocial !== userid) {
+      setOk(2);
       alert("LOS VALORES DE LOS CAMPOS 'ID USUARIO' NO SON IGUALES, AJÚSTALOS.");
+    } else if (validateSocialMedia >= 1) {
+      setOk(3);
+      alert("ESTA CUENTA SOCIAL YA EXISTE, POR FAVOR HAZ CLIC NUEVAMENTE EN 'BUSCAR USUARIO.'");
+    } else if (resStatus === 200) {
+      getSocialMedia();
+      UploadAccount(formValues);
+      setOk(4);
+      alert("Cuenta social registrada correctamente");
     }
   };
 
@@ -87,6 +106,11 @@ const AccountForm = ({ media, statusInput, userid }) => {
         break;
     };
   };
+
+  useEffect(() => {
+    getSocialMedia();
+    // eslint-disable-next-line
+  }, [userid, idusersocial, ok]);
 
   useEffect(() => {
     socialImage();
@@ -120,6 +144,7 @@ const AccountForm = ({ media, statusInput, userid }) => {
           label="Correo Electrónico"
           variant="outlined"
           size="small"
+          type="email"
           error={false}
           required
           helperText="Digita el correo"
@@ -177,7 +202,7 @@ const AccountForm = ({ media, statusInput, userid }) => {
         >
           {
             accountState.map((status) => (
-              <MenuItem key={status.idState} value={status.idState}>
+              <MenuItem key={status.idState} value={status.state}>
                 {status.state}
               </MenuItem>
             ))
@@ -224,7 +249,8 @@ const AccountForm = ({ media, statusInput, userid }) => {
 
 AccountForm.propTypes = {
   media: PropTypes.string.isRequired,
-  status: PropTypes.bool.isRequired
+  statusInput: PropTypes.bool.isRequired,
+  userid: PropTypes.number
 };
 
 export default AccountForm;

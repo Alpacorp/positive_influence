@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@material-ui/core/Button';
@@ -46,7 +46,7 @@ const Accounts = () => {
   };
 
   const [formValues, handleInputChange] = useForm({
-    userid: '',
+    userid: null,
   });
 
   const { userid } = formValues;
@@ -92,7 +92,7 @@ const Accounts = () => {
     <Grid>
       <h2>Consulta el usuario</h2>
       <Grid className={classes.formSearchUser}>
-        <form autoComplete="off" onSubmit={handleSubmit} id='accountForm'>
+        <form autoComplete="off" onSubmit={handleSubmit}>
           <TextField
             id="iduser"
             name='userid'

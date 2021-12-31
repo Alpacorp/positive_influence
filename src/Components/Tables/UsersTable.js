@@ -68,14 +68,6 @@ const UsersTable = () => {
         data={dataTable}
         getRowId={(row) => row.iduser}
         editable={{
-          // onRowAdd: newData =>
-          //   new Promise((resolve, reject) => {
-          //     setTimeout(() => {
-          //       console.log("newData", newData)
-          //       setDataTable([...dataTable, newData]);
-          //       resolve();
-          //     }, 1000)
-          //   }),
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               setTimeout(() => {

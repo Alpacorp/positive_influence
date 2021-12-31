@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MaterialTable from "@material-table/core";
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { PutAccount } from '../../Apis/Accounts';
 
 const columns = [
@@ -51,13 +52,11 @@ const columns = [
   },
 ];
 
-const AccountsTable = ({ iduser, status }) => {
+const AccountsTable = ({ iduser = 0, status }) => {
 
   const [urlUserId, setUrlUserId] = useState(0);
   const [dataTable, setDataTable] = useState();
   const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${urlUserId}/`;
-
-  console.log("urluserid", urlUserId);
 
   async function getMedia() {
     setUrlUserId(iduser);
@@ -78,13 +77,6 @@ const AccountsTable = ({ iduser, status }) => {
         data={dataTable}
         getRowId={(row) => row.iduser}
         editable={{
-          // onRowAdd: newData =>
-          //   new Promise((resolve, reject) => {
-          //     setTimeout(() => {
-          //       setDataTable([...dataTable, newData]);
-          //       resolve();
-          //     }, 1000)
-          //   }),
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               setTimeout(() => {
@@ -100,6 +92,11 @@ const AccountsTable = ({ iduser, status }) => {
       />
     </Grid>
   );
+};
+
+AccountsTable.propTypes = {
+  status: PropTypes.bool.isRequired,
+  iduser: PropTypes
 };
 
 export default AccountsTable;
