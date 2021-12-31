@@ -196,8 +196,9 @@ const Mentions = () => {
         </form>
       </Grid>
       <h2>Registra una mención</h2>
-      <small>Nota 1: el Id del usuario consultado debe ser igual al Id del usuario al que vas a ingresar la mención.</small>
-      <small>Nota 2: el usuario debe tener cuentas sociales creadas para que se permita el registro de menciones.</small>
+      <small><strong>Nota 1:</strong> el Id del usuario consultado debe ser igual al Id del usuario al que vas a ingresar la mención.</small>
+      <br />
+      <small><strong>Nota 2:</strong> el usuario debe tener cuentas sociales creadas para que se permita el registro de menciones.</small>
       <Grid>
         <form className={classes.typeAccount} onSubmit={handleSendInfo}>
           <TextField
