@@ -216,7 +216,7 @@ const AccountForm = ({ media, statusInput, userid = 0 }) => {
           label="Comentarios"
           variant="outlined"
           size="small"
-          helperText="Tags"
+          helperText="Comentarios o notas"
           required
           disabled={statusInput}
         />
