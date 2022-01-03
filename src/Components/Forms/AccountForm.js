@@ -149,6 +149,7 @@ const AccountForm = ({ media, statusInput, userid = 0 }) => {
           required
           helperText="Digita el correo"
           disabled={statusInput}
+          spellCheck={true}
         />
         <TextField
           disabled
@@ -219,6 +220,7 @@ const AccountForm = ({ media, statusInput, userid = 0 }) => {
           helperText="Comentarios o notas"
           required
           disabled={statusInput}
+          spellCheck={true}
         />
         <TextField
           id="phone"

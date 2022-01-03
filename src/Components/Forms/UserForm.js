@@ -67,6 +67,7 @@ const UserForm = () => {
           value={username}
           onChange={handleInputChange}
           helperText="Digita los nombres"
+          spellCheck={true}
         />
         <TextField
           id="lastname"
@@ -78,6 +79,7 @@ const UserForm = () => {
           value={lastname}
           onChange={handleInputChange}
           helperText="Digita los apellidos"
+          spellCheck={true}
         />
         <TextField
           id="gender"
@@ -110,6 +112,7 @@ const UserForm = () => {
           required
           value={profile}
           onChange={handleInputChange}
+          spellCheck={true}
         />
         <TextField
           id="birthdate"
