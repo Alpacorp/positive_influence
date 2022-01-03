@@ -160,7 +160,7 @@ const AccountForm = ({ media, statusInput, userid = 0 }) => {
           label="Tipo Cuenta"
           variant="outlined"
           size="small"
-          defaultValue={statusInput}
+          // defaultValue={statusInput}
           required
         />
         <TextField
@@ -193,7 +193,7 @@ const AccountForm = ({ media, statusInput, userid = 0 }) => {
           label="Estado de Cuenta"
           variant="outlined"
           select
-          defaultValue=""
+          // defaultValue=""
           size="small"
           value={status}
           onChange={handleInputChange}

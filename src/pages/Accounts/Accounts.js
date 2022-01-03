@@ -46,7 +46,7 @@ const Accounts = () => {
   };
 
   const [formValues, handleInputChange] = useForm({
-    userid: null,
+    userid: undefined,
   });
 
   const { userid } = formValues;

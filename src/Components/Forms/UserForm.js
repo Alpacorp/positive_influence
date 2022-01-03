@@ -87,7 +87,7 @@ const UserForm = () => {
           label="Género"
           variant="outlined"
           select
-          defaultValue=""
+          // defaultValue=""
           size="small"
           value={gender ? gender : ""}
           helperText="Selecciona el género"
@@ -131,7 +131,7 @@ const UserForm = () => {
           label="Selecciona Ciudad"
           variant="outlined"
           select
-          defaultValue=""
+          // defaultValue=""
           size="small"
           helperText="Selecciona la Ciudad"
           required

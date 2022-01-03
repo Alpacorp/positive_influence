@@ -96,7 +96,7 @@ const AccountsTable = ({ iduser = 0, status }) => {
 
 AccountsTable.propTypes = {
   status: PropTypes.bool.isRequired,
-  iduser: PropTypes
+  iduser: PropTypes.number
 };
 
 export default AccountsTable;
