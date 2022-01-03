@@ -34,13 +34,17 @@ const columns = [
 
 const MentionsTable = ({ iduser, status }) => {
 
-  const [urlUserId, setUrlUserId] = useState(0);
+  const [urlUserId, setUrlUserId] = useState(1);
   const [dataTable, setDataTable] = useState([]);
-  const urlUserMentions = `https://accounts-social-control.herokuapp.com/mention/${urlUserId}`;
+  const urlUserMentions = `https://accounts-social-control.herokuapp.com/mention/${urlUserId}/`;
 
   async function getMentions() {
-    setUrlUserId(iduser);
     const response = await axios.get(urlUserMentions);
+    if (iduser === '') {
+      setUrlUserId(0);
+    } else {
+      setUrlUserId(iduser);
+    }
     setDataTable(response.data);
   };
 

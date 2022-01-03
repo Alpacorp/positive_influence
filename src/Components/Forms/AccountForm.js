@@ -252,7 +252,7 @@ const AccountForm = ({ media, statusInput, userid = 0 }) => {
 AccountForm.propTypes = {
   media: PropTypes.string.isRequired,
   statusInput: PropTypes.bool.isRequired,
-  userid: PropTypes.number
+  userid: PropTypes.string
 };
 
 export default AccountForm;

@@ -107,7 +107,7 @@ const Mentions = () => {
       <Grid className={classes.formSearchUser}>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <TextField
-            id="iduser"
+            id="userid"
             name='userid'
             value={userid}
             onChange={handleInputChange}
@@ -115,7 +115,6 @@ const Mentions = () => {
             variant="outlined"
             size="small"
             error={false}
-            type="number"
             helperText="Digita el id del usuario"
             required
           />

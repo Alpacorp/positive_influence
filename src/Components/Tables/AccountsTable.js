@@ -52,15 +52,19 @@ const columns = [
   },
 ];
 
-const AccountsTable = ({ iduser = 0, status }) => {
+const AccountsTable = ({ iduser, status }) => {
 
   const [urlUserId, setUrlUserId] = useState(0);
   const [dataTable, setDataTable] = useState();
   const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${urlUserId}/`;
 
   async function getMedia() {
-    setUrlUserId(iduser);
     const response = await axios.get(urlUserMedia);
+    if (iduser === '') {
+      setUrlUserId(0);
+    } else {
+      setUrlUserId(iduser);
+    }
     setDataTable(response.data.message);
   };
 
