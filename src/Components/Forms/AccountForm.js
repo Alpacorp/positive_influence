@@ -32,19 +32,24 @@ const useStyles = makeStyles((theme) => createStyles({
   }
 }));
 
-const AccountForm = ({ media, statusInput, userid = 0 }) => {
+const AccountForm = ({ media, statusInput, userid }) => {
   const classes = useStyles();
+  const [urlUserId, setUrlUserId] = useState(0);
   const [validateSocialMedia, setValidateSocialMedia] = useState('');
   const [ok, setOk] = useState('');
   const [resStatus, setResStatus] = useState();
-  const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${userid}/${media}/`;
+  const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${urlUserId}/${media}/`;
 
   async function getSocialMedia() {
     const res = await axios.get(urlUserMedia);
     const response = res
-    setResStatus(response.status);
-    setValidateSocialMedia(response.data.message.length);
-  }
+    if (userid === '') {
+      setUrlUserId(0);
+    } else {
+      setResStatus(response.status);
+      setValidateSocialMedia(response.data.message.length);
+    };
+  };
 
   const [mediaImage, setMediaImage] = useState();
   const useForm = (initialState = {}) => {
@@ -85,7 +90,7 @@ const AccountForm = ({ media, statusInput, userid = 0 }) => {
       UploadAccount(formValues);
       setOk(4);
       alert("Cuenta social registrada correctamente");
-    }
+    };
   };
 
   const socialImage = () => {
@@ -160,7 +165,6 @@ const AccountForm = ({ media, statusInput, userid = 0 }) => {
           label="Tipo Cuenta"
           variant="outlined"
           size="small"
-          // defaultValue={statusInput}
           required
         />
         <TextField
@@ -193,7 +197,6 @@ const AccountForm = ({ media, statusInput, userid = 0 }) => {
           label="Estado de Cuenta"
           variant="outlined"
           select
-          // defaultValue=""
           size="small"
           value={status}
           onChange={handleInputChange}

@@ -220,7 +220,6 @@ const Mentions = () => {
             label="Tipo Cuenta"
             variant="outlined"
             select
-            // defaultValue=""
             size="small"
             value={typeaccment}
             onChange={handleInputChange}

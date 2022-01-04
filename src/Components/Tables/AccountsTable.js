@@ -100,7 +100,7 @@ const AccountsTable = ({ iduser, status }) => {
 
 AccountsTable.propTypes = {
   status: PropTypes.bool.isRequired,
-  iduser: PropTypes.number
+  iduser: PropTypes.string
 };
 
 export default AccountsTable;
