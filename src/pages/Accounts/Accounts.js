@@ -46,7 +46,7 @@ const Accounts = () => {
   };
 
   const [formValues, handleInputChange] = useForm({
-    userid: undefined,
+    userid: '',
   });
 
   const { userid } = formValues;
@@ -95,14 +95,14 @@ const Accounts = () => {
         <form autoComplete="off" onSubmit={handleSubmit}>
           <TextField
             id="iduser"
-            name='userid'
+            name="userid"
             value={userid}
             onChange={handleInputChange}
             label="Id Usuario"
             variant="outlined"
             size="small"
             error={false}
-            type="string"
+            type="number"
             helperText="Digita el id del usuario para consultarlo"
             required
           />

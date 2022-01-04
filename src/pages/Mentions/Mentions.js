@@ -108,12 +108,13 @@ const Mentions = () => {
         <form autoComplete="off" onSubmit={handleSubmit}>
           <TextField
             id="userid"
-            name='userid'
+            name="userid"
             value={userid}
             onChange={handleInputChange}
             label="Id Usuario"
             variant="outlined"
             size="small"
+            type="number"
             error={false}
             helperText="Digita el id del usuario"
             required
@@ -228,7 +229,7 @@ const Mentions = () => {
             disabled={disable}
           >
             {
-              typeMedia.map((item) => (
+              typeMedia.map((item) => (item.typeaccount === 'Mail' ? '' :
                 <MenuItem key={item.typeaccount} value={item.typeaccount} >
                   {item.typeaccount}
                 </MenuItem>

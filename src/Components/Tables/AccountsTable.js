@@ -52,7 +52,7 @@ const columns = [
   },
 ];
 
-const AccountsTable = ({ iduser, status }) => {
+const AccountsTable = ({ iduser = 0, status }) => {
 
   const [urlUserId, setUrlUserId] = useState(0);
   const [dataTable, setDataTable] = useState();

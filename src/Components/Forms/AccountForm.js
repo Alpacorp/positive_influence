@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { Facebook, Mail, Instagram, Twitter } from '../../assets/social-media';
 import { UploadAccount } from '../../Apis/Accounts';
 import axios from 'axios';
+// import validar_clave from '../../utils/validatePass';
 
 const useStyles = makeStyles((theme) => createStyles({
   root: {
@@ -34,21 +35,21 @@ const useStyles = makeStyles((theme) => createStyles({
 
 const AccountForm = ({ media, statusInput, userid }) => {
   const classes = useStyles();
-  const [urlUserId, setUrlUserId] = useState(0);
   const [validateSocialMedia, setValidateSocialMedia] = useState('');
   const [ok, setOk] = useState('');
   const [resStatus, setResStatus] = useState();
-  const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${urlUserId}/${media}/`;
+  let urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${userid}/${media}/`;
+
+  if (userid === '') {
+    userid = 0
+    urlUserMedia = `https://accounts-social-control.herokuapp.com/media/0/${media}/`;
+  }
 
   async function getSocialMedia() {
     const res = await axios.get(urlUserMedia);
     const response = res
-    if (userid === '') {
-      setUrlUserId(0);
-    } else {
-      setResStatus(response.status);
-      setValidateSocialMedia(response.data.message.length);
-    };
+    setResStatus(response.status);
+    setValidateSocialMedia(response.data.message.length);
   };
 
   const [mediaImage, setMediaImage] = useState();
@@ -90,7 +91,10 @@ const AccountForm = ({ media, statusInput, userid }) => {
       UploadAccount(formValues);
       setOk(4);
       alert("Cuenta social registrada correctamente");
-    };
+    }
+    // else if (validar_clave(passccount) === false) {
+    //   alert('La contraseña ingresada no es fuerte');
+    // };
   };
 
   const socialImage = () => {
@@ -138,6 +142,7 @@ const AccountForm = ({ media, statusInput, userid }) => {
           size="small"
           error={false}
           required
+          type="number"
           helperText="Digita el id del usuario"
           disabled={statusInput}
         />
