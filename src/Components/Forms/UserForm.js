@@ -8,6 +8,7 @@ import { cities } from '../../MockData/Cities.json';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { UploadUser } from '../../Apis/Users';
+import transformText from '../../utils/formatText';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,7 +65,7 @@ const UserForm = () => {
           size="small"
           error={false}
           required
-          value={username}
+          value={transformText(username)}
           onChange={handleInputChange}
           helperText="Digita los nombres"
           spellCheck={true}
@@ -76,7 +77,7 @@ const UserForm = () => {
           variant="outlined"
           size="small"
           required
-          value={lastname}
+          value={transformText(lastname)}
           onChange={handleInputChange}
           helperText="Digita los apellidos"
           spellCheck={true}
@@ -109,7 +110,7 @@ const UserForm = () => {
           size="small"
           helperText="Digita el perfil del usuario"
           required
-          value={profile}
+          value={transformText(profile)}
           onChange={handleInputChange}
           spellCheck={true}
         />
