@@ -98,8 +98,6 @@ const AccountForm = ({ media, statusInput, userid }) => {
     }
   };
 
-  console.log("vad clave", validar_clave(passccount));
-
   const socialImage = () => {
     switch (media) {
       case 'Mail':
