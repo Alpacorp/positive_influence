@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { Facebook, Mail, Instagram, Twitter } from '../../assets/social-media';
 import { UploadAccount } from '../../Apis/Accounts';
 import axios from 'axios';
-// import validar_clave from '../../utils/validatePass';
+import validar_clave from '../../utils/validatePass';
 
 const useStyles = makeStyles((theme) => createStyles({
   root: {
@@ -87,15 +87,18 @@ const AccountForm = ({ media, statusInput, userid }) => {
       setOk(3);
       alert("ESTA CUENTA SOCIAL YA EXISTE, POR FAVOR HAZ CLIC NUEVAMENTE EN 'BUSCAR USUARIO.'");
     } else if (resStatus === 200) {
-      getSocialMedia();
-      UploadAccount(formValues);
-      setOk(4);
-      alert("Cuenta social registrada correctamente");
+      if (!validar_clave(passccount)) {
+        alert('La contraseña ingresada NO ES SEGURA, por favor crearla usando mayúsculas, minúsculas, caracteres especiales y números.');
+      } else {
+        getSocialMedia();
+        UploadAccount(formValues);
+        setOk(4);
+        alert("Cuenta social registrada correctamente");
+      }
     }
-    // else if (validar_clave(passccount) === false) {
-    //   alert('La contraseña ingresada no es fuerte');
-    // };
   };
+
+  console.log("vad clave", validar_clave(passccount));
 
   const socialImage = () => {
     switch (media) {
