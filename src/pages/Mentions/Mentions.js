@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => createStyles({
 }));
 
 const Mentions = () => {
-
   const classes = useStyles();
   const [dataTable, setDataTable] = useState([{}]);
   const [disable, setDisable] = useState(true);
