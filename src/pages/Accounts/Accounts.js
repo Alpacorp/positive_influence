@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@material-ui/core/Button';
@@ -7,6 +7,12 @@ import { makeStyles, createStyles } from '@material-ui/styles';
 import AccountForm from '../../Components/Forms/AccountForm';
 import axios from 'axios';
 import AccountsTable from '../../Components/Tables/AccountsTable';
+
+// import { BaseOpenTelemetryComponent } from '@opentelemetry/plugin-react-load';
+// import { setlogger, setTracer } from '@opentelemetry/plugin-react-load/build/src/BaseOpenTelemetryComponent';
+
+// const { setlogger, setTracer } = BaseOpenTelemetryComponent;
+
 
 const useStyles = makeStyles((theme) => createStyles({
   formSearchUser: {
@@ -30,6 +36,8 @@ const useStyles = makeStyles((theme) => createStyles({
 }));
 
 const Accounts = () => {
+
+  // setTracer('prueba');
 
   const classes = useStyles();
 
