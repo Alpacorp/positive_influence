@@ -7,6 +7,7 @@ import { makeStyles, createStyles } from '@material-ui/styles';
 import AccountForm from '../../Components/Forms/AccountForm';
 import axios from 'axios';
 import AccountsTable from '../../Components/Tables/AccountsTable';
+import { withTransaction } from '@elastic/apm-rum-react';
 
 const useStyles = makeStyles((theme) => createStyles({
   formSearchUser: {
@@ -72,7 +73,7 @@ const Accounts = () => {
       setState(true);
       setStatus(false);
       setDataTable(response);
-    }
+    };
 
     const resMedia = await axios.get(urlUserMedia);
     const responseMedia = resMedia.data.message.length;
@@ -191,4 +192,4 @@ const Accounts = () => {
   );
 };
 
-export default Accounts;
+export default withTransaction('Accounts', 'component')(Accounts);
