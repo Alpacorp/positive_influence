@@ -4,10 +4,11 @@ import TextField from '@mui/material/TextField';
 import Button from '@material-ui/core/Button';
 import { Icon } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/styles';
-import AccountForm from '../../Components/Forms/AccountForm';
+import CreateSocialAccountForm from '../../Components/Forms/Accounts/CreateSocialAccountForm';
 import axios from 'axios';
 import AccountsTable from '../../Components/Tables/AccountsTable';
 import { withTransaction } from '@elastic/apm-rum-react';
+import { useForm } from '../../utils/useForm';
 
 const useStyles = makeStyles((theme) => createStyles({
   formSearchUser: {
@@ -33,18 +34,6 @@ const useStyles = makeStyles((theme) => createStyles({
 const Accounts = () => {
 
   const classes = useStyles();
-
-  const useForm = (initialState = {}) => {
-    const [values, setValues] = useState(initialState);
-
-    const handleInputChange = ({ target }) => {
-      setValues({
-        ...values,
-        [target.name]: target.value
-      })
-    }
-    return [values, handleInputChange];
-  };
 
   const [formValues, handleInputChange] = useForm({
     userid: '',
@@ -184,7 +173,7 @@ const Accounts = () => {
             ?
             <h2>Usuario Completo</h2>
             :
-            mediaNotFound.map(media => <AccountForm media={media} key={media} statusInput={status} userid={userid} />)
+            mediaNotFound.map(media => <CreateSocialAccountForm media={media} key={media} statusInput={status} userid={userid} />)
         }
         <AccountsTable iduser={userid} status={state} />
       </Grid>

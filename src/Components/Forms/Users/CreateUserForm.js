@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import { genders } from '../../MockData/Genders.json';
-import { cities } from '../../MockData/Cities.json';
+import { genders } from '../../../MockData/Genders.json';
+import { cities } from '../../../MockData/Cities.json';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { UploadUser } from '../../Apis/Users';
-import transformText from '../../utils/formatText';
+import { UploadUser } from '../../../Apis/Users';
+import transformText from '../../../utils/formatText';
+import { useForm } from '../../../utils/useForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,18 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserForm = () => {
+const CreateUserForm = () => {
   const classes = useStyles();
-  const useForm = (initialState = {}) => {
-    const [values, setValues] = useState(initialState);
-    const handleInputChange = ({ target }) => {
-      setValues({
-        ...values,
-        [target.name]: target.value
-      })
-    }
-    return [values, handleInputChange]
-  };
 
   const [formValues, handleInputChange] = useForm({
     username: '',
@@ -170,4 +161,4 @@ const UserForm = () => {
   );
 };
 
-export default UserForm;
+export default CreateUserForm;

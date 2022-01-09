@@ -8,6 +8,7 @@ import MentionsTable from '../../Components/Tables/MentionsTable';
 import MenuItem from '@material-ui/core/MenuItem';
 import axios from 'axios';
 import { UploadMention } from '../../Apis/Mentions';
+import { useForm } from '../../utils/useForm';
 
 const useStyles = makeStyles((theme) => createStyles({
   formSearchUser: {
@@ -48,17 +49,6 @@ const Mentions = () => {
   const [disable, setDisable] = useState(true);
   const [state, setState] = useState(false);
   const [typeMedia, setTypeMedia] = useState([]);
-
-  const useForm = (initialState = {}) => {
-    const [values, setValues] = useState(initialState);
-    const handleInputChange = ({ target }) => {
-      setValues({
-        ...values,
-        [target.name]: target.value
-      })
-    }
-    return [values, handleInputChange];
-  };
 
   const [formValues, handleInputChange] = useForm({
     userid: '',

@@ -3,14 +3,15 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import { accountState } from '../../MockData/AccountState.json';
+import { accountState } from '../../../MockData/AccountState.json';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import { Facebook, Mail, Instagram, Twitter } from '../../assets/social-media';
-import { UploadAccount } from '../../Apis/Accounts';
+import { Facebook, Mail, Instagram, Twitter } from '../../../assets/social-media';
+import { UploadAccount } from '../../../Apis/Accounts';
 import axios from 'axios';
-import validar_clave from '../../utils/validatePass';
+import validar_clave from '../../../utils/validatePass';
+import { useForm } from '../../../utils/useForm';
 
 const useStyles = makeStyles((theme) => createStyles({
   root: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => createStyles({
   }
 }));
 
-const AccountForm = ({ media, statusInput, userid }) => {
+const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
   const classes = useStyles();
   const [validateSocialMedia, setValidateSocialMedia] = useState('');
   const [ok, setOk] = useState('');
@@ -53,16 +54,6 @@ const AccountForm = ({ media, statusInput, userid }) => {
   };
 
   const [mediaImage, setMediaImage] = useState();
-  const useForm = (initialState = {}) => {
-    const [values, setValues] = useState(initialState);
-    const handleInputChange = ({ target }) => {
-      setValues({
-        ...values,
-        [target.name]: target.value
-      })
-    }
-    return [values, handleInputChange]
-  };
 
   const [formValues, handleInputChange] = useForm({
     idusersocial: '',
@@ -258,10 +249,10 @@ const AccountForm = ({ media, statusInput, userid }) => {
   );
 };
 
-AccountForm.propTypes = {
+CreateSocialAccountForm.propTypes = {
   media: PropTypes.string.isRequired,
   statusInput: PropTypes.bool.isRequired,
   userid: PropTypes.string
 };
 
-export default AccountForm;
+export default CreateSocialAccountForm;
