@@ -80,7 +80,12 @@ const MentionsTable = ({ iduser, status }) => {
 
 MentionsTable.propTypes = {
   iduser: PropTypes.string,
-  status: PropTypes.bool
+  status: PropTypes.bool,
 };
+
+MentionsTable.defaultProps = {
+  iduser: '',
+  status: '',
+}
 
 export default MentionsTable;

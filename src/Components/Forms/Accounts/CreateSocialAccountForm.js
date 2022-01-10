@@ -35,6 +35,11 @@ const useStyles = makeStyles((theme) => createStyles({
 }));
 
 const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
+
+  console.log("media", media, typeof media);
+  console.log("statusInput", statusInput, typeof statusInput);
+  console.log("userid", userid, typeof userid);
+
   const classes = useStyles();
   const [validateSocialMedia, setValidateSocialMedia] = useState('');
   const [ok, setOk] = useState('');
@@ -252,7 +257,13 @@ const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
 CreateSocialAccountForm.propTypes = {
   media: PropTypes.string.isRequired,
   statusInput: PropTypes.bool.isRequired,
-  userid: PropTypes.string
+  userid: PropTypes.string,
 };
+
+CreateSocialAccountForm.defaultProps = {
+  media: '',
+  statusInpt: true,
+  userid: '',
+}
 
 export default CreateSocialAccountForm;

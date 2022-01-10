@@ -52,7 +52,7 @@ const columns = [
   },
 ];
 
-const AccountsTable = ({ iduser = 0, status }) => {
+const AccountsTable = ({ iduser, status }) => {
 
   const [urlUserId, setUrlUserId] = useState(0);
   const [dataTable, setDataTable] = useState();
@@ -102,5 +102,10 @@ AccountsTable.propTypes = {
   status: PropTypes.bool.isRequired,
   iduser: PropTypes.string
 };
+
+AccountsTable.defaultProps = {
+  status: false,
+  iduser: '',
+}
 
 export default AccountsTable;
