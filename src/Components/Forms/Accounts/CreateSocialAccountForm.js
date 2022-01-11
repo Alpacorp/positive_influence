@@ -36,14 +36,12 @@ const useStyles = makeStyles((theme) => createStyles({
 
 const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
 
-  console.log("media", media, typeof media);
-  console.log("statusInput", statusInput, typeof statusInput);
-  console.log("userid", userid, typeof userid);
-
   const classes = useStyles();
   const [validateSocialMedia, setValidateSocialMedia] = useState('');
   const [ok, setOk] = useState('');
-  const [resStatus, setResStatus] = useState();
+  const [resStatus, setResStatus] = useState('');
+  const [mediaImage, setMediaImage] = useState('');
+
   let urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${userid}/${media}/`;
 
   if (userid === '') {
@@ -57,8 +55,6 @@ const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
     setResStatus(response.status);
     setValidateSocialMedia(response.data.message.length);
   };
-
-  const [mediaImage, setMediaImage] = useState();
 
   const [formValues, handleInputChange] = useForm({
     idusersocial: '',

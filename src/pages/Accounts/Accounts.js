@@ -45,7 +45,7 @@ const Accounts = () => {
   const [dataTable, setDataTable] = useState([{}]);
   const [state, setState] = useState(false);
   const [mediaQ, setMediaQ] = useState('');
-  const [mediaGet, setMediaGet] = useState([]);
+  const [mediaGet, setMediaGet] = useState(['']);
   const [status, setStatus] = useState(true);
   const mediaNotFound = mediaData.filter(media => !mediaGet.includes(media));
 

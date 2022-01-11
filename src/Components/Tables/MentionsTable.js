@@ -45,7 +45,7 @@ const MentionsTable = ({ iduser, status }) => {
     } else {
       setUrlUserId(iduser);
     }
-    setDataTable(response.data);
+    setDataTable(response?.data);
   };
 
   useEffect(() => {

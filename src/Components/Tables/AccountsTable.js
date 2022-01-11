@@ -65,7 +65,7 @@ const AccountsTable = ({ iduser, status }) => {
     } else {
       setUrlUserId(iduser);
     }
-    setDataTable(response.data.message);
+    setDataTable(response?.data.message);
   };
 
   useEffect(() => {

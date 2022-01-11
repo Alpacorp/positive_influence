@@ -53,7 +53,7 @@ const UsersTable = () => {
 
   async function getUsers() {
     const response = await axios.get(urlUsers);
-    setDataTable(response.data.message);
+    setDataTable(response?.data.message);
   };
 
   useEffect(() => {
