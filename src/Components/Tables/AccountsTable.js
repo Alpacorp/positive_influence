@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MaterialTable from "@material-table/core";
+import MaterialTable from '@material-table/core';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import PropTypes from 'prop-types';
