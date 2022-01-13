@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import MaterialTable from '@material-table/core';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
@@ -48,6 +48,7 @@ const columns = [
 
 const UsersTable = () => {
 
+  const isMounted = useRef(true);
   const [dataTable, setDataTable] = useState([]);
   const urlUsers = 'https://accounts-social-control.herokuapp.com/userstable/';
 
@@ -57,31 +58,42 @@ const UsersTable = () => {
   };
 
   useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
     getUsers();
   }, []);
 
   return (
-    <Grid item>
-      <MaterialTable
-        title="Usuarios Creados"
-        columns={columns}
-        data={dataTable}
-        getRowId={(row) => row.iduser}
-        editable={{
-          onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                const dataUpdate = [...dataTable];
-                const index = oldData.tableData.id;
-                dataUpdate[index] = newData;
-                PutUser(newData);
-                setDataTable([...dataUpdate]);
-                resolve();
-              }, 1000)
-            }),
-        }}
-      />
-    </Grid>
+    <>
+      {
+        isMounted.current &&
+        <Grid item>
+          <MaterialTable
+            title="Usuarios Creados"
+            columns={columns}
+            data={dataTable}
+            getRowId={(row) => row.iduser}
+            editable={{
+              onRowUpdate: (newData, oldData) =>
+                new Promise((resolve, reject) => {
+                  setTimeout(() => {
+                    const dataUpdate = [...dataTable];
+                    const index = oldData.tableData.id;
+                    dataUpdate[index] = newData;
+                    PutUser(newData);
+                    setDataTable([...dataUpdate]);
+                    resolve();
+                  }, 1000)
+                }),
+            }}
+          />
+        </Grid>
+      }
+    </>
   );
 };
 

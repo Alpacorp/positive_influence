@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@material-ui/core/Button';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import AccountsTable from '../../Components/Tables/AccountsTable';
 import { withTransaction } from '@elastic/apm-rum-react';
 import { useForm } from '../../hooks/useForm';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => createStyles({
   formSearchUser: {
@@ -34,6 +35,8 @@ const useStyles = makeStyles((theme) => createStyles({
 const Accounts = () => {
 
   const classes = useStyles();
+
+  const isMounted = useRef(true);
 
   const [formValues, handleInputChange] = useForm({
     userid: '',
@@ -73,111 +76,121 @@ const Accounts = () => {
     setMediaGet(responseSocialMedia);
   };
 
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     getUser();
   };
 
   return (
-    <Grid>
-      <h2>Consulta el usuario</h2>
-      <Grid className={classes.formSearchUser}>
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <TextField
-            id="iduser"
-            name="userid"
-            value={userid}
-            onChange={handleInputChange}
-            label="Id Usuario"
-            variant="outlined"
-            size="small"
-            error={false}
-            type="number"
-            helperText="Digita el id del usuario para consultarlo"
-            required
-          />
-          <Button
-            variant="contained"
-            color="default"
-            type="submit"
-            className={classes.buttonSearch}
-            endIcon={<Icon>search</Icon>}
-          >
-            Buscar Usuario
-          </Button>
-        </form>
-      </Grid>
-      <Grid>
-        <form className={classes.infoUser}>
-          <TextField
-            disabled
-            id="username"
-            label="Nombres"
-            value={state ? dataTable[0].username : ''}
-            variant="filled"
-          />
-          <TextField
-            disabled
-            id="lastname"
-            label="Apellidos"
-            value={state ? dataTable[0].lastname : ''}
-            variant="filled"
-          />
-          <TextField
-            disabled
-            id="gender"
-            label="Género"
-            value={state ? dataTable[0].gender : ''}
-            variant="filled"
-          />
-          <TextField
-            disabled
-            id="profile"
-            label="Perfil"
-            value={state ? dataTable[0].profile : ''}
-            variant="filled"
-          />
-          <TextField
-            disabled
-            id="birthdate"
-            label="Fecha Nacimiento"
-            value={state ? dataTable[0].birthdate : ''}
-            variant="filled"
-          />
-          <TextField
-            disabled
-            id="city"
-            label="Ciudad"
-            value={state ? dataTable[0].city : ''}
-            variant="filled"
-          />
-          <TextField
-            disabled
-            id="agent"
-            label="Agente"
-            value={state ? dataTable[0].agent : ''}
-            variant="filled"
-          />
-          <TextField
-            disabled
-            id='mediaQ'
-            label="Cuentas Sociales"
-            value={mediaQ}
-            variant="filled"
-          />
-        </form>
-      </Grid>
-      <Grid>
-        {
-          mediaNotFound.length === 0
-            ?
-            <h2>Usuario Completo</h2>
-            :
-            mediaNotFound.map(media => <CreateSocialAccountForm media={media} key={media} statusInput={status} userid={userid} />)
-        }
-        <AccountsTable iduser={userid} status={state} />
-      </Grid>
-    </Grid >
+    <>
+      {
+        isMounted.current &&
+        <Grid>
+          <h2>Consulta el usuario</h2>
+          <Grid className={classes.formSearchUser}>
+            <form autoComplete="off" onSubmit={handleSubmit}>
+              <TextField
+                id="iduser"
+                name="userid"
+                value={userid}
+                onChange={handleInputChange}
+                label="Id Usuario"
+                variant="outlined"
+                size="small"
+                error={false}
+                type="number"
+                helperText="Digita el id del usuario para consultarlo"
+                required
+              />
+              <Button
+                variant="contained"
+                color="default"
+                type="submit"
+                className={classes.buttonSearch}
+                endIcon={<Icon>search</Icon>}
+              >
+                Buscar Usuario
+              </Button>
+            </form>
+          </Grid>
+          <Grid>
+            <form className={classes.infoUser}>
+              <TextField
+                disabled
+                id="username"
+                label="Nombres"
+                value={state ? dataTable[0].username : ''}
+                variant="filled"
+              />
+              <TextField
+                disabled
+                id="lastname"
+                label="Apellidos"
+                value={state ? dataTable[0].lastname : ''}
+                variant="filled"
+              />
+              <TextField
+                disabled
+                id="gender"
+                label="Género"
+                value={state ? dataTable[0].gender : ''}
+                variant="filled"
+              />
+              <TextField
+                disabled
+                id="profile"
+                label="Perfil"
+                value={state ? dataTable[0].profile : ''}
+                variant="filled"
+              />
+              <TextField
+                disabled
+                id="birthdate"
+                label="Fecha Nacimiento"
+                value={state ? dataTable[0].birthdate : ''}
+                variant="filled"
+              />
+              <TextField
+                disabled
+                id="city"
+                label="Ciudad"
+                value={state ? dataTable[0].city : ''}
+                variant="filled"
+              />
+              <TextField
+                disabled
+                id="agent"
+                label="Agente"
+                value={state ? dataTable[0].agent : ''}
+                variant="filled"
+              />
+              <TextField
+                disabled
+                id='mediaQ'
+                label="Cuentas Sociales"
+                value={mediaQ}
+                variant="filled"
+              />
+            </form>
+          </Grid>
+          <Grid>
+            {
+              mediaNotFound.length === 0
+                ?
+                <h2>Usuario Completo</h2>
+                :
+                mediaNotFound.map(media => <CreateSocialAccountForm media={media} key={media} statusInput={status} userid={userid} />)
+            }
+            <AccountsTable iduser={userid} status={state} />
+          </Grid>
+        </Grid >}
+    </>
   );
 };
 

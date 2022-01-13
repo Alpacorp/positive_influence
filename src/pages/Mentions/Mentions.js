@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Button from '@material-ui/core/Button';
@@ -44,7 +44,17 @@ const useStyles = makeStyles((theme) => createStyles({
 }));
 
 const Mentions = () => {
+
   const classes = useStyles();
+
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const [dataTable, setDataTable] = useState([{}]);
   const [disable, setDisable] = useState(true);
   const [state, setState] = useState(false);
@@ -91,170 +101,174 @@ const Mentions = () => {
   };
 
   return (
-    <Grid>
-      <h2>Consulta el usuario</h2>
-      <Grid className={classes.formSearchUser}>
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <TextField
-            id="userid"
-            name="userid"
-            value={userid}
-            onChange={handleInputChange}
-            label="Id Usuario"
-            variant="outlined"
-            size="small"
-            type="number"
-            error={false}
-            helperText="Digita el id del usuario"
-            required
-          />
-          <Button
-            variant="contained"
-            color="default"
-            type="submit"
-            className={classes.buttonSearch}
-            endIcon={<Icon>search</Icon>}
-          >
-            Buscar Usuario
-          </Button>
-        </form>
-      </Grid>
-      <Grid>
-        <form className={classes.infoUser} onSubmit={handleSendInfo}>
-          <TextField
-            disabled
-            id="iduser"
-            name="iduser"
-            label="Id Usuario"
-            value={state ? dataTable[0].iduser : ''}
-            variant="filled"
-          />
-          <TextField
-            disabled
-            id="username"
-            name="username"
-            label="Nombres"
-            value={state ? dataTable[0].username : ''}
-            variant="filled"
-          />
-          <TextField
-            disabled
-            id="lastname"
-            name="lastname"
-            label="Apellidos"
-            value={state ? dataTable[0].lastname : ''}
-            variant="filled"
-          />
-          <TextField
-            disabled
-            id="gender"
-            name="gender"
-            label="Género"
-            value={state ? dataTable[0].gender : ''}
-            variant="filled"
-          />
-          <TextField
-            disabled
-            id="profile"
-            name="profile"
-            label="Perfil"
-            value={state ? dataTable[0].profile : ''}
-            variant="filled"
-          />
-          <TextField
-            disabled
-            id="birthdate"
-            label="Fecha Nacimiento"
-            value={state ? dataTable[0].birthdate : ''}
-            variant="filled"
-          />
-          <TextField
-            disabled
-            id="city"
-            label="Ciudad"
-            value={state ? dataTable[0].city : ''}
-            variant="filled"
-          />
-          <TextField
-            disabled
-            id="agent"
-            label="Agente"
-            value={state ? dataTable[0].agent : ''}
-            variant="filled"
-          />
-        </form>
-      </Grid>
-      <h2>Registra una mención</h2>
-      <small><strong>Nota 1:</strong> el Id del usuario consultado debe ser igual al Id del usuario al que vas a ingresar la mención.</small>
-      <br />
-      <small><strong>Nota 2:</strong> el usuario debe tener cuentas sociales creadas para que se permita el registro de menciones.</small>
-      <Grid>
-        <form className={classes.typeAccount} onSubmit={handleSendInfo}>
-          <TextField
-            id="iduserment"
-            name="iduserment"
-            value={iduserment}
-            onChange={handleInputChange}
-            label="Id Usuario"
-            variant="outlined"
-            size="small"
-            error={false}
-            type="number"
-            helperText="Digita el id del usuario"
-            required
-            disabled={disable}
-          />
-          <TextField
-            id="typeaccment"
-            name="typeaccment"
-            label="Tipo Cuenta"
-            variant="outlined"
-            select
-            size="small"
-            value={typeaccment}
-            onChange={handleInputChange}
-            helperText="Selecciona el medio"
-            required
-            disabled={disable}
-          >
-            {
-              typeMedia.map((item) => (item.typeaccount === 'Mail' ? '' :
-                <MenuItem key={item.typeaccount} value={item.typeaccount} >
-                  {item.typeaccount}
-                </MenuItem>
-              ))
-            }
-          </TextField>
-          <TextField
-            id="urlment"
-            name="urlment"
-            value={urlment}
-            onChange={handleInputChange}
-            label="Url Mención"
-            variant="outlined"
-            size="small"
-            error={false}
-            type="url"
-            helperText="Copia y pega la url de la mención"
-            required
-            disabled={disable}
-          />
-          <Button
-            variant="contained"
-            color="default"
-            type="submit"
-            className={classes.buttonSearch}
-            endIcon={<Icon>send</Icon>}
-            disabled={disable}
-          >
-            Enviar
-          </Button>
-        </form>
-      </Grid>
-      <Grid className={classes.dataGrid}>
-        <MentionsTable iduser={userid} status={state} />
-      </Grid>
-    </Grid>
+    <>
+      {
+        isMounted.current &&
+        <Grid>
+          <h2>Consulta el usuario</h2>
+          <Grid className={classes.formSearchUser}>
+            <form autoComplete="off" onSubmit={handleSubmit}>
+              <TextField
+                id="userid"
+                name="userid"
+                value={userid}
+                onChange={handleInputChange}
+                label="Id Usuario"
+                variant="outlined"
+                size="small"
+                type="number"
+                error={false}
+                helperText="Digita el id del usuario"
+                required
+              />
+              <Button
+                variant="contained"
+                color="default"
+                type="submit"
+                className={classes.buttonSearch}
+                endIcon={<Icon>search</Icon>}
+              >
+                Buscar Usuario
+              </Button>
+            </form>
+          </Grid>
+          <Grid>
+            <form className={classes.infoUser} onSubmit={handleSendInfo}>
+              <TextField
+                disabled
+                id="iduser"
+                name="iduser"
+                label="Id Usuario"
+                value={state ? dataTable[0].iduser : ''}
+                variant="filled"
+              />
+              <TextField
+                disabled
+                id="username"
+                name="username"
+                label="Nombres"
+                value={state ? dataTable[0].username : ''}
+                variant="filled"
+              />
+              <TextField
+                disabled
+                id="lastname"
+                name="lastname"
+                label="Apellidos"
+                value={state ? dataTable[0].lastname : ''}
+                variant="filled"
+              />
+              <TextField
+                disabled
+                id="gender"
+                name="gender"
+                label="Género"
+                value={state ? dataTable[0].gender : ''}
+                variant="filled"
+              />
+              <TextField
+                disabled
+                id="profile"
+                name="profile"
+                label="Perfil"
+                value={state ? dataTable[0].profile : ''}
+                variant="filled"
+              />
+              <TextField
+                disabled
+                id="birthdate"
+                label="Fecha Nacimiento"
+                value={state ? dataTable[0].birthdate : ''}
+                variant="filled"
+              />
+              <TextField
+                disabled
+                id="city"
+                label="Ciudad"
+                value={state ? dataTable[0].city : ''}
+                variant="filled"
+              />
+              <TextField
+                disabled
+                id="agent"
+                label="Agente"
+                value={state ? dataTable[0].agent : ''}
+                variant="filled"
+              />
+            </form>
+          </Grid>
+          <h2>Registra una mención</h2>
+          <small><strong>Nota 1:</strong> el Id del usuario consultado debe ser igual al Id del usuario al que vas a ingresar la mención.</small>
+          <br />
+          <small><strong>Nota 2:</strong> el usuario debe tener cuentas sociales creadas para que se permita el registro de menciones.</small>
+          <Grid>
+            <form className={classes.typeAccount} onSubmit={handleSendInfo}>
+              <TextField
+                id="iduserment"
+                name="iduserment"
+                value={iduserment}
+                onChange={handleInputChange}
+                label="Id Usuario"
+                variant="outlined"
+                size="small"
+                error={false}
+                type="number"
+                helperText="Digita el id del usuario"
+                required
+                disabled={disable}
+              />
+              <TextField
+                id="typeaccment"
+                name="typeaccment"
+                label="Tipo Cuenta"
+                variant="outlined"
+                select
+                size="small"
+                value={typeaccment}
+                onChange={handleInputChange}
+                helperText="Selecciona el medio"
+                required
+                disabled={disable}
+              >
+                {
+                  typeMedia.map((item) => (item.typeaccount === 'Mail' ? '' :
+                    <MenuItem key={item.typeaccount} value={item.typeaccount} >
+                      {item.typeaccount}
+                    </MenuItem>
+                  ))
+                }
+              </TextField>
+              <TextField
+                id="urlment"
+                name="urlment"
+                value={urlment}
+                onChange={handleInputChange}
+                label="Url Mención"
+                variant="outlined"
+                size="small"
+                error={false}
+                type="url"
+                helperText="Copia y pega la url de la mención"
+                required
+                disabled={disable}
+              />
+              <Button
+                variant="contained"
+                color="default"
+                type="submit"
+                className={classes.buttonSearch}
+                endIcon={<Icon>send</Icon>}
+                disabled={disable}
+              >
+                Enviar
+              </Button>
+            </form>
+          </Grid>
+          <Grid className={classes.dataGrid}>
+            <MentionsTable iduser={userid} status={state} />
+          </Grid>
+        </Grid>}
+    </>
   );
 };
 
