@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { UploadUser } from '../../../Apis/Users';
 import transformText from '../../../utils/formatText';
-import { useForm } from '../../../utils/useForm';
+import { useForm } from '../../../hooks/useForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {

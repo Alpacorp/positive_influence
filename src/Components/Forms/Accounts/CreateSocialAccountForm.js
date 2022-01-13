@@ -11,7 +11,7 @@ import { Facebook, Mail, Instagram, Twitter } from '../../../assets/social-media
 import { UploadAccount } from '../../../Apis/Accounts';
 import axios from 'axios';
 import validar_clave from '../../../utils/validatePass';
-import { useForm } from '../../../utils/useForm';
+import { useForm } from '../../../hooks/useForm';
 
 const useStyles = makeStyles((theme) => createStyles({
   root: {

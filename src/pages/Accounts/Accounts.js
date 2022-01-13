@@ -8,7 +8,7 @@ import CreateSocialAccountForm from '../../Components/Forms/Accounts/CreateSocia
 import axios from 'axios';
 import AccountsTable from '../../Components/Tables/AccountsTable';
 import { withTransaction } from '@elastic/apm-rum-react';
-import { useForm } from '../../utils/useForm';
+import { useForm } from '../../hooks/useForm';
 
 const useStyles = makeStyles((theme) => createStyles({
   formSearchUser: {
