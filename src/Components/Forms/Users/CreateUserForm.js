@@ -1,24 +1,24 @@
-import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import { genders } from '../../../MockData/Genders.json';
-import { cities } from '../../../MockData/Cities.json';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import { UploadUser } from '../../../Apis/Users';
-import transformText from '../../../utils/formatText';
-import { useForm } from '../../../hooks/useForm';
+import React from "react";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
+import Icon from "@material-ui/core/Icon";
+import { genders } from "../../../MockData/Genders.json";
+import { cities } from "../../../MockData/Cities.json";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import { UploadUser } from "../../../Apis/Users";
+import transformText from "../../../utils/formatText";
+import { useForm } from "../../../hooks/useForm";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: "25ch",
     },
-    '& .MuiButton-root': {
-      backgroundColor: 'skyblue',
+    "& .MuiButton-root": {
+      backgroundColor: "skyblue",
     },
   },
 }));
@@ -26,28 +26,35 @@ const useStyles = makeStyles((theme) => ({
 const CreateUserForm = () => {
   const classes = useStyles();
 
-  const [formValues, handleInputChange] = useForm({
-    username: '',
-    lastname: '',
-    gender: '',
-    profile: '',
-    birthdate: '',
-    city: '',
-    agent: '',
+  const [formValues, handleInputChange, reset] = useForm({
+    username: "",
+    lastname: "",
+    gender: "",
+    profile: "",
+    birthdate: "",
+    city: "",
+    agent: "",
   });
 
-  const { username, lastname, gender, profile, birthdate, city, agent } = formValues;
+  const { username, lastname, gender, profile, birthdate, city, agent } =
+    formValues;
 
   const handleSubmit = (event) => {
     event.preventDefault();
     UploadUser(formValues);
     event.target.reset();
+    reset();
   };
 
   return (
     <Grid item>
       <h2>Crear y registrar usuario</h2>
-      <form autoComplete="off" id="userForm" className={classes.root} onSubmit={handleSubmit}>
+      <form
+        autoComplete="off"
+        id="userForm"
+        className={classes.root}
+        onSubmit={handleSubmit}
+      >
         <TextField
           id="username"
           name="username"
@@ -85,13 +92,11 @@ const CreateUserForm = () => {
           required
           onChange={handleInputChange}
         >
-          {
-            genders.map((item) => (
-              <MenuItem key={item.value} value={item.label} >
-                {item.label}
-              </MenuItem>
-            ))
-          }
+          {genders.map((item) => (
+            <MenuItem key={item.value} value={item.label}>
+              {item.label}
+            </MenuItem>
+          ))}
         </TextField>
         <TextField
           id="profile-sele"
@@ -128,13 +133,11 @@ const CreateUserForm = () => {
           value={city}
           onChange={handleInputChange}
         >
-          {
-            cities.map((citie) => (
-              <MenuItem key={citie.idcity} value={citie.city}>
-                {citie.city}
-              </MenuItem>
-            ))
-          }
+          {cities.map((citie) => (
+            <MenuItem key={citie.idcity} value={citie.city}>
+              {citie.city}
+            </MenuItem>
+          ))}
         </TextField>
         <TextField
           id="agent"

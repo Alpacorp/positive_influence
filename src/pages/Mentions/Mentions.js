@@ -1,50 +1,51 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Button from '@material-ui/core/Button';
-import { Icon } from '@material-ui/core';
-import { makeStyles, createStyles } from '@material-ui/styles';
-import MentionsTable from '../../Components/Tables/MentionsTable';
-import MenuItem from '@material-ui/core/MenuItem';
-import axios from 'axios';
-import { UploadMention } from '../../Apis/Mentions';
-import { useForm } from '../../hooks/useForm';
+import React, { useEffect, useRef, useState } from "react";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Button from "@material-ui/core/Button";
+import { Icon } from "@material-ui/core";
+import { makeStyles, createStyles } from "@material-ui/styles";
+import MentionsTable from "../../Components/Tables/MentionsTable";
+import MenuItem from "@material-ui/core/MenuItem";
+import axios from "axios";
+import { UploadMention } from "../../Apis/Mentions";
+import { useForm } from "../../hooks/useForm";
 
-const useStyles = makeStyles((theme) => createStyles({
-  formSearchUser: {
-    display: 'flex',
-    '& fieldset': {
-      marginRight: 10
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    formSearchUser: {
+      display: "flex",
+      "& fieldset": {
+        marginRight: 10,
+      },
     },
-  },
-  infoUser: {
-    marginTop: 10,
-    '& .MuiFilledInput-root': {
-      margin: '2px',
-      marginLeft: 0,
-      maxWidth: 150,
-      display: 'flex',
+    infoUser: {
+      marginTop: 10,
+      "& .MuiFilledInput-root": {
+        margin: "2px",
+        marginLeft: 0,
+        maxWidth: 150,
+        display: "flex",
+      },
     },
-  },
-  buttonSearch: {
-    backgroundColor: 'skyblue',
-  },
-  typeAccount: {
-    marginTop: 20,
-    '& fieldset': {
-      marginRight: 10
+    buttonSearch: {
+      backgroundColor: "skyblue",
     },
-  },
-  dataGrid: {
-    marginTop: 20
-  },
-  type: {
-    marginTop: 30
-  }
-}));
+    typeAccount: {
+      marginTop: 20,
+      "& fieldset": {
+        marginRight: 10,
+      },
+    },
+    dataGrid: {
+      marginTop: 20,
+    },
+    type: {
+      marginTop: 30,
+    },
+  })
+);
 
 const Mentions = () => {
-
   const classes = useStyles();
 
   const isMounted = useRef(true);
@@ -61,10 +62,10 @@ const Mentions = () => {
   const [typeMedia, setTypeMedia] = useState([]);
 
   const [formValues, handleInputChange] = useForm({
-    userid: '',
-    iduserment: '',
-    typeaccment: '',
-    urlment: '',
+    userid: "",
+    iduserment: "",
+    typeaccment: "",
+    urlment: "",
   });
 
   const { userid, iduserment, typeaccment, urlment } = formValues;
@@ -77,14 +78,16 @@ const Mentions = () => {
     const resMedia = await axios.get(urlUserMedia);
     setTypeMedia(resMedia.data.message);
     if (response === [] || !response || response.length === 0) {
-      alert(`El usuario con id ${userid} no existe, por favor corrige tu selección.`)
+      alert(
+        `El usuario con id ${userid} no existe, por favor corrige tu selección.`
+      );
     } else {
       setState(false);
       setState(true);
       setDisable(false);
       setDataTable(response);
     }
-  };
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -96,14 +99,15 @@ const Mentions = () => {
     if (userid === iduserment) {
       UploadMention(formValues);
     } else {
-      alert("LOS VALORES DE LOS CAMPOS 'ID USUARIO' NO SON IGUALES, AJÚSTALOS.");
+      alert(
+        "LOS VALORES DE LOS CAMPOS 'ID USUARIO' NO SON IGUALES, AJÚSTALOS."
+      );
     }
   };
 
   return (
     <>
-      {
-        isMounted.current &&
+      {isMounted.current && (
         <Grid>
           <h2>Consulta el usuario</h2>
           <Grid className={classes.formSearchUser}>
@@ -133,13 +137,13 @@ const Mentions = () => {
             </form>
           </Grid>
           <Grid>
-            <form className={classes.infoUser} onSubmit={handleSendInfo}>
+            <form className={classes.infoUser}>
               <TextField
                 disabled
                 id="iduser"
                 name="iduser"
                 label="Id Usuario"
-                value={state ? dataTable[0].iduser : ''}
+                value={state ? dataTable[0].iduser : ""}
                 variant="filled"
               />
               <TextField
@@ -147,7 +151,7 @@ const Mentions = () => {
                 id="username"
                 name="username"
                 label="Nombres"
-                value={state ? dataTable[0].username : ''}
+                value={state ? dataTable[0].username : ""}
                 variant="filled"
               />
               <TextField
@@ -155,7 +159,7 @@ const Mentions = () => {
                 id="lastname"
                 name="lastname"
                 label="Apellidos"
-                value={state ? dataTable[0].lastname : ''}
+                value={state ? dataTable[0].lastname : ""}
                 variant="filled"
               />
               <TextField
@@ -163,7 +167,7 @@ const Mentions = () => {
                 id="gender"
                 name="gender"
                 label="Género"
-                value={state ? dataTable[0].gender : ''}
+                value={state ? dataTable[0].gender : ""}
                 variant="filled"
               />
               <TextField
@@ -171,36 +175,42 @@ const Mentions = () => {
                 id="profile"
                 name="profile"
                 label="Perfil"
-                value={state ? dataTable[0].profile : ''}
+                value={state ? dataTable[0].profile : ""}
                 variant="filled"
               />
               <TextField
                 disabled
                 id="birthdate"
                 label="Fecha Nacimiento"
-                value={state ? dataTable[0].birthdate : ''}
+                value={state ? dataTable[0].birthdate : ""}
                 variant="filled"
               />
               <TextField
                 disabled
                 id="city"
                 label="Ciudad"
-                value={state ? dataTable[0].city : ''}
+                value={state ? dataTable[0].city : ""}
                 variant="filled"
               />
               <TextField
                 disabled
                 id="agent"
                 label="Agente"
-                value={state ? dataTable[0].agent : ''}
+                value={state ? dataTable[0].agent : ""}
                 variant="filled"
               />
             </form>
           </Grid>
           <h2>Registra una mención</h2>
-          <small><strong>Nota 1:</strong> el Id del usuario consultado debe ser igual al Id del usuario al que vas a ingresar la mención.</small>
+          <small>
+            <strong>Nota 1:</strong> el Id del usuario consultado debe ser igual
+            al Id del usuario al que vas a ingresar la mención.
+          </small>
           <br />
-          <small><strong>Nota 2:</strong> el usuario debe tener cuentas sociales creadas para que se permita el registro de menciones.</small>
+          <small>
+            <strong>Nota 2:</strong> el usuario debe tener cuentas sociales
+            creadas para que se permita el registro de menciones.
+          </small>
           <Grid>
             <form className={classes.typeAccount} onSubmit={handleSendInfo}>
               <TextField
@@ -230,13 +240,15 @@ const Mentions = () => {
                 required
                 disabled={disable}
               >
-                {
-                  typeMedia.map((item) => (item.typeaccount === 'Mail' ? '' :
-                    <MenuItem key={item.typeaccount} value={item.typeaccount} >
+                {typeMedia.map((item) =>
+                  item.typeaccount === "Mail" ? (
+                    ""
+                  ) : (
+                    <MenuItem key={item.typeaccount} value={item.typeaccount}>
                       {item.typeaccount}
                     </MenuItem>
-                  ))
-                }
+                  )
+                )}
               </TextField>
               <TextField
                 id="urlment"
@@ -267,7 +279,8 @@ const Mentions = () => {
           <Grid className={classes.dataGrid}>
             <MentionsTable iduser={userid} status={state} />
           </Grid>
-        </Grid>}
+        </Grid>
+      )}
     </>
   );
 };
