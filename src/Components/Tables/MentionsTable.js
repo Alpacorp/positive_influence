@@ -1,52 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import MaterialTable from "@material-table/core";
-import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
-import PropTypes from 'prop-types';
-import { PutMention } from '../../Apis/Mentions';
+import Grid from "@material-ui/core/Grid";
+import axios from "axios";
+import PropTypes from "prop-types";
+import { PutMention } from "../../Apis/Mentions";
 
 const columns = [
   {
-    title: 'Id Mención',
-    field: 'idmention',
-    editable: 'never',
+    title: "Id Mención",
+    field: "idmention",
+    editable: "never",
   },
   {
-    title: 'Id Usuario',
-    field: 'iduserment',
-    editable: 'never',
+    title: "Id Usuario",
+    field: "iduserment",
+    editable: "never",
   },
   {
-    title: 'Tipo Cuenta Social',
-    field: 'typeaccment',
-    editable: 'never',
+    title: "Tipo Cuenta Social",
+    field: "typeaccment",
   },
   {
-    title: 'Url Mención',
-    field: 'urlment',
+    title: "Url Mención",
+    field: "urlment",
   },
   {
-    title: 'Fecha Creación',
-    field: 'creation',
-    editable: 'never',
+    title: "Fecha Creación",
+    field: "creation",
+    editable: "never",
   },
 ];
 
 const MentionsTable = ({ iduser, status }) => {
-
   const [urlUserId, setUrlUserId] = useState(1);
   const [dataTable, setDataTable] = useState([]);
   const urlUserMentions = `https://accounts-social-control.herokuapp.com/mention/${urlUserId}/`;
 
   async function getMentions() {
     const response = await axios.get(urlUserMentions);
-    if (iduser === '') {
+    if (iduser === "") {
       setUrlUserId(0);
     } else {
       setUrlUserId(iduser);
     }
     setDataTable(response?.data);
-  };
+  }
 
   useEffect(() => {
     getMentions();
@@ -70,7 +68,7 @@ const MentionsTable = ({ iduser, status }) => {
                 PutMention(newData);
                 setDataTable([...dataUpdate]);
                 resolve();
-              }, 1000)
+              }, 1000);
             }),
         }}
       />
@@ -84,8 +82,8 @@ MentionsTable.propTypes = {
 };
 
 MentionsTable.defaultProps = {
-  iduser: '',
-  status: '',
-}
+  iduser: "",
+  status: "",
+};
 
 export default MentionsTable;
