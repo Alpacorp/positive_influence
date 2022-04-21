@@ -1,60 +1,63 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Icon, TextField } from '@material-ui/core';
-import { Box } from '@mui/system';
-import { makeStyles, createStyles } from '@material-ui/styles';
-import Modal from '@material-ui/core/Modal';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import React, { useState, useEffect } from "react";
+import { Button, Icon, TextField } from "@material-ui/core";
+import { Box } from "@mui/system";
+import { makeStyles, createStyles } from "@material-ui/styles";
+import Modal from "@material-ui/core/Modal";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
-const useStyles = makeStyles((theme) => createStyles({
-  home: {
-    textAlign: 'center',
-    height: '100vh',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  formModal: {
-    '& form': {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'column',
-      width: '100%',
-      height: '-webkit-fill-available',
-      backgroundColor: '#fff',
-    }
-  },
-  snackbar: {
-    '& .MuiSnackbarContent-root': {
-      backgroundColor: 'cornflowerblue',
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    home: {
+      textAlign: "center",
+      height: "100vh",
+      display: "flex",
+      justifyContent: "center",
     },
-  },
-}));
+    formModal: {
+      "& form": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        width: "100%",
+        height: "-webkit-fill-available",
+        backgroundColor: "#fff",
+      },
+    },
+    snackbar: {
+      "& .MuiSnackbarContent-root": {
+        backgroundColor: "cornflowerblue",
+      },
+    },
+  })
+);
 
 const Home = () => {
   const classes = useStyles();
   const [openModal, setOpenModal] = useState(true);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [openSnack, setOpenSnack] = useState({
     open: false,
-    vertical: 'top',
-    horizontal: 'center'
+    vertical: "top",
+    horizontal: "center",
   });
   const { open, vertical, horizontal } = openSnack;
   const [messageInfo, setMessageInfo] = useState(undefined);
-  const localData = localStorage.getItem('key');
+  const localData = localStorage.getItem("key");
   const pat = {
-    alejo: '1024',
-    andres: '4832',
-    sandra: '7891'
+    alejo: "1024",
+    andres: "4832",
+    sandra: "7891",
+    diana: "34190",
   };
 
   useEffect(() => {
     if (localData) {
       setOpenModal(false);
     } else {
-      setOpenModal(true)
+      setOpenModal(true);
     }
   }, [localData]);
 
@@ -70,13 +73,13 @@ const Home = () => {
 
   const checkPass = () => {
     if (pat.andres === input || pat.alejo === input || pat.sandra === input) {
-      localStorage.setItem('key', '5191pp02b');
+      localStorage.setItem("key", "5191pp02b");
       setOpenModal(false);
       setOpenSnack({ ...openSnack, open: true });
-      setMessageInfo('Ingreso Autorizado');
+      setMessageInfo("Ingreso Autorizado");
     } else {
       setOpenSnack({ ...openSnack, open: true });
-      setMessageInfo('Acceso Denegado');
+      setMessageInfo("Acceso Denegado");
     }
   };
 
@@ -113,11 +116,8 @@ const Home = () => {
 
   return (
     <>
-      <Box >
-        <Modal
-          open={openModal}
-          className={classes.formModal}
-        >
+      <Box>
+        <Modal open={openModal} className={classes.formModal}>
           {body}
         </Modal>
         <Snackbar
