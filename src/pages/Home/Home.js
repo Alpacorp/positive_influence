@@ -72,7 +72,12 @@ const Home = () => {
   };
 
   const checkPass = () => {
-    if (pat.andres === input || pat.alejo === input || pat.sandra === input) {
+    if (
+      pat.andres === input ||
+      pat.alejo === input ||
+      pat.sandra === input ||
+      pat.diana === input
+    ) {
       localStorage.setItem("key", "5191pp02b");
       setOpenModal(false);
       setOpenSnack({ ...openSnack, open: true });
