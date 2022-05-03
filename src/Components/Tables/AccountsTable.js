@@ -1,77 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import MaterialTable from '@material-table/core';
-import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
-import PropTypes from 'prop-types';
-import { PutAccount } from '../../Apis/Accounts';
+import React, { useState, useEffect } from "react";
+import MaterialTable from "@material-table/core";
+import Grid from "@material-ui/core/Grid";
+import axios from "axios";
+import PropTypes from "prop-types";
+import { PutAccount } from "../../Apis/Accounts";
 
 const columns = [
   {
-    title: 'Id Media',
-    field: 'idmedia',
-    editable: 'never',
+    title: "Id Media",
+    field: "idmedia",
+    editable: "never",
   },
   {
-    title: 'Id Usuario',
-    field: 'idusersocial',
-    editable: 'never',
+    title: "Id Usuario",
+    field: "idusersocial",
+    editable: "never",
   },
   {
-    title: 'Correo Electrónico',
-    field: 'email',
+    title: "Correo Electrónico",
+    field: "email",
   },
   {
-    title: 'Tipo de Cuenta',
-    field: 'typeaccount',
-    editable: 'never',
+    title: "Tipo de Cuenta",
+    field: "typeaccount",
+    editable: "never",
   },
   {
-    title: 'Nombre Usuario',
-    field: 'username',
+    title: "Nombre Usuario",
+    field: "username",
   },
   {
-    title: 'Contraseña',
-    field: 'passccount',
+    title: "Contraseña",
+    field: "passccount",
   },
   {
-    title: 'Estado',
-    field: 'status',
+    title: "Estado",
+    field: "status",
   },
   {
-    title: 'Notas Adicionales',
-    field: 'comments',
+    title: "Notas Adicionales",
+    field: "comments",
   },
   {
-    title: 'Teléfono',
-    field: 'phone',
+    title: "Teléfono",
+    field: "phone",
   },
   {
-    title: 'Fecha de Creación',
-    field: 'created',
-    editable: 'never',
+    title: "Revisión",
+    field: "revision",
+  },
+  {
+    title: "Fecha de Creación",
+    field: "created",
+    editable: "never",
   },
 ];
 
-const AccountsTable = ({ iduser, status }) => {
-
-  const [urlUserId, setUrlUserId] = useState(0);
+const AccountsTable = ({ searchParam, status, urlParam }) => {
+  const [urlSearchParam, setUrlSearchParam] = useState(0);
   const [dataTable, setDataTable] = useState();
-  const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${urlUserId}/`;
+
+  const urlUsersMedia = `${urlParam}${urlSearchParam}/`;
 
   async function getMedia() {
-    const response = await axios.get(urlUserMedia);
-    if (iduser === '') {
-      setUrlUserId(0);
+    const response = await axios.get(urlUsersMedia);
+    if (searchParam === "") {
+      setUrlSearchParam(0);
     } else {
-      setUrlUserId(iduser);
+      setUrlSearchParam(searchParam);
     }
     setDataTable(response?.data.message);
-  };
+  }
 
   useEffect(() => {
     getMedia();
     // eslint-disable-next-line
-  }, [status, iduser]);
+  }, [status, searchParam]);
 
   return (
     <Grid item>
@@ -90,7 +94,7 @@ const AccountsTable = ({ iduser, status }) => {
                 PutAccount(newData);
                 setDataTable([...dataUpdate]);
                 resolve();
-              }, 1000)
+              }, 1000);
             }),
         }}
       />
@@ -100,12 +104,14 @@ const AccountsTable = ({ iduser, status }) => {
 
 AccountsTable.propTypes = {
   status: PropTypes.bool.isRequired,
-  iduser: PropTypes.string
+  searchParam: PropTypes.string,
+  urlParam: PropTypes.string,
 };
 
 AccountsTable.defaultProps = {
   status: false,
-  iduser: '',
-}
+  searchParam: "",
+  urlParam: "",
+};
 
 export default AccountsTable;

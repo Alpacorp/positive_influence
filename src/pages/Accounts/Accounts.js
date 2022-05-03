@@ -54,7 +54,7 @@ const Accounts = () => {
   const mediaNotFound = mediaData.filter((media) => !mediaGet.includes(media));
 
   const urlUser = `https://accounts-social-control.herokuapp.com/user/${userid}`;
-  const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${userid}`;
+  const urlUsersMedia = `https://accounts-social-control.herokuapp.com/media/`;
 
   async function getUser() {
     const res = await axios.get(urlUser);
@@ -70,7 +70,7 @@ const Accounts = () => {
       setDataTable(response);
     }
 
-    const resMedia = await axios.get(urlUserMedia);
+    const resMedia = await axios.get(`${urlUsersMedia}${userid}`);
     const responseMedia = resMedia.data.message.length;
     const resMediaData = resMedia.data.message;
     setMediaQ(responseMedia);
@@ -194,7 +194,11 @@ const Accounts = () => {
                 />
               ))
             )}
-            <AccountsTable iduser={userid} status={state} />
+            <AccountsTable
+              searchParam={userid}
+              status={state}
+              urlParam={urlUsersMedia}
+            />
           </Grid>
         </Grid>
       )}
