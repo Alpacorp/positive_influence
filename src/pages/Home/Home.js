@@ -47,10 +47,9 @@ const Home = () => {
   const [messageInfo, setMessageInfo] = useState(undefined);
   const localData = localStorage.getItem("key");
   const pat = {
-    alejo: "1024",
-    andres: "4832",
+    alejo: "1024483210",
     sandra: "7891",
-    diana: "34190",
+    diana: "1024483419",
   };
 
   useEffect(() => {
@@ -72,12 +71,7 @@ const Home = () => {
   };
 
   const checkPass = () => {
-    if (
-      pat.andres === input ||
-      pat.alejo === input ||
-      pat.sandra === input ||
-      pat.diana === input
-    ) {
+    if (pat.alejo === input || pat.sandra === input || pat.diana === input) {
       localStorage.setItem("key", "5191pp02b");
       setOpenModal(false);
       setOpenSnack({ ...openSnack, open: true });

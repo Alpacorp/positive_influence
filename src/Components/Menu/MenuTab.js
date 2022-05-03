@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
-import Users from '../../pages/Users/Users';
-import Accounts from '../../pages/Accounts/Accounts';
-import Mentions from '../../pages/Mentions/Mentions';
-import Home from '../../pages/Home/Home';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Box from "@material-ui/core/Box";
+import Users from "../../pages/Users/Users";
+import Accounts from "../../pages/Accounts/Accounts";
+import Mentions from "../../pages/Mentions/Mentions";
+import Home from "../../pages/Home/Home";
+import Phones from "../../pages/Phones/Phones";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -21,14 +22,10 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          {children}
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
-};
+}
 
 TabPanel.propTypes = {
   children: PropTypes.node,
@@ -39,9 +36,9 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
-};
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,10 +59,15 @@ export const MenuTab = () => {
     <div className={classes.root}>
       <Home />
       <AppBar position="static">
-        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="simple tabs example"
+        >
           <Tab label="Usuarios" {...a11yProps(0)} />
           <Tab label="Cuentas Sociales" {...a11yProps(1)} />
           <Tab label="Menciones" {...a11yProps(2)} />
+          <Tab label="Teléfonos" {...a11yProps(3)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -76,6 +78,9 @@ export const MenuTab = () => {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Mentions />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <Phones />
       </TabPanel>
     </div>
   );

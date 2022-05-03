@@ -1,86 +1,109 @@
-import React, { useState, useEffect } from 'react';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import { accountState } from '../../../MockData/AccountState.json';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
-import { Facebook, Mail, Instagram, Twitter } from '../../../assets/social-media';
-import { UploadAccount } from '../../../Apis/Accounts';
-import axios from 'axios';
-import validar_clave from '../../../utils/validatePass';
-import { useForm } from '../../../hooks/useForm';
+import React, { useState, useEffect } from "react";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
+import Icon from "@material-ui/core/Icon";
+import { accountState } from "../../../MockData/AccountState.json";
+import { revisionState } from "../../../MockData/Revision.json";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import {
+  Facebook,
+  Mail,
+  Instagram,
+  Twitter,
+} from "../../../assets/social-media";
+import { UploadAccount } from "../../../Apis/Accounts";
+import axios from "axios";
+import validar_clave from "../../../utils/validatePass";
+import { useForm } from "../../../hooks/useForm";
 
-const useStyles = makeStyles((theme) => createStyles({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-      marginLeft: 0,
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      "& > *": {
+        margin: theme.spacing(1),
+        width: "25ch",
+        marginLeft: 0,
+      },
+      "& .MuiButton-root": {
+        backgroundColor: "skyblue",
+      },
     },
-    '& .MuiButton-root': {
-      backgroundColor: 'skyblue',
+    formsAccounts: {
+      marginTop: 20,
+      "& .MuiFormControl-root, .MuiTextField-root": {},
     },
-  },
-  formsAccounts: {
-    marginTop: 20,
-    '& .MuiFormControl-root, .MuiTextField-root': {
-    }
-  },
-  checkBoxInput: {
-    margin: 0,
-  }
-}));
+    checkBoxInput: {
+      margin: 0,
+    },
+  })
+);
 
 const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
-
   const classes = useStyles();
-  const [validateSocialMedia, setValidateSocialMedia] = useState('');
-  const [ok, setOk] = useState('');
-  const [resStatus, setResStatus] = useState('');
-  const [mediaImage, setMediaImage] = useState('');
+  const [validateSocialMedia, setValidateSocialMedia] = useState("");
+  const [ok, setOk] = useState("");
+  const [resStatus, setResStatus] = useState("");
+  const [mediaImage, setMediaImage] = useState("");
 
   let urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${userid}/${media}/`;
 
-  if (userid === '') {
-    userid = 0
+  if (userid === "") {
+    userid = 0;
     urlUserMedia = `https://accounts-social-control.herokuapp.com/media/0/${media}/`;
   }
 
   async function getSocialMedia() {
     const res = await axios.get(urlUserMedia);
-    const response = res
+    const response = res;
     setResStatus(response.status);
     setValidateSocialMedia(response.data.message.length);
-  };
+  }
 
   const [formValues, handleInputChange] = useForm({
-    idusersocial: '',
-    email: '',
+    idusersocial: "",
+    email: "",
     typeaccount: media,
-    username: '',
-    passccount: '',
-    status: '',
-    comments: '',
-    phone: '',
+    username: "",
+    passccount: "",
+    status: "",
+    comments: "",
+    phone: "",
+    revision: "",
   });
 
-  const { idusersocial, email, typeaccount, username, passccount, status, comments, phone } = formValues;
+  const {
+    idusersocial,
+    email,
+    typeaccount,
+    username,
+    passccount,
+    status,
+    comments,
+    phone,
+    revision,
+  } = formValues;
 
   const handleSubmitSend = (event) => {
     setOk(1);
     event.preventDefault();
     if (idusersocial !== userid) {
       setOk(2);
-      alert("LOS VALORES DE LOS CAMPOS 'ID USUARIO' NO SON IGUALES, AJÚSTALOS.");
+      alert(
+        "LOS VALORES DE LOS CAMPOS 'ID USUARIO' NO SON IGUALES, AJÚSTALOS."
+      );
     } else if (validateSocialMedia >= 1) {
       setOk(3);
-      alert("ESTA CUENTA SOCIAL YA EXISTE, POR FAVOR HAZ CLIC NUEVAMENTE EN 'BUSCAR USUARIO.'");
+      alert(
+        "ESTA CUENTA SOCIAL YA EXISTE, POR FAVOR HAZ CLIC NUEVAMENTE EN 'BUSCAR USUARIO.'"
+      );
     } else if (resStatus === 200) {
       if (!validar_clave(passccount)) {
-        alert('La contraseña ingresada NO ES SEGURA, por favor crearla usando mayúsculas, minúsculas, caracteres especiales y números.');
+        alert(
+          "La contraseña ingresada NO ES SEGURA, por favor crearla usando mayúsculas, minúsculas, caracteres especiales y números."
+        );
       } else {
         getSocialMedia();
         UploadAccount(formValues);
@@ -92,21 +115,21 @@ const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
 
   const socialImage = () => {
     switch (media) {
-      case 'Mail':
-        setMediaImage(Mail)
-        break
-      case 'Facebook':
-        setMediaImage(Facebook)
+      case "Mail":
+        setMediaImage(Mail);
         break;
-      case 'Twitter':
-        setMediaImage(Twitter)
-        break
-      case 'Instagram':
-        setMediaImage(Instagram)
-        break
+      case "Facebook":
+        setMediaImage(Facebook);
+        break;
+      case "Twitter":
+        setMediaImage(Twitter);
+        break;
+      case "Instagram":
+        setMediaImage(Instagram);
+        break;
       default:
         break;
-    };
+    }
   };
 
   useEffect(() => {
@@ -124,7 +147,11 @@ const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
       <hr />
       <img src={mediaImage} alt={`${media} logo`} />
       <h3>{media}</h3>
-      <form autoComplete="off" className={classes.root} onSubmit={handleSubmitSend}>
+      <form
+        autoComplete="off"
+        className={classes.root}
+        onSubmit={handleSubmitSend}
+      >
         <TextField
           id="idusersocial"
           name="idusersocial"
@@ -157,7 +184,7 @@ const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
         <TextField
           disabled
           id="typeaccount"
-          name='typeaccount'
+          name="typeaccount"
           value={typeaccount}
           onChange={handleInputChange}
           label="Tipo Cuenta"
@@ -167,7 +194,7 @@ const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
         />
         <TextField
           id="username"
-          name='username'
+          name="username"
           value={username}
           onChange={handleInputChange}
           label="Username"
@@ -179,7 +206,7 @@ const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
         />
         <TextField
           id="passccount"
-          name='passccount'
+          name="passccount"
           value={passccount}
           onChange={handleInputChange}
           label="Contraseña"
@@ -191,7 +218,7 @@ const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
         />
         <TextField
           id="status"
-          name='status'
+          name="status"
           label="Estado de Cuenta"
           variant="outlined"
           select
@@ -202,17 +229,15 @@ const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
           required
           disabled={statusInput}
         >
-          {
-            accountState.map((status) => (
-              <MenuItem key={status.idState} value={status.state}>
-                {status.state}
-              </MenuItem>
-            ))
-          }
+          {accountState.map((status) => (
+            <MenuItem key={status.idState} value={status.state}>
+              {status.state}
+            </MenuItem>
+          ))}
         </TextField>
         <TextField
           id="comments"
-          name='comments'
+          name="comments"
           value={comments}
           onChange={handleInputChange}
           label="Comentarios"
@@ -225,7 +250,7 @@ const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
         />
         <TextField
           id="phone"
-          name='phone'
+          name="phone"
           value={phone}
           onChange={handleInputChange}
           label="Teléfono"
@@ -236,6 +261,25 @@ const CreateSocialAccountForm = ({ media, statusInput, userid }) => {
           required
           disabled={statusInput}
         />
+        <TextField
+          id="revision"
+          name="revision"
+          label="Revisión"
+          variant="outlined"
+          select
+          size="small"
+          value={revision}
+          onChange={handleInputChange}
+          helperText="Selecciona la revisión"
+          required
+          disabled={statusInput}
+        >
+          {revisionState.map((status) => (
+            <MenuItem key={status.idRevision} value={status.revision}>
+              {status.revision}
+            </MenuItem>
+          ))}
+        </TextField>
         <Button
           variant="contained"
           color="default"
@@ -257,9 +301,9 @@ CreateSocialAccountForm.propTypes = {
 };
 
 CreateSocialAccountForm.defaultProps = {
-  media: '',
+  media: "",
   statusInpt: true,
-  userid: '',
-}
+  userid: "",
+};
 
 export default CreateSocialAccountForm;
