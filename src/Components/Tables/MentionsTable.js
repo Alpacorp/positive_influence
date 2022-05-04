@@ -25,6 +25,10 @@ const columns = [
     field: "urlment",
   },
   {
+    title: "Campaña o Cliente",
+    field: "campain",
+  },
+  {
     title: "Fecha Creación",
     field: "creation",
     editable: "never",

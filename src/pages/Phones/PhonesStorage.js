@@ -1,12 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@material-ui/core/Button";
 import { Icon } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/styles";
-import axios from "axios";
+// import axios from "axios";
 import { useForm } from "../../hooks/useForm";
-import AccountsTable from "../../Components/Tables/AccountsTable";
+import PhonesTable from "../../Components/Tables/PhonesTable";
+import { UploadPhone } from "../../Apis/Phones";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const Phones = () => {
+const PhoneStorage = () => {
   const classes = useStyles();
 
   const isMounted = useRef(true);
@@ -54,51 +55,67 @@ const Phones = () => {
     };
   }, []);
 
-  const [state, setState] = useState(true);
-
   const [formValues, handleInputChange] = useForm({
-    phone: "",
+    number: "",
+    operator: "",
   });
 
-  const { phone } = formValues;
+  let { number, operator } = formValues;
 
-  const urlPhone = `https://accounts-social-control.herokuapp.com/phones/media/${phone}`;
-  const urlUsersPhones = `https://accounts-social-control.herokuapp.com/phones/media/`;
+  // const urlPhone = `https://accounts-social-control.herokuapp.com/phones/${number}`;
 
-  async function getUsersPhone() {
-    const res = await axios.get(urlPhone);
-    const response = res.data.message[0];
-    if (response === [] || !response || response.length === 0) {
-      alert(`El teléfono ${phone} no existe, por favor digita correctamente.`);
-    } else {
-      setState(false);
-      setState(true);
-    }
-  }
+  // async function getPhone() {
+  //   const res = await axios.get(urlPhone);
+  //   const response = res.data.message;
 
-  const handleSubmit = (event) => {
+  //   if (response === [] || !response || response.length === 0) {
+  //     alert(
+  //       `El usuario con id ${number} no existe, por favor corrige tu selección.`
+  //     );
+  //   }
+  // }
+
+  const handleSendInfo = (event) => {
     event.preventDefault();
-    getUsersPhone();
+    // getPhone();
+    UploadPhone(formValues);
   };
 
   return (
     <>
       {isMounted.current && (
         <Grid>
-          <h2>Consulta el número de teléfono</h2>
-          <Grid className={classes.formSearchUser}>
-            <form autoComplete="off" onSubmit={handleSubmit}>
+          <h2>Registra el número de teléfono</h2>
+          <small>
+            <strong>Información:</strong> Obtendrás el código ID para que
+            controles el inventario físico de tus sim cards.
+          </small>
+          <Grid>
+            <form className={classes.typeAccount} onSubmit={handleSendInfo}>
               <TextField
-                id="phone"
-                name="phone"
-                value={phone}
+                id="number"
+                name="number"
+                value={number}
                 onChange={handleInputChange}
-                label="Teléfono"
+                label="Número de teléfono"
                 variant="outlined"
                 size="small"
-                type="number"
                 error={false}
+                type="number"
                 helperText="Digita el número de teléfono"
+                required
+              />
+              <TextField
+                id="operator"
+                name="operator"
+                value={operator}
+                onChange={handleInputChange}
+                label="Operador"
+                variant="outlined"
+                size="small"
+                error={false}
+                type="text"
+                helperText="Digita el operador de la línea"
                 required
               />
               <Button
@@ -106,18 +123,14 @@ const Phones = () => {
                 color="default"
                 type="submit"
                 className={classes.buttonSearch}
-                endIcon={<Icon>search</Icon>}
+                endIcon={<Icon>send</Icon>}
               >
-                Buscar
+                Registrar
               </Button>
             </form>
           </Grid>
           <Grid className={classes.dataGrid}>
-            <AccountsTable
-              searchParam={phone}
-              status={state}
-              urlParam={urlUsersPhones}
-            />
+            <PhonesTable />
           </Grid>
         </Grid>
       )}
@@ -125,4 +138,4 @@ const Phones = () => {
   );
 };
 
-export default Phones;
+export default PhoneStorage;
