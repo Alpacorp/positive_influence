@@ -66,9 +66,10 @@ const Mentions = () => {
     iduserment: "",
     typeaccment: "",
     urlment: "",
+    campain: "",
   });
 
-  const { userid, iduserment, typeaccment, urlment } = formValues;
+  let { userid, iduserment, typeaccment, urlment, campain } = formValues;
   const urlUser = `https://accounts-social-control.herokuapp.com/user/${userid}`;
   const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${userid}`;
 
@@ -98,6 +99,7 @@ const Mentions = () => {
     event.preventDefault();
     if (userid === iduserment) {
       UploadMention(formValues);
+      urlment = "";
     } else {
       alert(
         "LOS VALORES DE LOS CAMPOS 'ID USUARIO' NO SON IGUALES, AJÚSTALOS."
@@ -261,6 +263,20 @@ const Mentions = () => {
                 error={false}
                 type="url"
                 helperText="Copia y pega la url de la mención"
+                required
+                disabled={disable}
+              />
+              <TextField
+                id="campain"
+                name="campain"
+                value={campain}
+                onChange={handleInputChange}
+                label="Campaña o Cliente"
+                variant="outlined"
+                size="small"
+                error={false}
+                type="text"
+                helperText="Cliente al que se hace la mención"
                 required
                 disabled={disable}
               />
