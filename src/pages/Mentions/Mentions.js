@@ -61,7 +61,7 @@ const Mentions = () => {
   const [state, setState] = useState(false);
   const [typeMedia, setTypeMedia] = useState([]);
 
-  const [formValues, handleInputChange] = useForm({
+  const [formValues, handleInputChange, reset] = useForm({
     userid: "",
     iduserment: "",
     typeaccment: "",
@@ -99,7 +99,8 @@ const Mentions = () => {
     event.preventDefault();
     if (userid === iduserment) {
       UploadMention(formValues);
-      urlment = "";
+      event.target.reset();
+      reset();
     } else {
       alert(
         "LOS VALORES DE LOS CAMPOS 'ID USUARIO' NO SON IGUALES, AJÚSTALOS."

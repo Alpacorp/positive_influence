@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@material-ui/core/Button";
 import { Icon } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/styles";
-// import axios from "axios";
+import axios from "axios";
 import { useForm } from "../../hooks/useForm";
 import PhonesTable from "../../Components/Tables/PhonesTable";
 import { UploadPhone } from "../../Apis/Phones";
@@ -55,30 +55,31 @@ const PhoneStorage = () => {
     };
   }, []);
 
-  const [formValues, handleInputChange] = useForm({
+  const [formValues, handleInputChange, reset] = useForm({
     number: "",
     operator: "",
   });
 
   let { number, operator } = formValues;
 
-  // const urlPhone = `https://accounts-social-control.herokuapp.com/phones/${number}`;
+  const urlPhone = `https://accounts-social-control.herokuapp.com/phones/${number}`;
 
-  // async function getPhone() {
-  //   const res = await axios.get(urlPhone);
-  //   const response = res.data.message;
+  async function getPhone() {
+    const res = await axios.get(urlPhone);
+    const response = res.data.message;
 
-  //   if (response === [] || !response || response.length === 0) {
-  //     alert(
-  //       `El usuario con id ${number} no existe, por favor corrige tu selección.`
-  //     );
-  //   }
-  // }
+    if (response[0].length > 0) {
+      alert(`El número ${number} ya está registrado, por favor verificar.`);
+    } else {
+      UploadPhone(formValues);
+    }
+  }
 
   const handleSendInfo = (event) => {
     event.preventDefault();
-    // getPhone();
-    UploadPhone(formValues);
+    getPhone();
+    event.target.reset();
+    reset();
   };
 
   return (
