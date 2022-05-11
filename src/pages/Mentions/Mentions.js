@@ -72,6 +72,7 @@ const Mentions = () => {
   let { userid, iduserment, typeaccment, urlment, campain } = formValues;
   const urlUser = `https://accounts-social-control.herokuapp.com/user/${userid}`;
   const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${userid}`;
+  const option = 1;
 
   async function getUser() {
     const res = await axios.get(urlUser);
@@ -294,7 +295,7 @@ const Mentions = () => {
             </form>
           </Grid>
           <Grid className={classes.dataGrid}>
-            <MentionsTable iduser={userid} status={state} />
+            <MentionsTable iduser={userid} status={state} option={option} />
           </Grid>
         </Grid>
       )}

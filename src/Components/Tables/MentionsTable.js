@@ -35,19 +35,27 @@ const columns = [
   },
 ];
 
-const MentionsTable = ({ iduser, status }) => {
-  const [urlUserId, setUrlUserId] = useState(1);
+const MentionsTable = ({ iduser, status, option }) => {
+  const [urlUserId, setUrlUserId] = useState(0);
   const [dataTable, setDataTable] = useState([]);
   const urlUserMentions = `https://accounts-social-control.herokuapp.com/mention/${urlUserId}/`;
+  const urlLastMentions = `https://accounts-social-control.herokuapp.com/mentions/200/`;
 
   async function getMentions() {
+    if (option === 1) {
+      const res = await axios.get(urlUserMentions);
+      setDataTable(res.data.message);
+    } else {
+      const res = await axios.get(urlLastMentions);
+      setDataTable(res.data.message);
+    }
     const response = await axios.get(urlUserMentions);
     if (iduser === "") {
       setUrlUserId(0);
     } else {
       setUrlUserId(iduser);
+      setDataTable(response?.data);
     }
-    setDataTable(response?.data);
   }
 
   useEffect(() => {
@@ -83,11 +91,13 @@ const MentionsTable = ({ iduser, status }) => {
 MentionsTable.propTypes = {
   iduser: PropTypes.string,
   status: PropTypes.bool,
+  option: PropTypes.number,
 };
 
 MentionsTable.defaultProps = {
   iduser: "",
-  status: "",
+  status: false,
+  option: 0,
 };
 
 export default MentionsTable;
