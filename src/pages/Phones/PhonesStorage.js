@@ -129,7 +129,6 @@ const PhoneStorage = () => {
                 variant="outlined"
                 size="small"
                 helperText="Comentarios o notas"
-                required
                 spellCheck={true}
               />
               <Button
