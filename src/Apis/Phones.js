@@ -1,12 +1,13 @@
 import axios from "axios";
 
-export const UploadPhone = async ({ number, operator }) => {
+export const UploadPhone = async ({ number, operator, comment }) => {
   const urlPhones = "https://accounts-social-control.herokuapp.com/phones/";
 
   try {
     const data = {
       number,
       operator,
+      comment,
     };
     const response = await axios({
       method: "POST",
@@ -24,13 +25,14 @@ export const UploadPhone = async ({ number, operator }) => {
   }
 };
 
-export const PutPhone = async ({ number, operator, idphone }) => {
+export const PutPhone = async ({ number, operator, idphone, comment }) => {
   const urlPhone = `https://accounts-social-control.herokuapp.com/phones/${idphone}`;
 
   try {
     const data = {
       number,
       operator,
+      comment,
     };
     const response = await axios({
       method: "PUT",

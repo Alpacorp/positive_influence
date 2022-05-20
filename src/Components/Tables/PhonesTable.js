@@ -19,6 +19,10 @@ const columns = [
     field: "operator",
   },
   {
+    title: "Comentario",
+    field: "comment",
+  },
+  {
     title: "Fecha Creación",
     field: "creation",
     editable: "never",
