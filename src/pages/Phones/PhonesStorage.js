@@ -58,9 +58,10 @@ const PhoneStorage = () => {
   const [formValues, handleInputChange, reset] = useForm({
     number: "",
     operator: "",
+    comment: "",
   });
 
-  let { number, operator } = formValues;
+  let { number, operator, comment } = formValues;
 
   const urlPhone = `https://accounts-social-control.herokuapp.com/phones/${number}`;
 
@@ -118,6 +119,17 @@ const PhoneStorage = () => {
                 type="text"
                 helperText="Digita el operador de la línea"
                 required
+              />
+              <TextField
+                id="comment"
+                name="comment"
+                value={comment}
+                onChange={handleInputChange}
+                label="Comentarios"
+                variant="outlined"
+                size="small"
+                helperText="Comentarios o notas"
+                spellCheck={true}
               />
               <Button
                 variant="contained"
