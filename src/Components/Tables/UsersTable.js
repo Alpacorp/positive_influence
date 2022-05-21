@@ -1,61 +1,69 @@
-import React, { useState, useEffect, useRef } from 'react';
-import MaterialTable from '@material-table/core';
-import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
-import { PutUser } from '../../Apis/Users';
+import React, { useState, useEffect, useRef } from "react";
+import MaterialTable from "@material-table/core";
+import Grid from "@material-ui/core/Grid";
+import axios from "axios";
+import { PutUser } from "../../Apis/Users";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 
 const columns = [
   {
-    title: 'id',
-    field: 'iduser',
-    editable: 'never',
+    title: "id",
+    field: "iduser",
+    editable: "never",
   },
   {
-    title: 'Nombres',
-    field: 'username',
+    title: "Nombres",
+    field: "username",
   },
   {
-    title: 'Apellidos',
-    field: 'lastname',
+    title: "Apellidos",
+    field: "lastname",
   },
   {
-    title: 'Género',
-    field: 'gender',
+    title: "Género",
+    field: "gender",
   },
   {
-    title: 'Perfil',
-    field: 'profile',
+    title: "Perfil",
+    field: "profile",
   },
   {
-    title: 'Fecha Nacimiento',
-    field: 'birthdate',
+    title: "Fecha Nacimiento",
+    field: "birthdate",
   },
   {
-    title: 'Ciudad',
-    field: 'city',
+    title: "Ciudad",
+    field: "city",
   },
   {
-    title: 'Agente',
-    field: 'agent',
-    editable: 'never',
+    title: "Agente",
+    field: "agent",
+    editable: "never",
   },
   {
-    title: 'Fecha Creación',
-    field: 'creation',
-    editable: 'never'
+    title: "Fecha Creación dd/mm/yyyy",
+    field: "creation",
+    editable: "never",
+    render: (rowData) => {
+      return (
+        <p>
+          {format(new Date(rowData.creation), "dd/MM/yyyy", { locale: es })}
+        </p>
+      );
+    },
   },
 ];
 
 const UsersTable = () => {
-
   const isMounted = useRef(true);
   const [dataTable, setDataTable] = useState([]);
-  const urlUsers = 'https://accounts-social-control.herokuapp.com/userstable/';
+  const urlUsers = "https://accounts-social-control.herokuapp.com/userstable/";
 
   async function getUsers() {
     const response = await axios.get(urlUsers);
     setDataTable(response?.data.message);
-  };
+  }
 
   useEffect(() => {
     return () => {
@@ -69,8 +77,7 @@ const UsersTable = () => {
 
   return (
     <>
-      {
-        isMounted.current &&
+      {isMounted.current && (
         <Grid item>
           <MaterialTable
             title="Usuarios Creados"
@@ -87,12 +94,12 @@ const UsersTable = () => {
                     PutUser(newData);
                     setDataTable([...dataUpdate]);
                     resolve();
-                  }, 1000)
+                  }, 1000);
                 }),
             }}
           />
         </Grid>
-      }
+      )}
     </>
   );
 };
