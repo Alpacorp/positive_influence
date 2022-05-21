@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable from "@material-table/core";
 import Grid from "@material-ui/core/Grid";
+import { format } from "date-fns";
 import axios from "axios";
 import { PutPhone } from "../../Apis/Phones";
+import { es } from "date-fns/locale";
 
 const columns = [
   {
@@ -23,9 +25,16 @@ const columns = [
     field: "comment",
   },
   {
-    title: "Fecha Creación",
+    title: "Fecha Creación dd/mm/yyyy",
     field: "creation",
     editable: "never",
+    render: (rowData) => {
+      return (
+        <p>
+          {format(new Date(rowData.creation), "dd/MM/yyyy", { locale: es })}
+        </p>
+      );
+    },
   },
 ];
 

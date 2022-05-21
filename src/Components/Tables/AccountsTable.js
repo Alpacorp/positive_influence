@@ -4,6 +4,8 @@ import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { PutAccount } from "../../Apis/Accounts";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 
 const columns = [
   {
@@ -50,9 +52,14 @@ const columns = [
     field: "revision",
   },
   {
-    title: "Fecha de Creación",
+    title: "Fecha de Creación dd/mm/yyyy",
     field: "created",
     editable: "never",
+    render: (rowData) => {
+      return (
+        <p>{format(new Date(rowData.created), "dd/MM/yyyy", { locale: es })}</p>
+      );
+    },
   },
 ];
 
