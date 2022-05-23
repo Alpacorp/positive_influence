@@ -1,0 +1,28 @@
+{
+  "operators": [
+    {
+      "value": "Claro",
+      "label": "Claro"
+    },
+    {
+      "value": "Movistar",
+      "label": "Movistar"
+    },
+    {
+      "value": "Tigo",
+      "label": "Tigo"
+    },
+    {
+      "value": "VirginMobile",
+      "label": "Virgin Mobile"
+    },
+    {
+      "value": "Woom",
+      "label": "Woom"
+    },
+    {
+      "value": "Avantel",
+      "label": "Avantel"
+    }
+  ]
+}

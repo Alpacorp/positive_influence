@@ -19,6 +19,14 @@ const columns = [
   {
     title: "Operador",
     field: "operator",
+    lookup: {
+      Claro: "Claro",
+      Movistar: "Movistar",
+      Tigo: "Tigo",
+      Avantel: "Avantel",
+      VirginMobile: "Virgin Mobile",
+      Woom: "Woom",
+    },
   },
   {
     title: "Comentario",
