@@ -38,6 +38,7 @@ const columns = [
   {
     title: "Estado",
     field: "status",
+    lookup: { Habilitada: "Habilitada", Inhabilitada: "Inhabilitada" },
   },
   {
     title: "Notas Adicionales",
@@ -50,6 +51,7 @@ const columns = [
   {
     title: "Revisión",
     field: "revision",
+    lookup: { Actualizado: "Actualizado", Pendiente: "Pendiente" },
   },
   {
     title: "Fecha de Creación dd/mm/yyyy",

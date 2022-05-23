@@ -2,12 +2,13 @@ import React, { useEffect, useRef } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@material-ui/core/Button";
-import { Icon } from "@material-ui/core";
+import { Icon, MenuItem } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/styles";
 import axios from "axios";
 import { useForm } from "../../hooks/useForm";
 import PhonesTable from "../../Components/Tables/PhonesTable";
 import { UploadPhone } from "../../Apis/Phones";
+import { operators } from "../../MockData/Operators.json";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -117,9 +118,16 @@ const PhoneStorage = () => {
                 size="small"
                 error={false}
                 type="text"
+                select
                 helperText="Digita el operador de la línea"
                 required
-              />
+              >
+                {operators.map((item) => (
+                  <MenuItem key={item.value} value={item.label}>
+                    {item.label}
+                  </MenuItem>
+                ))}
+              </TextField>
               <TextField
                 id="comment"
                 name="comment"
