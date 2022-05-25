@@ -12,6 +12,7 @@ import Home from "../../pages/Home/Home";
 import Phones from "../../pages/Phones/Phones";
 import PhoneStorage from "../../pages/Phones/PhonesStorage";
 import LastMentions from "../../pages/Mentions/LastMentions";
+import Campains from "../../pages/Campains/Campains";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -72,6 +73,7 @@ export const MenuTab = () => {
           <Tab label="Últimas Menciones" {...a11yProps(3)} />
           <Tab label="Teléfono / Usuarios" {...a11yProps(4)} />
           <Tab label="Teléfono / Inventario" {...a11yProps(5)} />
+          <Tab label="Campañas" {...a11yProps(5)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -91,6 +93,9 @@ export const MenuTab = () => {
       </TabPanel>
       <TabPanel value={value} index={5}>
         <PhoneStorage />
+      </TabPanel>
+      <TabPanel value={value} index={6}>
+        <Campains />
       </TabPanel>
     </div>
   );
