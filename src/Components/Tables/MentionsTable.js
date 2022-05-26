@@ -75,7 +75,7 @@ const MentionsTable = ({ iduser, status, option }) => {
   return (
     <Grid item>
       <MaterialTable
-        title="Menciones del Usuario"
+        title={`Menciones del Usuario - (${dataTable?.length || 0})`}
         columns={columns}
         data={dataTable}
         getRowId={(row) => row.iduser}
