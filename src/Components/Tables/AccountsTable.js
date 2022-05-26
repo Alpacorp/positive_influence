@@ -89,7 +89,7 @@ const AccountsTable = ({ searchParam, status, urlParam }) => {
   return (
     <Grid item>
       <MaterialTable
-        title="Cuentas Sociales del Usuario"
+        title={`Cuentas Sociales del Usuario - (${dataTable?.length})`}
         columns={columns}
         data={dataTable}
         getRowId={(row) => row.iduser}

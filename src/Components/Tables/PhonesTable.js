@@ -63,7 +63,7 @@ const PhonesTable = () => {
   return (
     <Grid item>
       <MaterialTable
-        title="Menciones del Usuario"
+        title={`Inventario de teléfonos - (${dataTable?.length || 0})`}
         columns={columns}
         data={dataTable}
         getRowId={(row) => row.id}
