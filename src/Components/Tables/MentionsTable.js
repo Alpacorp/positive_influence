@@ -25,6 +25,13 @@ const columns = [
   {
     title: "Url Mención",
     field: "urlment",
+    render: (rowData) => {
+      return (
+        <a href={rowData.urlment} target="blank">
+          {rowData.urlment}
+        </a>
+      );
+    },
   },
   {
     title: "Campaña o Cliente",
