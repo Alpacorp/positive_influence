@@ -94,7 +94,7 @@ const Home = () => {
         variant="outlined"
         size="small"
         error={false}
-        type="number"
+        type="password"
         helperText="Digita la clave"
         focused
         autoFocus
