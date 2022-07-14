@@ -5,16 +5,46 @@ import { format } from "date-fns";
 import axios from "axios";
 import { PutPhone } from "../../Apis/Phones";
 import { es } from "date-fns/locale";
+import CopyToClipboard from "react-copy-to-clipboard";
+import toast, { Toaster } from "react-hot-toast";
 
 const columns = [
   {
     title: "Id Teléfono",
     field: "idphone",
     editable: "never",
+    render: (rowData) => {
+      return (
+        <CopyToClipboard text={rowData.idphone}>
+          <p
+            onClick={() =>
+              toast("Id Teléfono Copiado", { position: "bottom-right" })
+            }
+            style={{ cursor: "pointer" }}
+          >
+            {rowData.idphone}
+          </p>
+        </CopyToClipboard>
+      );
+    },
   },
   {
     title: "Teléfono",
     field: "number",
+    render: (rowData) => {
+      return (
+        <CopyToClipboard text={rowData.number}>
+          <p
+            onClick={() =>
+              toast("Teléfono Copiado", { position: "bottom-right" })
+            }
+            style={{ cursor: "pointer" }}
+          >
+            {rowData.number}
+          </p>
+        </CopyToClipboard>
+      );
+    },
   },
   {
     title: "Operador",
@@ -79,6 +109,26 @@ const PhonesTable = () => {
                 resolve();
               }, 1000);
             }),
+        }}
+      />
+      <Toaster
+        toastOptions={{
+          // Define default options
+          className: "",
+          duration: 5000,
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+
+          // Default options for specific types
+          success: {
+            duration: 3000,
+            theme: {
+              primary: "green",
+              secondary: "black",
+            },
+          },
         }}
       />
     </Grid>

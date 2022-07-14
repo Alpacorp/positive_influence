@@ -3,9 +3,11 @@ import MaterialTable from "@material-table/core";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import PropTypes from "prop-types";
+import toast, { Toaster } from "react-hot-toast";
 import { PutMention } from "../../Apis/Mentions";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import CopyToClipboard from "react-copy-to-clipboard";
 
 const columns = [
   {
@@ -17,6 +19,20 @@ const columns = [
     title: "Id Usuario",
     field: "iduserment",
     editable: "never",
+    render: (rowData) => {
+      return (
+        <CopyToClipboard text={rowData.iduserment}>
+          <p
+            onClick={() =>
+              toast("Id Usuario Copiado", { position: "bottom-right" })
+            }
+            style={{ cursor: "pointer" }}
+          >
+            {rowData.iduserment}
+          </p>
+        </CopyToClipboard>
+      );
+    },
   },
   {
     title: "Tipo Cuenta Social",
@@ -27,7 +43,11 @@ const columns = [
     field: "urlment",
     render: (rowData) => {
       return (
+<<<<<<< HEAD
         <a href={rowData.urlment} target="blank">
+=======
+        <a href={rowData.urlment} target="_blank" rel="noopener noreferrer">
+>>>>>>> develop
           {rowData.urlment}
         </a>
       );
@@ -98,6 +118,26 @@ const MentionsTable = ({ iduser, status, option }) => {
                 resolve();
               }, 1000);
             }),
+        }}
+      />
+      <Toaster
+        toastOptions={{
+          // Define default options
+          className: "",
+          duration: 5000,
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+
+          // Default options for specific types
+          success: {
+            duration: 3000,
+            theme: {
+              primary: "green",
+              secondary: "black",
+            },
+          },
         }}
       />
     </Grid>
