@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable from "@material-table/core";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { Toaster, toast } from "react-hot-toast";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import PropTypes from "prop-types";
@@ -17,10 +19,38 @@ const columns = [
     title: "Id Usuario",
     field: "idusersocial",
     editable: "never",
+    render: (rowData) => {
+      return (
+        <CopyToClipboard text={rowData.idusersocial}>
+          <p
+            onClick={() =>
+              toast("Id Usuario Copiado", { position: "bottom-right" })
+            }
+            style={{ cursor: "pointer" }}
+          >
+            {rowData.idusersocial}
+          </p>
+        </CopyToClipboard>
+      );
+    },
   },
   {
     title: "Correo Electrónico",
     field: "email",
+    render: (rowData) => {
+      return (
+        <CopyToClipboard text={rowData.email}>
+          <p
+            onClick={() =>
+              toast("Correo Copiado", { position: "bottom-right" })
+            }
+            style={{ cursor: "pointer" }}
+          >
+            {rowData.email}
+          </p>
+        </CopyToClipboard>
+      );
+    },
   },
   {
     title: "Tipo de Cuenta",
@@ -30,10 +60,38 @@ const columns = [
   {
     title: "Nombre Usuario",
     field: "username",
+    render: (rowData) => {
+      return (
+        <CopyToClipboard text={rowData.username}>
+          <p
+            onClick={() =>
+              toast("Nombre Usuario Copiado", { position: "bottom-right" })
+            }
+            style={{ cursor: "pointer" }}
+          >
+            {rowData.username}
+          </p>
+        </CopyToClipboard>
+      );
+    },
   },
   {
     title: "Contraseña",
     field: "passccount",
+    render: (rowData) => {
+      return (
+        <CopyToClipboard text={rowData.passccount}>
+          <p
+            onClick={() =>
+              toast("Contraseña Copiada", { position: "bottom-right" })
+            }
+            style={{ cursor: "pointer" }}
+          >
+            {rowData.passccount}
+          </p>
+        </CopyToClipboard>
+      );
+    },
   },
   {
     title: "Estado",
@@ -47,6 +105,20 @@ const columns = [
   {
     title: "Teléfono",
     field: "phone",
+    render: (rowData) => {
+      return (
+        <CopyToClipboard text={rowData.phone}>
+          <p
+            onClick={() =>
+              toast("Teléfono Copiado", { position: "bottom-right" })
+            }
+            style={{ cursor: "pointer" }}
+          >
+            {rowData.phone}
+          </p>
+        </CopyToClipboard>
+      );
+    },
   },
   {
     title: "Revisión",
@@ -105,6 +177,26 @@ const AccountsTable = ({ searchParam, status, urlParam }) => {
                 resolve();
               }, 1000);
             }),
+        }}
+      />
+      <Toaster
+        toastOptions={{
+          // Define default options
+          className: "",
+          duration: 5000,
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+
+          // Default options for specific types
+          success: {
+            duration: 3000,
+            theme: {
+              primary: "green",
+              secondary: "black",
+            },
+          },
         }}
       />
     </Grid>
