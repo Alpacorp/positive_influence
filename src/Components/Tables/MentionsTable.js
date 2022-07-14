@@ -43,11 +43,7 @@ const columns = [
     field: "urlment",
     render: (rowData) => {
       return (
-<<<<<<< HEAD
-        <a href={rowData.urlment} target="blank">
-=======
         <a href={rowData.urlment} target="_blank" rel="noopener noreferrer">
->>>>>>> develop
           {rowData.urlment}
         </a>
       );
