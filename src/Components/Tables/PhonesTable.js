@@ -21,6 +21,7 @@ const columns = [
               toast("Id Teléfono Copiado", { position: "bottom-right" })
             }
             style={{ cursor: "pointer" }}
+            className="clickable"
           >
             {rowData.idphone}
           </p>
@@ -39,6 +40,7 @@ const columns = [
               toast("Teléfono Copiado", { position: "bottom-right" })
             }
             style={{ cursor: "pointer" }}
+            className="clickable"
           >
             {rowData.number}
           </p>

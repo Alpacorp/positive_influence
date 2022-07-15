@@ -21,6 +21,7 @@ const columns = [
               toast("Id Usuario Copiado", { position: "bottom-right" })
             }
             style={{ cursor: "pointer" }}
+            className="clickable"
           >
             {rowData.iduser}
           </p>

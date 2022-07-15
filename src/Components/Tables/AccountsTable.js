@@ -27,6 +27,7 @@ const columns = [
               toast("Id Usuario Copiado", { position: "bottom-right" })
             }
             style={{ cursor: "pointer" }}
+            className="clickable"
           >
             {rowData.idusersocial}
           </p>
@@ -45,6 +46,7 @@ const columns = [
               toast("Correo Copiado", { position: "bottom-right" })
             }
             style={{ cursor: "pointer" }}
+            className="clickable"
           >
             {rowData.email}
           </p>
@@ -68,6 +70,7 @@ const columns = [
               toast("Nombre Usuario Copiado", { position: "bottom-right" })
             }
             style={{ cursor: "pointer" }}
+            className="clickable"
           >
             {rowData.username}
           </p>
@@ -86,6 +89,7 @@ const columns = [
               toast("Contraseña Copiada", { position: "bottom-right" })
             }
             style={{ cursor: "pointer" }}
+            className="clickable"
           >
             {rowData.passccount}
           </p>
@@ -113,6 +117,7 @@ const columns = [
               toast("Teléfono Copiado", { position: "bottom-right" })
             }
             style={{ cursor: "pointer" }}
+            className="clickable"
           >
             {rowData.phone}
           </p>
