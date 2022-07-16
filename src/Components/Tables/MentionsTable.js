@@ -8,7 +8,6 @@ import { PutMention } from "../../Apis/Mentions";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import CopyToClipboard from "react-copy-to-clipboard";
-import "../../App.css";
 
 const columns = [
   {
