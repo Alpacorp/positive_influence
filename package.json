@@ -25,6 +25,7 @@
     "@opentelemetry/propagator-b3": "^1.0.1",
     "@opentelemetry/sdk-trace-base": "^1.0.1",
     "@opentelemetry/sdk-trace-web": "^1.0.1",
+    "@reduxjs/toolkit": "^1.8.3",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -38,6 +39,7 @@
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.0.2",
     "react-scripts": "^4.0.3",
+    "redux": "^4.2.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
