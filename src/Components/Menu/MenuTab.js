@@ -65,6 +65,8 @@ export const MenuTab = () => {
           value={value}
           onChange={handleChange}
           aria-label="simple tabs example"
+          variant="scrollable"
+          scrollButtons="auto"
         >
           <Tab label="Usuarios" {...a11yProps(0)} />
           <Tab label="Cuentas Sociales" {...a11yProps(1)} />
