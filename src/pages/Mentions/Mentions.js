@@ -60,6 +60,7 @@ const Mentions = () => {
   const [disable, setDisable] = useState(true);
   const [state, setState] = useState(false);
   const [typeMedia, setTypeMedia] = useState([]);
+  const [costumers, setCostumers] = useState([]);
 
   const [formValues, handleInputChange, reset] = useForm({
     userid: "",
@@ -72,6 +73,7 @@ const Mentions = () => {
   let { userid, iduserment, typeaccment, urlment, campain } = formValues;
   const urlUser = `https://accounts-social-control.herokuapp.com/user/${userid}`;
   const urlUserMedia = `https://accounts-social-control.herokuapp.com/media/${userid}`;
+  const urlCostumers = `https://accounts-social-control.herokuapp.com/costumers/`;
   const option = 1;
 
   async function getUser() {
@@ -91,9 +93,16 @@ const Mentions = () => {
     }
   }
 
+  async function getCostumers() {
+    const res = await axios.get(urlCostumers);
+    const response = res.data.message;
+    setCostumers(response);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     getUser();
+    getCostumers();
   };
 
   const handleSendInfo = (event) => {
@@ -281,7 +290,14 @@ const Mentions = () => {
                 helperText="Cliente al que se hace la mención"
                 required
                 disabled={disable}
-              />
+                select
+              >
+                {costumers.map((item) => (
+                  <MenuItem key={item.idcostumer} value={item.costumer}>
+                    {item.costumer}
+                  </MenuItem>
+                ))}
+              </TextField>
               <Button
                 variant="contained"
                 color="default"
