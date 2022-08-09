@@ -1,58 +1,56 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable from "@material-table/core";
 import Grid from "@material-ui/core/Grid";
-import axios from "axios";
-import PropTypes from "prop-types";
-import toast, { Toaster } from "react-hot-toast";
-import { PutMention } from "../../Apis/Mentions";
 import { format } from "date-fns";
+import axios from "axios";
 import { es } from "date-fns/locale";
 import CopyToClipboard from "react-copy-to-clipboard";
+import toast, { Toaster } from "react-hot-toast";
+import { PutCostumer } from "../../Apis/Costumers";
 
 const columns = [
   {
-    title: "Id Mención",
-    field: "idmention",
-    editable: "never",
-  },
-  {
-    title: "Id Usuario",
-    field: "iduserment",
+    title: "Id Cliente",
+    field: "idcostumer",
     editable: "never",
     render: (rowData) => {
       return (
-        <CopyToClipboard text={rowData.iduserment}>
+        <CopyToClipboard text={rowData.idcostumer}>
           <p
             onClick={() =>
-              toast("Id Usuario Copiado", { position: "bottom-right" })
+              toast("Id Cliente Copiado", { position: "bottom-right" })
             }
             style={{ cursor: "pointer" }}
             className="clickable"
           >
-            {rowData.iduserment}
+            {rowData.idcostumer}
           </p>
         </CopyToClipboard>
       );
     },
   },
   {
-    title: "Tipo Cuenta Social",
-    field: "typeaccment",
-  },
-  {
-    title: "Url Mención",
-    field: "urlment",
+    title: "Nombre",
+    field: "costumer",
     render: (rowData) => {
       return (
-        <a href={rowData.urlment} target="_blank" rel="noopener noreferrer">
-          {rowData.urlment}
-        </a>
+        <CopyToClipboard text={rowData.costumer}>
+          <p
+            onClick={() =>
+              toast("Nombre Copiado", { position: "bottom-right" })
+            }
+            style={{ cursor: "pointer" }}
+            className="clickable"
+          >
+            {rowData.costumer}
+          </p>
+        </CopyToClipboard>
       );
     },
   },
   {
-    title: "Campaña o Cliente",
-    field: "campain",
+    title: "Comentario",
+    field: "comment",
   },
   {
     title: "Fecha Creación dd/mm/yyyy",
@@ -68,41 +66,27 @@ const columns = [
   },
 ];
 
-const MentionsTable = ({ iduser, status, option }) => {
-  const [urlUserId, setUrlUserId] = useState(0);
+const CostumersTable = () => {
   const [dataTable, setDataTable] = useState([]);
-  const urlUserMentions = `https://accounts-social-control.herokuapp.com/mention/${urlUserId}/`;
-  const urlLastMentions = `https://accounts-social-control.herokuapp.com/mentions/300/`;
+  const urlCostumers = `https://accounts-social-control.herokuapp.com/costumers/`;
 
-  async function getMentions() {
-    if (option === 1) {
-      const res = await axios.get(urlUserMentions);
-      setDataTable(res.data.message);
-    } else {
-      const res = await axios.get(urlLastMentions);
-      setDataTable(res.data.message);
-    }
-    const response = await axios.get(urlUserMentions);
-    if (iduser === "") {
-      setUrlUserId(0);
-    } else {
-      setUrlUserId(iduser);
-      setDataTable(response?.data);
-    }
+  async function getCostumers() {
+    const response = await axios.get(urlCostumers);
+    setDataTable(response?.data?.message);
   }
 
   useEffect(() => {
-    getMentions();
+    getCostumers();
     // eslint-disable-next-line
-  }, [status, iduser]);
+  }, []);
 
   return (
     <Grid item>
       <MaterialTable
-        title={`Menciones del Usuario - (${dataTable?.length || 0})`}
+        title={`Listado de Clientes - (${dataTable?.length || 0})`}
         columns={columns}
         data={dataTable}
-        getRowId={(row) => row.iduser}
+        getRowId={(row) => row.idcostumer}
         editable={{
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
@@ -110,7 +94,7 @@ const MentionsTable = ({ iduser, status, option }) => {
                 const dataUpdate = [...dataTable];
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
-                PutMention(newData);
+                PutCostumer(newData);
                 setDataTable([...dataUpdate]);
                 resolve();
               }, 1000);
@@ -141,16 +125,4 @@ const MentionsTable = ({ iduser, status, option }) => {
   );
 };
 
-MentionsTable.propTypes = {
-  iduser: PropTypes.string,
-  status: PropTypes.bool,
-  option: PropTypes.number,
-};
-
-MentionsTable.defaultProps = {
-  iduser: "",
-  status: false,
-  option: 0,
-};
-
-export default MentionsTable;
+export default CostumersTable;

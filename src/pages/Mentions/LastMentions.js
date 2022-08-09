@@ -57,8 +57,8 @@ const LastMentions = () => {
         <Grid>
           <h2>Últimas Menciones</h2>
           <small>
-            <strong>Nota 2:</strong> el usuario debe tener cuentas sociales
-            creadas para que se permita el registro de menciones.
+            <strong>Nota:</strong> Listado de las últimas 300 menciones
+            realizadas.
           </small>
           <Grid className={classes.dataGrid}>
             <MentionsTable option={option} />
