@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme) =>
     infoUser: {
       marginTop: 10,
       "& .MuiFilledInput-root": {
+        display: "flex",
         margin: "2px",
         marginLeft: 0,
         maxWidth: 150,
-        display: "flex",
       },
     },
     buttonSearch: {
@@ -89,24 +89,24 @@ const Phones = () => {
           <Grid className={classes.formSearchUser}>
             <form autoComplete="off" onSubmit={handleSubmit}>
               <TextField
-                id="phone"
-                name="phone"
-                value={phone}
-                onChange={handleInputChange}
-                label="Teléfono"
-                variant="outlined"
-                size="small"
-                type="number"
                 error={false}
                 helperText="Digita el número de teléfono"
+                id="phone"
+                label="Teléfono"
+                name="phone"
+                onChange={handleInputChange}
                 required
+                size="small"
+                type="number"
+                value={phone}
+                variant="outlined"
               />
               <Button
-                variant="contained"
-                color="default"
-                type="submit"
                 className={classes.buttonSearch}
+                color="default"
                 endIcon={<Icon>search</Icon>}
+                type="submit"
+                variant="contained"
               >
                 Buscar
               </Button>

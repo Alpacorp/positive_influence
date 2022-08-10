@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) =>
     infoUser: {
       marginTop: 10,
       "& .MuiFilledInput-root": {
+        display: "flex",
         margin: "2px",
         marginLeft: 0,
         maxWidth: 150,
-        display: "flex",
       },
     },
     buttonSearch: {
@@ -57,9 +57,9 @@ const PhoneStorage = () => {
   }, []);
 
   const [formValues, handleInputChange, reset] = useForm({
+    comment: "",
     number: "",
     operator: "",
-    comment: "",
   });
 
   let { number, operator, comment } = formValues;
@@ -96,31 +96,31 @@ const PhoneStorage = () => {
           <Grid>
             <form className={classes.typeAccount} onSubmit={handleSendInfo}>
               <TextField
-                id="number"
-                name="number"
-                value={number}
-                onChange={handleInputChange}
-                label="Número de teléfono"
-                variant="outlined"
-                size="small"
                 error={false}
-                type="number"
                 helperText="Digita el número de teléfono"
+                id="number"
+                label="Número de teléfono"
+                name="number"
+                onChange={handleInputChange}
                 required
+                size="small"
+                type="number"
+                value={number}
+                variant="outlined"
               />
               <TextField
-                id="operator"
-                name="operator"
-                value={operator}
-                onChange={handleInputChange}
-                label="Operador"
-                variant="outlined"
-                size="small"
                 error={false}
-                type="text"
-                select
                 helperText="Digita el operador de la línea"
+                id="operator"
+                label="Operador"
+                name="operator"
+                onChange={handleInputChange}
                 required
+                select
+                size="small"
+                type="text"
+                value={operator}
+                variant="outlined"
               >
                 {operators.map((item) => (
                   <MenuItem key={item.value} value={item.label}>
@@ -129,22 +129,22 @@ const PhoneStorage = () => {
                 ))}
               </TextField>
               <TextField
-                id="comment"
-                name="comment"
-                value={comment}
-                onChange={handleInputChange}
-                label="Comentarios"
-                variant="outlined"
-                size="small"
                 helperText="Comentarios o notas"
+                id="comment"
+                label="Comentarios"
+                name="comment"
+                onChange={handleInputChange}
+                size="small"
                 spellCheck={true}
+                value={comment}
+                variant="outlined"
               />
               <Button
-                variant="contained"
-                color="default"
-                type="submit"
                 className={classes.buttonSearch}
+                color="default"
                 endIcon={<Icon>send</Icon>}
+                type="submit"
+                variant="contained"
               >
                 Registrar
               </Button>
