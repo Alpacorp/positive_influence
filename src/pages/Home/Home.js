@@ -10,20 +10,20 @@ import CloseIcon from "@material-ui/icons/Close";
 const useStyles = makeStyles((theme) =>
   createStyles({
     home: {
-      textAlign: "center",
-      height: "100vh",
       display: "flex",
+      height: "100vh",
       justifyContent: "center",
+      textAlign: "center",
     },
     formModal: {
       "& form": {
-        display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        width: "100%",
-        height: "-webkit-fill-available",
         backgroundColor: "#fff",
+        display: "flex",
+        flexDirection: "column",
+        height: "-webkit-fill-available",
+        justifyContent: "center",
+        width: "100%",
       },
     },
     snackbar: {
@@ -39,9 +39,9 @@ const Home = () => {
   const [openModal, setOpenModal] = useState(true);
   const [input, setInput] = useState("");
   const [openSnack, setOpenSnack] = useState({
+    horizontal: "center",
     open: false,
     vertical: "top",
-    horizontal: "center",
   });
   const { open, vertical, horizontal } = openSnack;
   const [messageInfo, setMessageInfo] = useState(undefined);
@@ -89,24 +89,24 @@ const Home = () => {
   const body = (
     <form autoComplete="off">
       <TextField
+        autoFocus
+        error={false}
+        focused
+        helperText="Digita la clave"
         id="iduser"
         label="Id Usuario"
-        variant="outlined"
-        size="small"
-        error={false}
-        type="password"
-        helperText="Digita la clave"
-        focused
-        autoFocus
         onChange={handleInputChange}
         required
+        size="small"
+        type="password"
+        variant="outlined"
       />
       <Button
-        variant="contained"
         color="default"
-        type="submit"
         endIcon={<Icon>send</Icon>}
         onClick={handleLogin}
+        type="submit"
+        variant="contained"
       >
         Buscar Usuario
       </Button>
@@ -120,12 +120,6 @@ const Home = () => {
           {body}
         </Modal>
         <Snackbar
-          className={classes.snackbar}
-          anchorOrigin={{ vertical, horizontal }}
-          open={open}
-          onClose={handleClose}
-          message={messageInfo}
-          key={vertical + horizontal}
           action={
             <IconButton
               aria-label="close"
@@ -136,6 +130,12 @@ const Home = () => {
               <CloseIcon />
             </IconButton>
           }
+          anchorOrigin={{ vertical, horizontal }}
+          className={classes.snackbar}
+          key={vertical + horizontal}
+          message={messageInfo}
+          onClose={handleClose}
+          open={open}
         />
       </Box>
     </>
