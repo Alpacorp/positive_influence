@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react';
-import Grid from '@material-ui/core/Grid';
-import CreateUserForm from '../../Components/Forms/Users/CreateUserForm';
-import UsersTable from '../../Components/Tables/UsersTable';
+import React, { useEffect, useRef } from "react";
+import { Helmet } from "react-helmet";
+import Grid from "@material-ui/core/Grid";
+import CreateUserForm from "../../Components/Forms/Users/CreateUserForm";
+import UsersTable from "../../Components/Tables/UsersTable";
 
 const Users = () => {
-
   const isMount = useRef(true);
 
   useEffect(() => {
@@ -15,14 +15,17 @@ const Users = () => {
 
   return (
     <>
-      {
-        isMount.current &&
+      <Helmet>
+        <title>Usuarios</title>
+      </Helmet>
+      {isMount.current && (
         <Grid>
           <CreateUserForm />
           <UsersTable />
-        </Grid>}
+        </Grid>
+      )}
     </>
-  )
+  );
 };
 
 export default Users;

@@ -1,4 +1,6 @@
 import React, { useRef, useState } from "react";
+import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@material-ui/core/Button";
@@ -9,7 +11,6 @@ import axios from "axios";
 import AccountsTable from "../../Components/Tables/AccountsTable";
 import { withTransaction } from "@elastic/apm-rum-react";
 import { useForm } from "../../hooks/useForm";
-import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -92,6 +93,9 @@ const Accounts = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Cuentas Sociales</title>
+      </Helmet>
       {isMounted.current && (
         <Grid>
           <h2>Consulta el usuario</h2>

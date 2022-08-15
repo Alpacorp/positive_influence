@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Grid from "@mui/material/Grid";
+import { Helmet } from "react-helmet";
 import TextField from "@mui/material/TextField";
 import Button from "@material-ui/core/Button";
 import { Icon } from "@material-ui/core";
@@ -87,6 +88,9 @@ const Costumers = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Clientes</title>
+      </Helmet>
       {isMounted.current && (
         <Grid>
           <h2>Registra los datos de clientes</h2>

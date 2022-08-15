@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { Helmet } from "react-helmet";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@material-ui/core/Button";
@@ -86,6 +87,9 @@ const PhoneStorage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Inventario de Teléfonos</title>
+      </Helmet>
       {isMounted.current && (
         <Grid>
           <h2>Registra el número de teléfono</h2>

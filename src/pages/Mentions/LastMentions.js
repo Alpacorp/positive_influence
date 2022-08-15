@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { Helmet } from "react-helmet";
 import Grid from "@mui/material/Grid";
 import { makeStyles, createStyles } from "@material-ui/styles";
 import MentionsTable from "../../Components/Tables/MentionsTable";
@@ -53,6 +54,9 @@ const LastMentions = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Últimas menciones</title>
+      </Helmet>
       {isMounted.current && (
         <Grid>
           <h2>Últimas Menciones</h2>
