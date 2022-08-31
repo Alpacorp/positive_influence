@@ -104,7 +104,7 @@ const MentionsTable = ({ iduser, status, option }) => {
         data={dataTable}
         options={{
           headerStyle: {
-            backgroundColor: "#01579b",
+            backgroundColor: "#3887c4",
             color: "#fff",
           },
         }}

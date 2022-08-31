@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     "& .MuiAppBar-colorPrimary": {
-      backgroundColor: "#005b95",
+      backgroundColor: "#01579b",
     },
   },
 }));

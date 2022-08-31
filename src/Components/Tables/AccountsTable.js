@@ -171,7 +171,7 @@ const AccountsTable = ({ searchParam, status, urlParam }) => {
         data={dataTable}
         options={{
           headerStyle: {
-            backgroundColor: "#01579b",
+            backgroundColor: "#3887c4",
             color: "#FFF",
           },
         }}
