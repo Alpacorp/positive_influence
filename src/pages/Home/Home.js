@@ -50,6 +50,7 @@ const Home = () => {
     alejo: "1024483210",
     sandra: "7891",
     diana: "1024483419",
+    barrera: "11448714",
   };
 
   useEffect(() => {
@@ -71,7 +72,12 @@ const Home = () => {
   };
 
   const checkPass = () => {
-    if (pat.alejo === input || pat.sandra === input || pat.diana === input) {
+    if (
+      pat.alejo === input ||
+      pat.sandra === input ||
+      pat.diana === input ||
+      pat.barrera === input
+    ) {
       localStorage.setItem("key", "5191pp02b");
       setOpenModal(false);
       setOpenSnack({ ...openSnack, open: true });
