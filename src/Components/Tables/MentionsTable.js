@@ -102,6 +102,12 @@ const MentionsTable = ({ iduser, status, option }) => {
         title={`Menciones del Usuario - (${dataTable?.length || 0})`}
         columns={columns}
         data={dataTable}
+        options={{
+          headerStyle: {
+            backgroundColor: "#01579b",
+            color: "#fff",
+          },
+        }}
         getRowId={(row) => row.iduser}
         editable={{
           onRowUpdate: (newData, oldData) =>

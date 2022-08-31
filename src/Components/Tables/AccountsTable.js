@@ -169,6 +169,12 @@ const AccountsTable = ({ searchParam, status, urlParam }) => {
         title={`Cuentas Sociales del Usuario - (${dataTable?.length})`}
         columns={columns}
         data={dataTable}
+        options={{
+          headerStyle: {
+            backgroundColor: "#01579b",
+            color: "#FFF",
+          },
+        }}
         getRowId={(row) => row.iduser}
         editable={{
           onRowUpdate: (newData, oldData) =>

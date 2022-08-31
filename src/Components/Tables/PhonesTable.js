@@ -98,6 +98,12 @@ const PhonesTable = () => {
         title={`Inventario de teléfonos - (${dataTable?.length || 0})`}
         columns={columns}
         data={dataTable}
+        options={{
+          headerStyle: {
+            backgroundColor: "#01579b",
+            color: "#fff",
+          },
+        }}
         getRowId={(row) => row.id}
         editable={{
           onRowUpdate: (newData, oldData) =>

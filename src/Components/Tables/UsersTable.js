@@ -99,6 +99,12 @@ const UsersTable = () => {
           <MaterialTable
             title="Usuarios Creados"
             columns={columns}
+            options={{
+              headerStyle: {
+                backgroundColor: "#01579b",
+                color: "#FFF",
+              },
+            }}
             data={dataTable}
             getRowId={(row) => row.iduser}
             editable={{

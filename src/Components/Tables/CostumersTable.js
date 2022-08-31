@@ -86,6 +86,12 @@ const CostumersTable = () => {
         title={`Listado de Clientes - (${dataTable?.length || 0})`}
         columns={columns}
         data={dataTable}
+        options={{
+          headerStyle: {
+            backgroundColor: "#01579b",
+            color: "#fff",
+          },
+        }}
         getRowId={(row) => row.idcostumer}
         editable={{
           onRowUpdate: (newData, oldData) =>
