@@ -51,6 +51,7 @@ const Home = () => {
     sandra: "7891",
     diana: "1024483419",
     barrera: "11448714",
+    pedro: "1022964293",
   };
 
   useEffect(() => {
@@ -76,7 +77,8 @@ const Home = () => {
       pat.alejo === input ||
       pat.sandra === input ||
       pat.diana === input ||
-      pat.barrera === input
+      pat.barrera === input ||
+      pat.pedro === input
     ) {
       localStorage.setItem("key", "5191pp02b");
       setOpenModal(false);
